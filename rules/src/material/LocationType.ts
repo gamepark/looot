@@ -1,1 +1,3 @@
-export enum LocationType {}
+export enum LocationType {
+  MainBoard = 1
+}
