@@ -4,7 +4,7 @@ import { Locator } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
 import { Coordinates, Location } from '@gamepark/rules-api'
 
-class MainBoardLocator extends Locator {
+class LandscapeBoardLocator extends Locator {
   getRotateZ(location: Location): number {
     const baseRotate = this.getIndex(location) === 0 || this.getIndex(location) === 2 ? 0 : 60
     const gapRotate = 120
@@ -18,7 +18,7 @@ class MainBoardLocator extends Locator {
     switch (this.getIndex(location)) {
       case 1: {
         const board1 = context.rules
-          .material(MaterialType.MainBoard)
+          .material(MaterialType.LandscapeBoard)
           .getItems()
           .find((it) => this.getIndex(it.location) === 0)
         if (board1) {
@@ -30,7 +30,7 @@ class MainBoardLocator extends Locator {
       }
       case 2: {
         const board2 = context.rules
-          .material(MaterialType.MainBoard)
+          .material(MaterialType.LandscapeBoard)
           .getItems()
           .find((it) => this.getIndex(it.location) === 1)
         if (board2) {
@@ -43,7 +43,7 @@ class MainBoardLocator extends Locator {
       case 3:
       default: {
         const board3 = context.rules
-          .material(MaterialType.MainBoard)
+          .material(MaterialType.LandscapeBoard)
           .getItems()
           .find((it) => this.getIndex(it.location) === 2)
         if (board3) {
@@ -59,12 +59,12 @@ class MainBoardLocator extends Locator {
   getBaseCoordinates(context: MaterialContext): Partial<Coordinates> {
     switch (context.rules.players.length) {
       case 2:
-        return { x: -10, y: 0 }
+        return { x: -5, y: 0 }
       case 3:
-        return { x: -20, y: 0 }
+        return { x: -12, y: 0 }
       case 4:
       default:
-        return { x: -30, y: 0 }
+        return { x: -17, y: 0 }
     }
   }
 
@@ -79,38 +79,38 @@ class MainBoardLocator extends Locator {
 
 const locationsRelativesFromBoard1 = [
   [
-    { x: 17.5, y: -6.9 },
-    { x: 18.5, y: 0.05 },
-    { x: 15.7, y: -4.8 }
+    { x: 12.25, y: -4.83 },
+    { x: 12.95, y: 0.035 },
+    { x: 10.99, y: -3.36 }
   ],
   [
-    { x: 14.7, y: -11.7 },
-    { x: 15.7, y: -4.8 },
-    { x: 12.9, y: -9.6 }
+    { x: 10.29, y: -8.19 },
+    { x: 10.99, y: -3.36 },
+    { x: 9.03, y: -6.72 }
   ],
   [
-    { x: 20.3, y: -7.45 },
-    { x: 17.5, y: -6.9 },
-    { x: 14.7, y: -11.7 }
+    { x: 14.21, y: -5.215 },
+    { x: 12.25, y: -4.83 },
+    { x: 10.29, y: -8.19 }
   ]
-]
+];
 
 const locationsRelativesFromBoard2 = [
   [
-    { x: 15.7, y: 4.8 },
-    { x: 14.8, y: 11.75 },
-    { x: 12.9, y: 9.6 }
+    { x: 10.99, y: 3.36 },
+    { x: 10.36, y: 8.225 },
+    { x: 9.03, y: 6.72 }
   ],
   [
-    { x: 18.5, y: -0.05 },
-    { x: 17.5, y: 6.9 },
-    { x: 15.7, y: 4.8 }
+    { x: 12.95, y: -0.035 },
+    { x: 12.25, y: 4.83 },
+    { x: 10.99, y: 3.36 }
   ],
   [
-    { x: 17.5, y: 6.9 },
-    { x: 20.3, y: 7.45 },
-    { x: 14.7, y: 11.7 }
+    { x: 12.25, y: 4.83 },
+    { x: 14.21, y: 5.215 },
+    { x: 10.29, y: 8.19 }
   ]
 ]
 
-export const mainBoardLocator = new MainBoardLocator()
+export const landscapeBoardLocator = new LandscapeBoardLocator()

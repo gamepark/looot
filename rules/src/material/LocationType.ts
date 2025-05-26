@@ -1,3 +1,14 @@
 export enum LocationType {
-  MainBoard = 1
+  LandscapeBoard = 1,
+  LandscapeBoardHexSpace,
+  OceanBoard,
+  OceanBoardHexSpace,
+  TrophyBoard,
+  TrophyBoardHexSpace,
+  LongshipTilesPile,
+  ResourceTilesPile,
+  Bag,
+  FjordBoard,
+  FjordBoardHexSpace,
+  PlayerVikingPile
 }

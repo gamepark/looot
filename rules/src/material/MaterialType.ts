@@ -1,3 +1,14 @@
 export enum MaterialType {
-  MainBoard = 1
+  LandscapeBoard = 1,
+  OceanBoard,
+  TrophyBoard,
+  BuildingTile,
+  TrophyTile,
+  LongshipTile,
+  ResourceTile,
+  Bag,
+  FjordBoard,
+  Shield,
+  Viking,
+  ConstructionSiteTile
 }
