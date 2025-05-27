@@ -43,6 +43,6 @@ export enum LongshipTileType {
 }
 
 export const getLongshipType = (tile: LongshipTile): LongshipTileType => Math.floor(tile / 100) as LongshipTileType
-export const getLongshipValue = (tile: LongshipTile): LongshipTileType => Math.floor(tile / 10) as LongshipTileType
+export const getLongshipValue = (tile: LongshipTile): LongshipTileType => Math.floor(tile / 10) % 10
 
 export const longshipTiles: LongshipTile[] = shuffle(getEnumValues(LongshipTile))
