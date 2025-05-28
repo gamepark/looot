@@ -5,8 +5,8 @@ import Front from '../images/plateaux/trophee1.png'
 import Back from '../images/plateaux/trophee2.png'
 
 export class TrophyBoardDescription extends BoardDescription {
-  height = 6
-  width = 13.7
+  height = 6.78
+  width = 15.26
 
   backImage = Back
 

@@ -7,8 +7,8 @@ import GreyViking from '../images/meeples/gris.png'
 import YellowViking from '../images/meeples/jaune.png'
 
 export class VikingDescription extends TokenDescription {
-  height = 2.39
-  width = 2.25
+  height = 1.9
+  width = 1.79
 
   images = {
     [PlayerColor.Blue]: BlueViking,

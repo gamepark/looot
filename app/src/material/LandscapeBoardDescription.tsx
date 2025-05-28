@@ -12,8 +12,8 @@ import Board4 from '../images/plateaux/plateau7.png'
 import Back4 from '../images/plateaux/plateau8.png'
 
 export class LandscapeBoardDescription extends BoardDescription {
-  height = 16.6
-  width = 19
+  height = 18.45
+  width = 21.1
 
   backImages = backImages
 

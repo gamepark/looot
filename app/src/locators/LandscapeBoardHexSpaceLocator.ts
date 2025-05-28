@@ -7,7 +7,7 @@ import { HexGridSystem, Location, MaterialItem, XYCoordinates } from '@gamepark/
 class LandscapeBoardHexSpaceLocator extends HexagonalGridLocator {
   parentItemType = MaterialType.LandscapeBoard
   coordinatesSystem = HexGridSystem.EvenQ
-  size = { x: 1.74, y: 1.75 }
+  size = { x: 1.93, y: 1.94 }
 
   getRotateZ(): number {
     return 0

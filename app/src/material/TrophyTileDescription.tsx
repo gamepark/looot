@@ -14,8 +14,8 @@ import Back5 from '../images/trophees/back5.png'
 import Back6 from '../images/trophees/back6.png'
 
 export class TrophyTileDescription extends CardDescription {
-  height = 2.6
-  width = 2.8
+  height = 2.7
+  width = 3
 
   backImages = backImages
   images = images

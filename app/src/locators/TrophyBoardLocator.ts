@@ -6,9 +6,8 @@ import { Coordinates, Location, MaterialItem } from '@gamepark/rules-api'
 import { landscapeBoardLocator } from './LandscapeBoardLocator'
 
 class TrophyBoardLocator extends Locator {
-  getRotateZ(location: Location, context: MaterialContext): number {
-    const parentRotate = landscapeBoardLocator.getRotate(this.getParentItem(location, context)!.location)
-    return possibleLocationsRelativesFromLandscapeBoard[parentRotate].rotateZ
+  getRotateZ(): number {
+    return 300
   }
 
   getParentItem(_: Location, context: MaterialContext): MaterialItem | undefined {
@@ -18,15 +17,15 @@ class TrophyBoardLocator extends Locator {
   getCoordinates(location: Location, context: MaterialContext): Partial<Coordinates> {
     const parentRotate = landscapeBoardLocator.getRotate(this.getParentItem(location, context)!.location)
     const base = landscapeBoardLocator.getCoordinates(this.getParentItem(location, context)!.location, context)
-    const relative = possibleLocationsRelativesFromLandscapeBoard[parentRotate].location
+    const relative = possibleLocationsRelativesFromLandscapeBoard[parentRotate]
     return { x: base.x! + relative.x, y: base.y! + relative.y }
   }
 }
 
 const possibleLocationsRelativesFromLandscapeBoard = [
-  { location: { x: -7.7, y: -2.2 }, rotateZ: 300 },
-  { location: { x: -7.1, y: -7.1 }, rotateZ: 300 },
-  { location: { x: -5.8, y: -5.6 }, rotateZ: 300 }
+  { x: -8.5, y: -2.4 },
+  { x: -6.45, y: -6.25 },
+  { x: -7.9, y: -7.9 }
 ]
 
 export const trophyBoardLocator = new TrophyBoardLocator()

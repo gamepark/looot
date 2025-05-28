@@ -7,7 +7,7 @@ import { HexGridSystem, Location, MaterialItem, XYCoordinates } from '@gamepark/
 class FjordBoardHexSpaceLocator extends HexagonalGridLocator {
   parentItemType = MaterialType.FjordBoard
   coordinatesSystem = HexGridSystem.EvenQ
-  size = { x: 1.76, y: 1.73 }
+  size = { x: 1.75, y: 1.71 }
 
   getRotateZ(): number {
     return 0

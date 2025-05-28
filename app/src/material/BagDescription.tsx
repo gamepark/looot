@@ -4,7 +4,7 @@ import { BoardDescription } from '@gamepark/react-game'
 import Bag from '../images/bag.png'
 
 export class BagDescription extends BoardDescription {
-  height = 8
+  height = 9
   width = 8
 
   image = Bag

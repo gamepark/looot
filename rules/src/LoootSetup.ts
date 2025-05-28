@@ -29,7 +29,7 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
 
   setupOceanBoard() {
     this.material(MaterialType.OceanBoard).createItem({
-      location: { type: LocationType.OceanBoard, rotation: sample([false, true]), id: sample([0, 1, 2]), parent: this.players.length - 1 }
+      location: { type: LocationType.OceanBoard, rotation: sample([false, true]), parent: this.players.length - 1 }
     })
     longshipTiles.forEach((tile) => {
       this.material(MaterialType.LongshipTile).createItem({
@@ -102,10 +102,18 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
   }
 
   setupConstructionSite(player: PlayerColor) {
-    this.material(MaterialType.ConstructionSiteTile).createItem({ id: portConstructionSites[player], location: { type: LocationType.FjordBoardHexSpace, x: 5, y: 1, player } })
-    this.material(MaterialType.ConstructionSiteTile).createItem({ id: altarConstructionSites[player], location: { type: LocationType.FjordBoardHexSpace, x: 1, y: 2, player } })
-    this.material(MaterialType.ConstructionSiteTile).createItem({ id: palaceConstructionSites[player], location: { type: LocationType.FjordBoardHexSpace, x: 4, y: 4, player } })
-
+    this.material(MaterialType.ConstructionSiteTile).createItem({
+      id: portConstructionSites[player],
+      location: { type: LocationType.FjordBoardHexSpace, x: 5, y: 1, player }
+    })
+    this.material(MaterialType.ConstructionSiteTile).createItem({
+      id: altarConstructionSites[player],
+      location: { type: LocationType.FjordBoardHexSpace, x: 1, y: 2, player }
+    })
+    this.material(MaterialType.ConstructionSiteTile).createItem({
+      id: palaceConstructionSites[player],
+      location: { type: LocationType.FjordBoardHexSpace, x: 4, y: 4, player }
+    })
   }
 
   start() {

@@ -6,8 +6,8 @@ import WatchTower from '../images/batiments/tour.png'
 import Castle from '../images/batiments/chateau.png'
 
 export class BuildingTileDescription extends CardDescription {
-  height = 2.6
-  width = 2.8
+  height = 2.7
+  width = 3
 
   images = images
 }

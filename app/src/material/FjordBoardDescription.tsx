@@ -7,8 +7,8 @@ import GreyFjord from '../images/plateaux/fjord_gris.png'
 import YellowFjord from '../images/plateaux/fjord_jaune.png'
 
 export class FjordBoardDescription extends BoardDescription {
-  height = 24.18
-  width = 24.18
+  height = 24
+  width = 24
 
   images = {
     [PlayerColor.Blue]: BlueFjord,

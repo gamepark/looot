@@ -24,6 +24,7 @@ class LandscapeBoardLocator extends Locator {
         if (board1) {
           const base = this.getCoordinates(board1.location, context)
           const relativesLocations = locationsRelativesFromBoard1[this.getRotate(board1.location)][this.getRotate(location)]
+          console.log(relativesLocations)
           return { x: base.x! + relativesLocations.x, y: base.y! + relativesLocations.y }
         }
         return { x: 0, y: 0 }
@@ -79,37 +80,38 @@ class LandscapeBoardLocator extends Locator {
 
 const locationsRelativesFromBoard1 = [
   [
-    { x: 12.25, y: -4.83 },
-    { x: 12.95, y: 0.035 },
-    { x: 10.99, y: -3.36 }
+    { x: 13.59, y: -5.36 },
+    { x: 14.37, y: 0.03 },
+    { x: 12.34, y: -3.72 }
   ],
   [
-    { x: 10.29, y: -8.19 },
-    { x: 10.99, y: -3.36 },
-    { x: 9.03, y: -6.72 }
+    { x: 11.42, y: -9.09 },
+    { x: 12.34, y: -3.72 },
+    { x: 10.02, y: -7.45 }
   ],
   [
-    { x: 14.21, y: -5.215 },
-    { x: 12.25, y: -4.83 },
-    { x: 10.29, y: -8.19 }
+    { x: 15.77, y: -5.78 },
+    { x: 13.59, y: -5.36 },
+    { x: 11.42, y: -9.09 }
   ]
-];
+]
+
 
 const locationsRelativesFromBoard2 = [
   [
-    { x: 10.99, y: 3.36 },
-    { x: 10.36, y: 8.225 },
-    { x: 9.03, y: 6.72 }
+    { x: 12.19, y: 3.72 },
+    { x: 11.49, y: 9.12 },
+    { x: 10.02, y: 7.45 }
   ],
   [
-    { x: 12.95, y: -0.035 },
-    { x: 12.25, y: 4.83 },
-    { x: 10.99, y: 3.36 }
+    { x: 14.37, y: -0.03 },
+    { x: 13.59, y: 5.36 },
+    { x: 12.19, y: 3.72 }
   ],
   [
-    { x: 12.25, y: 4.83 },
-    { x: 14.21, y: 5.215 },
-    { x: 10.29, y: 8.19 }
+    { x: 13.59, y: 5.36 },
+    { x: 15.77, y: 5.78 },
+    { x: 11.42, y: 9.09 }
   ]
 ]
 

@@ -21,8 +21,8 @@ import PlaceOnOccupiedSpaceYellow from '../images/boucliers/jaune3.png'
 import BackYellow from '../images/boucliers/jaune_back.png'
 
 export class ShieldDescription extends CardDescription {
-  height = 2.5
-  width = 2.5
+  height = 2.8
+  width = 2.8
 
   getBackImage(itemId: number): string | undefined {
     const playerColor: PlayerColor = Math.floor(itemId / 10) as PlayerColor
