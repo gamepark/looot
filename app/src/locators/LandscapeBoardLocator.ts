@@ -24,7 +24,6 @@ class LandscapeBoardLocator extends Locator {
         if (board1) {
           const base = this.getCoordinates(board1.location, context)
           const relativesLocations = locationsRelativesFromBoard1[this.getRotate(board1.location)][this.getRotate(location)]
-          console.log(relativesLocations)
           return { x: base.x! + relativesLocations.x, y: base.y! + relativesLocations.y }
         }
         return { x: 0, y: 0 }

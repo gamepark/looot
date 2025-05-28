@@ -25,7 +25,7 @@ class TrophyBoardLocator extends Locator {
 const possibleLocationsRelativesFromLandscapeBoard = [
   { x: -8.5, y: -2.4 },
   { x: -6.45, y: -6.25 },
-  { x: -7.9, y: -7.9 }
+  { x: -6.4, y: -6.2 }
 ]
 
 export const trophyBoardLocator = new TrophyBoardLocator()
