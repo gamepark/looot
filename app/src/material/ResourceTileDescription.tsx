@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/looot/material/LocationType'
-import { ResourceTile } from '@gamepark/looot/material/ResourceTile'
+import { Resource } from '@gamepark/looot/material/Resource'
 import { CardDescription } from '@gamepark/react-game'
 import Wood from '../images/ressources/bois.png'
+import Axe from '../images/ressources/haches.png'
 import Sheep from '../images/ressources/mouton.png'
 import Gold from '../images/ressources/or.png'
-import Axe from '../images/ressources/haches.png'
 
 export class ResourceTileDescription extends CardDescription {
   height = 2.3
@@ -15,18 +15,18 @@ export class ResourceTileDescription extends CardDescription {
 
   stockLocation = { type: LocationType.ResourceTilesPile }
   staticItems = [
-    { quantity: 20, location: { ...this.stockLocation, id: ResourceTile.Axe }, id: ResourceTile.Axe },
-    { quantity: 20, location: { ...this.stockLocation, id: ResourceTile.Gold }, id: ResourceTile.Gold },
-    { quantity: 25, location: { ...this.stockLocation, id: ResourceTile.Sheep }, id: ResourceTile.Sheep },
-    { quantity: 25, location: { ...this.stockLocation, id: ResourceTile.Wood }, id: ResourceTile.Wood }
+    { quantity: 20, location: { ...this.stockLocation, id: Resource.Axe }, id: Resource.Axe },
+    { quantity: 20, location: { ...this.stockLocation, id: Resource.Gold }, id: Resource.Gold },
+    { quantity: 25, location: { ...this.stockLocation, id: Resource.Sheep }, id: Resource.Sheep },
+    { quantity: 25, location: { ...this.stockLocation, id: Resource.Wood }, id: Resource.Wood }
   ]
 }
 
 const images = {
-  [ResourceTile.Axe]: Axe,
-  [ResourceTile.Gold]: Gold,
-  [ResourceTile.Sheep]: Sheep,
-  [ResourceTile.Wood]: Wood
+  [Resource.Wood]: Wood,
+  [Resource.Sheep]: Sheep,
+  [Resource.Gold]: Gold,
+  [Resource.Axe]: Axe
 }
 
 export const resourceTileDescription = new ResourceTileDescription()

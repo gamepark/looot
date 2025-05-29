@@ -1,14 +1,13 @@
-import { MaterialGameSetup, XYCoordinates } from '@gamepark/rules-api'
-import { sample } from 'lodash'
+import { getEnumValues, HexGridSystem, hexRotate, hexTranslate, MaterialGameSetup, XYCoordinates } from '@gamepark/rules-api'
+import { sample, shuffle } from 'lodash'
 import { LoootOptions } from './LoootOptions'
 import { LoootRules } from './LoootRules'
-import { BuildingTile } from './material/BuildingTile'
+import { Building } from './material/Building'
 import { altarConstructionSites, palaceConstructionSites, portConstructionSites } from './material/ConstructionSiteTile'
-import { getLandscapeBoard, LandscapeBoard } from './material/LandscapeBoard'
+import { LandscapeBoard } from './material/LandscapeBoard'
 import { LocationType } from './material/LocationType'
 import { longshipTiles } from './material/LongshipTile'
 import { MaterialType } from './material/MaterialType'
-import { getLandscapeBoardRepresentation } from './material/representation/landscapeBoard'
 import { shields } from './material/Shield'
 import { trophies } from './material/TrophyTile'
 import { PlayerColor } from './PlayerColor'
@@ -22,8 +21,8 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
 
   setupMaterial(_options: LoootOptions) {
     this.setupLandscapeBoards()
-    this.setupOceanBoard()
-    this.setupTrophyBoard()
+    //this.setupOceanBoard()
+    //this.setupTrophyBoard()
     this.setupPlayers()
   }
 
@@ -57,14 +56,32 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
   }
 
   setupLandscapeBoards() {
-    getLandscapeBoard(this.players.length).forEach((board, index) => {
+    const boards = shuffle(getEnumValues(LandscapeBoard)).slice(0, this.players.length)
+    this.material(MaterialType.LandscapeBoard).createItem({ id: boards.pop(), location: { type: LocationType.Landscape, x: -3, y: -2, rotation: 0 } })
+    const availableEdges: LandscapeEdge[] = [
+      { x: -3, y: -2, direction: 1 },
+      { x: -3, y: -2, direction: 3, longSide: true },
+      { x: -3, y: -2, direction: 5 }
+    ]
+    for (const board of boards) {
+      const edge = popRandom(availableEdges)
+      const rotation = edge.direction % 2 ? 3 : 0 // TODO: fix HexGridLocator for Polyhex 1, 2, 4, 5 rotation. Then do: Math.floor(Math.random() * 3) * 2 + (edge.direction % 2)
+      const { x, y } = this.getLandscapeBoardCoordinates(edge, rotation)
+      this.material(MaterialType.LandscapeBoard).createItem({ id: board, location: { type: LocationType.Landscape, x, y, rotation } })
+      availableEdges.push(
+        { x, y, direction: (edge.direction + 1) % 6, longSide: (edge.direction - rotation + 7) % 6 === 3 },
+        { x, y, direction: (edge.direction + 5) % 6, longSide: (edge.direction - rotation + 5) % 6 === 3 }
+      )
+    }
+    this.material(MaterialType.BuildingTile).createItem({ id: Building.House, location: { type: LocationType.Landscape, x: 0, y: 0, rotation: 0 } })
+    /*boards.forEach((board, index) => {
       const id = index * 10 + sample([0, 1, 2])
       this.material(MaterialType.LandscapeBoard).createItem({ id: board, location: { type: LocationType.LandscapeBoard, rotation: sample([false, true]), id } })
     })
 
-    const boards = this.material(MaterialType.LandscapeBoard).getItems()
+    const boards2 = this.material(MaterialType.LandscapeBoard).getItems()
 
-    boards.forEach((board, index) => {
+    boards2.forEach((board, index) => {
       const representation = getLandscapeBoardRepresentation(board.id as LandscapeBoard)
 
       if (!representation) return
@@ -72,10 +89,37 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
       this.createBuildingTiles(representation.houses(board.location), BuildingTile.House, index, 2)
       this.createBuildingTiles(representation.towers(board.location), BuildingTile.Watchtower, index, 2)
       this.createBuildingTiles(representation.castles(board.location), BuildingTile.Castle, index, 3)
-    })
+    })*/
   }
 
-  createBuildingTiles(tilesLocations: XYCoordinates[], tileId: BuildingTile, parent: number, quantity: number) {
+  getLandscapeBoardCoordinates(edge: LandscapeEdge, rotation: number): XYCoordinates {
+    const isLongSide = rotation === edge.direction
+    const rotateBoardCenter = hexTranslate(hexRotate({ x: -3, y: -2 }, rotation, HexGridSystem.EvenQ), { x: 3, y: 3 }, HexGridSystem.EvenQ)
+    // Move center of the tile 4 hex away in the direction
+    const vector = hexRotate(this.getBaseBoardTranslationVector(isLongSide, edge.longSide), edge.direction, HexGridSystem.EvenQ)
+    const edgeDirection = hexTranslate(edge, vector, HexGridSystem.EvenQ)
+    return hexTranslate(edgeDirection, rotateBoardCenter, HexGridSystem.EvenQ)
+  }
+
+  getBaseBoardTranslationVector(longSide = false, edgeLongSide = false) {
+    if (longSide && edgeLongSide) {
+      // If both long side, remove 1 in a random diagonal
+      return sample([
+        { x: -1, y: -3 },
+        { x: 1, y: -3 }
+      ])
+    } else if (!longSide && !edgeLongSide) {
+      // If both short side, add 1 in a random diagonal
+      return sample([
+        { x: -1, y: -4 },
+        { x: 1, y: -4 }
+      ])
+    } else {
+      return { x: 0, y: -4 }
+    }
+  }
+
+  createBuildingTiles(tilesLocations: XYCoordinates[], tileId: Building, parent: number, quantity: number) {
     tilesLocations.forEach((tileLocation) => {
       this.material(MaterialType.BuildingTile).createItem({
         id: tileId,
@@ -119,4 +163,16 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
   start() {
     this.startPlayerTurn(RuleId.TheFirstStep, this.players[0])
   }
+}
+
+type LandscapeEdge = {
+  x: number
+  y: number
+  direction: number // 0: top - 1: top-right - 2: bottom right - 3: bottom - 4: bottom left - 5: top left
+  longSide?: boolean
+}
+
+function popRandom<T>(array: T[]): T {
+  const i = Math.floor(Math.random() * array.length)
+  return array.splice(i, 1)[0]
 }

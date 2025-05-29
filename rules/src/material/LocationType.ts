@@ -1,5 +1,5 @@
 export enum LocationType {
-  LandscapeBoard = 1,
+  Landscape = 1,
   LandscapeBoardHexSpace,
   OceanBoard,
   OceanBoardHexSpace,

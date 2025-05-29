@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { BuildingTile } from '@gamepark/looot/material/BuildingTile'
+import { Building } from '@gamepark/looot/material/Building'
 import { CardDescription } from '@gamepark/react-game'
 import House from '../images/batiments/maison.png'
 import WatchTower from '../images/batiments/tour.png'
@@ -13,9 +13,9 @@ export class BuildingTileDescription extends CardDescription {
 }
 
 const images = {
-  [BuildingTile.House]: House,
-  [BuildingTile.Watchtower]: WatchTower,
-  [BuildingTile.Castle]: Castle
+  [Building.House]: House,
+  [Building.Watchtower]: WatchTower,
+  [Building.Castle]: Castle
 }
 
 export const buildingTileDescription = new BuildingTileDescription()
