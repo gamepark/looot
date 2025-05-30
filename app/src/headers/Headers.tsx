@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/looot/rules/RuleId'
 import { ComponentType } from 'react'
-import { TheFirstStepHeader } from './TheFirstStepHeader'
+import { PlaceResourceHeader } from './PlaceResourceHeader'
+import { PlaceVikingHeader } from './PlaceVikingHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
-  [RuleId.TheFirstStep]: TheFirstStepHeader
+  [RuleId.PlaceViking]: PlaceVikingHeader,
+  [RuleId.PlaceResource]: PlaceResourceHeader
 }

@@ -8,5 +8,6 @@ export enum LocationType {
   Bag,
   FjordBoard,
   FjordBoardHexSpace,
-  PlayerVikingPile
+  PlayerVikingPile,
+  PlayerResourcesIdleLayout
 }

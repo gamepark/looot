@@ -9,6 +9,7 @@ import { landscapeBoardHexSpaceLocator } from './LandscapeBoardHexSpaceLocator'
 import { landscapeLocator } from './LandscapeLocator'
 import { longshipTilesPileLocator } from './longshipTilesPileLocator'
 import { oceanBoardHexSpaceLocator } from './OceanBoardHexSpaceLocator'
+import { playerResourcesIdleLayoutLocator } from './PlayerResourcesIdleLayoutLocator'
 import { playerikingPileLocator } from './PlayerVikingPileLocator'
 import { resourceTilesPileLocator } from './ResourceTilesPileLocator'
 import { trophyBoardHexSpaceLocator } from './TrophyBoardHexSpaceLocator'
@@ -23,5 +24,6 @@ export const Locators: Partial<Record<LocationType, Locator<PlayerColor, Materia
   [LocationType.Bag]: bagLocator,
   [LocationType.FjordBoard]: fjordBoardLocator,
   [LocationType.FjordBoardHexSpace]: fjordBoardHexSpaceLocator,
-  [LocationType.PlayerVikingPile]: playerikingPileLocator
+  [LocationType.PlayerVikingPile]: playerikingPileLocator,
+  [LocationType.PlayerResourcesIdleLayout]: playerResourcesIdleLayoutLocator
 }

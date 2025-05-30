@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
-import { HexagonalGridLocator } from '@gamepark/react-game'
+import { DropAreaDescription, HexagonalGridLocator } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
 import { HexGridSystem, Location, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 
@@ -18,7 +19,22 @@ class FjordBoardHexSpaceLocator extends HexagonalGridLocator {
   }
 
   getPositionOnParent(_location: Location, _context: MaterialContext): XYCoordinates {
-    return {x: 17.5, y: 18}
+    return { x: 17.5, y: 18 }
+  }
+
+  locationDescription = new OceanBoardHexDropDescription()
+}
+
+class OceanBoardHexDropDescription extends DropAreaDescription {
+  width = 2.6
+  height = 2.2
+  extraCss = css`
+    aspect-ratio: 1 / cos(30deg);
+    clip-path: polygon(50% -50%, 100% 50%, 50% 150%, 0 50%);
+  `
+
+  canShortClick(): boolean {
+    return true
   }
 }
 

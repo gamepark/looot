@@ -115,6 +115,10 @@
   },
   "fr": {
     "translation": {
+      "header.place.viking.you": "Vous devez placer un viking",
+      "header.place.viking.player": "{player} doit placer un viking",
+      "header.place.resource.you": "Vous devez placer vos ressources",
+      "header.place.resource.player": "{player} doit placer ses ressources",
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Valider",

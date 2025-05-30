@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { Building } from '@gamepark/looot/material/Building'
-import { CardDescription } from '@gamepark/react-game'
 import House from '../images/batiments/maison.png'
 import WatchTower from '../images/batiments/tour.png'
 import Castle from '../images/batiments/chateau.png'
+import { HexagoneDescription } from './HexagoneDescription'
 
-export class BuildingTileDescription extends CardDescription {
+export class BuildingTileDescription extends HexagoneDescription {
   height = 2.7
   width = 3
 

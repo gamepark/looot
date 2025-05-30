@@ -1,3 +1,4 @@
 export enum RuleId {
-  TheFirstStep = 1
+  PlaceViking = 1,
+  PlaceResource,
 }
