@@ -1,14 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { LoootRules } from '@gamepark/looot/LoootRules'
 import { PlayerColor } from '@gamepark/looot/PlayerColor'
-import { StyledPlayerPanel, usePlayers } from '@gamepark/react-game'
+import { MemoryType } from '@gamepark/looot/rules/Memory'
+import { StyledPlayerPanel, usePlayers, useRules } from '@gamepark/react-game'
 import { createPortal } from 'react-dom'
 import BluePanel from '../images/panels/bleu.png'
 import RedPanel from '../images/panels/rouge.png'
 import GreyPanel from '../images/panels/gris.png'
 import YellowPanel from '../images/panels/jaune.png'
+import Star from '../images/panels/star.png'
 
 export const PlayerPanels = () => {
+  const rules = useRules<LoootRules>()!
   const players = usePlayers<PlayerColor>({ sortFromMe: true })
   const root = document.getElementById('root')
   if (!root) {
@@ -18,7 +22,18 @@ export const PlayerPanels = () => {
   return createPortal(
     <>
       {players.map((player, index) => (
-        <StyledPlayerPanel key={player.id} player={player} css={panelPosition(index)} backgroundImage={images[player.id]} />
+        <StyledPlayerPanel
+          key={player.id}
+          player={player}
+          css={panelPosition(index)}
+          counters={[
+            {
+              image: Star,
+              value: rules.remind(MemoryType.PlayerScore, player.id) || 0
+            }
+          ]}
+          backgroundImage={images[player.id]}
+        />
       ))}
     </>,
     root

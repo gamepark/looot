@@ -9,3 +9,11 @@ export enum TrophyTile {
 }
 
 export const trophies: TrophyTile[] = getEnumValues(TrophyTile)
+
+export const trophyValue = {
+  [TrophyTile.Trophy2]: 3,
+  [TrophyTile.Trophy3]: 6,
+  [TrophyTile.Trophy4]: 10,
+  [TrophyTile.Trophy5]: 15,
+  [TrophyTile.Trophy6]: 21
+}
