@@ -1,19 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { BoardDescription } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
-import Front from '../images/plateaux/mer1.png'
-import Back from '../images/plateaux/mer2.png'
+import { OceanBoard } from '@gamepark/looot/material/OceanBoard'
+import OceanBoard1 from '../images/plateaux/mer1.png'
+import OceanBoard2 from '../images/plateaux/mer2.png'
+import { SideBoardDescription } from './SideBoardDescription'
 
-export class OceanBoardDescription extends BoardDescription {
-  height = 6.78
-  width = 15.26
-
-  backImage = Back
-
-  image = Front
-
-  isFlipped(item: Partial<MaterialItem>): boolean {
-    return item.location?.rotation as boolean
+export class OceanBoardDescription extends SideBoardDescription {
+  images = {
+    [OceanBoard.OceanBoard1]: OceanBoard1,
+    [OceanBoard.OceanBoard2]: OceanBoard2
   }
 }
 

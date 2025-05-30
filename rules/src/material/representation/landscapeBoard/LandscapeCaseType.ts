@@ -1,8 +1,1 @@
-export const A = 'Axe'
-export const G = 'Gold'
-export const S = 'Sheep'
-export const W = 'Wood'
-export const T = 'WatchTower'
-export const H = 'House'
-export const C = 'Castle'
-export const E = ''
+

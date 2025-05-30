@@ -6,10 +6,10 @@ import { Building } from './material/Building'
 import { altarConstructionSites, palaceConstructionSites, portConstructionSites } from './material/ConstructionSiteTile'
 import { LandscapeBoard } from './material/LandscapeBoard'
 import { LocationType } from './material/LocationType'
-import { longshipTiles } from './material/LongshipTile'
 import { MaterialType } from './material/MaterialType'
+import { OceanBoard } from './material/OceanBoard'
 import { shields } from './material/Shield'
-import { trophies } from './material/TrophyTile'
+import { TrophyBoard } from './material/TrophyBoard'
 import { PlayerColor } from './PlayerColor'
 import { RuleId } from './rules/RuleId'
 
@@ -21,38 +21,7 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
 
   setupMaterial(_options: LoootOptions) {
     this.setupLandscapeBoards()
-    //this.setupOceanBoard()
-    //this.setupTrophyBoard()
     this.setupPlayers()
-  }
-
-  setupOceanBoard() {
-    this.material(MaterialType.OceanBoard).createItem({
-      location: { type: LocationType.OceanBoard, rotation: sample([false, true]), parent: this.players.length - 1 }
-    })
-    longshipTiles.forEach((tile) => {
-      this.material(MaterialType.LongshipTile).createItem({
-        location: { type: LocationType.LongshipTilesPile, rotation: true },
-        id: tile
-      })
-    })
-    for (let i = 0; i < 5; i++) {
-      this.material(MaterialType.LongshipTile)
-        .location(LocationType.LongshipTilesPile)
-        .moveItem(() => ({ type: LocationType.OceanBoardHexSpace, rotation: false, x: i, y: 0 }))
-    }
-  }
-
-  setupTrophyBoard() {
-    this.material(MaterialType.TrophyBoard).createItem({
-      location: { type: LocationType.TrophyBoard, rotation: sample([false, true]) }
-    })
-    trophies.forEach((trophy, index) => {
-      this.material(MaterialType.TrophyTile).createItem({
-        location: { type: LocationType.TrophyBoardHexSpace, rotation: true, x: index, y: 0 },
-        id: trophy
-      })
-    })
   }
 
   setupLandscapeBoards() {
@@ -75,6 +44,9 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
         { x, y, direction: (edge.direction + 5) % 6, longSide: (edge.direction - rotation + 5) % 6 === 3 }
       )
     }
+    this.setupOceanBoard(popRandom(availableEdges))
+    this.setupTrophyBoard(popRandom(availableEdges))
+
     this.material(MaterialType.BuildingTile).createItem({ id: Building.House, location: { type: LocationType.Landscape, x: 0, y: 0, rotation: 0 } })
     /*boards.forEach((board, index) => {
       const id = index * 10 + sample([0, 1, 2])
@@ -102,26 +74,48 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
   getNewLandscapeBoardCenter(edge: LandscapeEdge, rotation: number) {
     const isLongSide = rotation === edge.direction
     // Move center of the tile 4 hex away in the direction
-    const vector = hexRotate(this.getBaseBoardTranslationVector(isLongSide, edge.longSide), edge.direction, HexGridSystem.EvenQ)
+    const x = isLongSide !== edge.longSide ? 0 : sample([-1, 1])
+    const y = isLongSide && edge.longSide ? -3 : -4
+    const vector = hexRotate({ x, y }, edge.direction, HexGridSystem.EvenQ)
     return hexTranslate(edge, vector, HexGridSystem.EvenQ)
   }
 
-  getBaseBoardTranslationVector(longSide = false, edgeLongSide = false) {
-    if (longSide && edgeLongSide) {
-      // If both long side, remove 1 in a random diagonal
-      return sample([
-        { x: -1, y: -3 },
-        { x: 1, y: -3 }
-      ])
-    } else if (!longSide && !edgeLongSide) {
-      // If both short side, add 1 in a random diagonal
-      return sample([
-        { x: -1, y: -4 },
-        { x: 1, y: -4 }
-      ])
-    } else {
-      return { x: 0, y: -4 }
-    }
+  setupOceanBoard(edge: LandscapeEdge) {
+    // TODO: the ocean board can overlap another board in rare scenarios. Loop on getSideTileLocation until the location is fine.
+    this.material(MaterialType.OceanBoard).createItem({ id: sample(getEnumValues(OceanBoard)), location: this.getSideTileLocation(edge) })
+
+    /*
+    longshipTiles.forEach((tile) => {
+      this.material(MaterialType.LongshipTile).createItem({
+        location: { type: LocationType.LongshipTilesPile, rotation: true },
+        id: tile
+      })
+    })
+    for (let i = 0; i < 5; i++) {
+      this.material(MaterialType.LongshipTile)
+        .location(LocationType.LongshipTilesPile)
+        .moveItem(() => ({ type: LocationType.OceanBoardHexSpace, rotation: false, x: i, y: 0 }))
+    }*/
+  }
+
+  setupTrophyBoard(edge: LandscapeEdge) {
+    // TODO: the trophy board can overlap another board in rare scenarios. Loop on getSideTileLocation until the location is fine.
+    this.material(MaterialType.TrophyBoard).createItem({ id: sample(getEnumValues(TrophyBoard)), location: this.getSideTileLocation(edge) })
+    /*trophies.forEach((trophy, index) => {
+      this.material(MaterialType.TrophyTile).createItem({
+        location: { type: LocationType.TrophyBoardHexSpace, rotation: true, x: index, y: 0 },
+        id: trophy
+      })
+    })*/
+  }
+
+  getSideTileLocation(edge: LandscapeEdge) {
+    const x = sample(edge.longSide ? [-3, -1, 1, 3] : [-2, 0, 2])
+    const y = edge.longSide ? -2 : -3
+    const vector = hexRotate({ x, y }, edge.direction, HexGridSystem.EvenQ)
+    const tileCenter = hexTranslate(edge, vector, HexGridSystem.EvenQ)
+    const locationCoordinates = hexTranslate(tileCenter, hexRotate({ x: -2, y: 0 }, edge.direction, HexGridSystem.EvenQ), HexGridSystem.EvenQ)
+    return { type: LocationType.Landscape, ...locationCoordinates, rotation: edge.direction }
   }
 
   createBuildingTiles(tilesLocations: XYCoordinates[], tileId: Building, parent: number, quantity: number) {

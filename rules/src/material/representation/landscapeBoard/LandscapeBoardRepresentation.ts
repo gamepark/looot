@@ -1,6 +1,5 @@
 import { Location, XYCoordinates } from '@gamepark/rules-api'
-import { LandscapeBoard } from '../../LandscapeBoard'
-import { C, E, H, T } from './LandscapeCaseType'
+import { _, C, H, LandscapeBoard, T } from '../../LandscapeBoard'
 
 export class LandscapeBoardRepresentation {
   public id: LandscapeBoard
@@ -44,7 +43,7 @@ export class LandscapeBoardRepresentation {
     return neighbors
       .filter((it) => it.x >= 0 && it.x <= this.max.x)
       .filter((it) => it.y >= 0 && it.y <= this.max.x)
-      .filter((it) => this.getCurrentFace(location)[it.y][it.x] !== E)
+      .filter((it) => this.getCurrentFace(location)[it.y][it.x] !== _)
   }
 
   private getCurrentFace(location: Location) {
