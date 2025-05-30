@@ -57,17 +57,19 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
 
   setupLandscapeBoards() {
     const boards = shuffle(getEnumValues(LandscapeBoard)).slice(0, this.players.length)
-    this.material(MaterialType.LandscapeBoard).createItem({ id: boards.pop(), location: { type: LocationType.Landscape, x: -3, y: -2, rotation: 0 } })
+    const firstBoardLocation = this.getLandscapeBoardLocation({ x: 0, y: 0 }, 0)
+    this.material(MaterialType.LandscapeBoard).createItem({ id: boards.pop(), location: firstBoardLocation })
+    //this.material(MaterialType.LandscapeBoard).createItem({ id: boards.pop(), location: { type: LocationType.Landscape, x: 1, y: -3, rotation: 1 } })
     const availableEdges: LandscapeEdge[] = [
-      { x: -3, y: -2, direction: 1 },
-      { x: -3, y: -2, direction: 3, longSide: true },
-      { x: -3, y: -2, direction: 5 }
+      { x: 0, y: 0, direction: 1 },
+      { x: 0, y: 0, direction: 3, longSide: true },
+      { x: 0, y: 0, direction: 5 }
     ]
     for (const board of boards) {
       const edge = popRandom(availableEdges)
       const rotation = edge.direction % 2 ? 3 : 0 // TODO: fix HexGridLocator for Polyhex 1, 2, 4, 5 rotation. Then do: Math.floor(Math.random() * 3) * 2 + (edge.direction % 2)
-      const { x, y } = this.getLandscapeBoardCoordinates(edge, rotation)
-      this.material(MaterialType.LandscapeBoard).createItem({ id: board, location: { type: LocationType.Landscape, x, y, rotation } })
+      const { x, y } = this.getNewLandscapeBoardCenter(edge, rotation)
+      this.material(MaterialType.LandscapeBoard).createItem({ id: board, location: this.getLandscapeBoardLocation({ x, y }, rotation) })
       availableEdges.push(
         { x, y, direction: (edge.direction + 1) % 6, longSide: (edge.direction - rotation + 7) % 6 === 3 },
         { x, y, direction: (edge.direction + 5) % 6, longSide: (edge.direction - rotation + 5) % 6 === 3 }
@@ -92,13 +94,16 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
     })*/
   }
 
-  getLandscapeBoardCoordinates(edge: LandscapeEdge, rotation: number): XYCoordinates {
+  getLandscapeBoardLocation(center: XYCoordinates, rotation: number) {
+    const { x, y } = hexTranslate(center, hexRotate({ x: -3, y: -2 }, rotation, HexGridSystem.EvenQ), HexGridSystem.EvenQ)
+    return { type: LocationType.Landscape, x, y, rotation }
+  }
+
+  getNewLandscapeBoardCenter(edge: LandscapeEdge, rotation: number) {
     const isLongSide = rotation === edge.direction
-    const rotateBoardCenter = hexTranslate(hexRotate({ x: -3, y: -2 }, rotation, HexGridSystem.EvenQ), { x: 3, y: 3 }, HexGridSystem.EvenQ)
     // Move center of the tile 4 hex away in the direction
     const vector = hexRotate(this.getBaseBoardTranslationVector(isLongSide, edge.longSide), edge.direction, HexGridSystem.EvenQ)
-    const edgeDirection = hexTranslate(edge, vector, HexGridSystem.EvenQ)
-    return hexTranslate(edgeDirection, rotateBoardCenter, HexGridSystem.EvenQ)
+    return hexTranslate(edge, vector, HexGridSystem.EvenQ)
   }
 
   getBaseBoardTranslationVector(longSide = false, edgeLongSide = false) {
