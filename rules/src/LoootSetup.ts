@@ -67,7 +67,7 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
     ]
     for (const board of boards) {
       const edge = popRandom(availableEdges)
-      const rotation = edge.direction % 2 ? 3 : 0 // TODO: fix HexGridLocator for Polyhex 1, 2, 4, 5 rotation. Then do: Math.floor(Math.random() * 3) * 2 + (edge.direction % 2)
+      const rotation = Math.floor(Math.random() * 3) * 2 + (edge.direction % 2)
       const { x, y } = this.getNewLandscapeBoardCenter(edge, rotation)
       this.material(MaterialType.LandscapeBoard).createItem({ id: board, location: this.getLandscapeBoardLocation({ x, y }, rotation) })
       availableEdges.push(
