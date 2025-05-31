@@ -5,7 +5,7 @@ import { LocationType } from '../../material/LocationType'
 import { getLongshipType, getLongshipValue, LongshipTile, LongshipTileType } from '../../material/LongshipTile'
 import { MaterialType } from '../../material/MaterialType'
 import { Resource } from '../../material/Resource'
-import { TrophyTile, trophyValue } from '../../material/TrophyTile'
+import { Trophy, trophyValue } from '../../material/Trophy'
 import { MemoryType } from '../Memory'
 
 export class ScoreHelper extends MaterialRulesPart {
@@ -51,7 +51,7 @@ export class ScoreHelper extends MaterialRulesPart {
       .location(LocationType.FjordBoardHexSpace)
       .player(this.player)
       .getItems()
-      .map((it) => trophyValue[it.id as TrophyTile])
+      .map((it) => trophyValue[it.id as Trophy])
       .reduce((acc, cur) => acc + cur, 0)
   }
 

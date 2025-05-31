@@ -9,6 +9,7 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { OceanBoard } from './material/OceanBoard'
 import { shields } from './material/Shield'
+import { Trophy } from './material/Trophy'
 import { TrophyBoard } from './material/TrophyBoard'
 import { PlayerColor } from './PlayerColor'
 import { LandscapeHelper } from './rules/helpers/LandscapeHelper'
@@ -46,8 +47,8 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
       )
     }
     this.createBuildingTiles()
-    this.setupOceanBoard(popRandom(availableEdges))
     this.setupTrophyBoard(popRandom(availableEdges))
+    this.setupOceanBoard(popRandom(availableEdges))
   }
 
   getLandscapeBoardLocation(center: XYCoordinates, rotation: number) {
@@ -84,13 +85,16 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
 
   setupTrophyBoard(edge: LandscapeEdge) {
     // TODO: the trophy board can overlap another board in rare scenarios. Loop on getSideTileLocation until the location is fine.
-    this.material(MaterialType.TrophyBoard).createItem({ id: sample(getEnumValues(TrophyBoard)), location: this.getSideTileLocation(edge) })
-    /*trophies.forEach((trophy, index) => {
+    const location = this.getSideTileLocation(edge)
+    this.material(MaterialType.TrophyBoard).createItem({ id: sample(getEnumValues(TrophyBoard)), location })
+    for (let i = 0; i < getEnumValues(Trophy).length; i++) {
+      const trophy = getEnumValues(Trophy)[i]
+      const { x, y } = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
       this.material(MaterialType.TrophyTile).createItem({
-        location: { type: LocationType.TrophyBoardHexSpace, rotation: true, x: index, y: 0 },
-        id: trophy
+        id: trophy,
+        location: { type: LocationType.Landscape, x: location.x + x, y: location.y + y, rotation: location.rotation }
       })
-    })*/
+    }
   }
 
   getSideTileLocation(edge: LandscapeEdge) {

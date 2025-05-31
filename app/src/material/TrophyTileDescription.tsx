@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { TrophyTile } from '@gamepark/looot/material/TrophyTile'
+import { Trophy } from '@gamepark/looot/material/Trophy'
 import { CardDescription } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import Trophy2 from '../images/trophees/trophee2.png'
@@ -26,19 +26,19 @@ export class TrophyTileDescription extends CardDescription {
 }
 
 const backImages = {
-  [TrophyTile.Trophy2]: Back2,
-  [TrophyTile.Trophy3]: Back3,
-  [TrophyTile.Trophy4]: Back4,
-  [TrophyTile.Trophy5]: Back5,
-  [TrophyTile.Trophy6]: Back6
+  [Trophy.Trophy2]: Back2,
+  [Trophy.Trophy3]: Back3,
+  [Trophy.Trophy4]: Back4,
+  [Trophy.Trophy5]: Back5,
+  [Trophy.Trophy6]: Back6
 }
 
 const images = {
-  [TrophyTile.Trophy2]: Trophy2,
-  [TrophyTile.Trophy3]: Trophy3,
-  [TrophyTile.Trophy4]: Trophy4,
-  [TrophyTile.Trophy5]: Trophy5,
-  [TrophyTile.Trophy6]: Trophy6
+  [Trophy.Trophy2]: Trophy2,
+  [Trophy.Trophy3]: Trophy3,
+  [Trophy.Trophy4]: Trophy4,
+  [Trophy.Trophy5]: Trophy5,
+  [Trophy.Trophy6]: Trophy6
 }
 
 export const trophyTileDescription = new TrophyTileDescription()

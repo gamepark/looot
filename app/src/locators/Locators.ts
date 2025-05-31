@@ -11,12 +11,10 @@ import { oceanBoardHexSpaceLocator } from './OceanBoardHexSpaceLocator'
 import { playerResourcesIdleLayoutLocator } from './PlayerResourcesIdleLayoutLocator'
 import { playerikingPileLocator } from './PlayerVikingPileLocator'
 import { resourceTilesPileLocator } from './ResourceTilesPileLocator'
-import { trophyBoardHexSpaceLocator } from './TrophyBoardHexSpaceLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<PlayerColor, MaterialType, LocationType>>> = {
   [LocationType.Landscape]: landscapeLocator,
   [LocationType.OceanBoardHexSpace]: oceanBoardHexSpaceLocator,
-  [LocationType.TrophyBoardHexSpace]: trophyBoardHexSpaceLocator,
   [LocationType.LongshipTilesPile]: longshipTilesPileLocator,
   [LocationType.ResourceTilesPile]: resourceTilesPileLocator,
   [LocationType.Bag]: bagLocator,
