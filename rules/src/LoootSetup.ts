@@ -6,6 +6,7 @@ import { Building } from './material/Building'
 import { altarConstructionSites, palaceConstructionSites, portConstructionSites } from './material/ConstructionSiteTile'
 import { isBuilding, LandscapeBoard } from './material/LandscapeBoard'
 import { LocationType } from './material/LocationType'
+import { Longship } from './material/Longship'
 import { MaterialType } from './material/MaterialType'
 import { OceanBoard } from './material/OceanBoard'
 import { shields } from './material/Shield'
@@ -65,35 +66,36 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
     return hexTranslate(edge, vector, HexGridSystem.EvenQ)
   }
 
-  setupOceanBoard(edge: LandscapeEdge) {
-    // TODO: the ocean board can overlap another board in rare scenarios. Loop on getSideTileLocation until the location is fine.
-    this.material(MaterialType.OceanBoard).createItem({ id: sample(getEnumValues(OceanBoard)), location: this.getSideTileLocation(edge) })
-
-    /*
-    longshipTiles.forEach((tile) => {
-      this.material(MaterialType.LongshipTile).createItem({
-        location: { type: LocationType.LongshipTilesPile, rotation: true },
-        id: tile
-      })
-    })
-    for (let i = 0; i < 5; i++) {
-      this.material(MaterialType.LongshipTile)
-        .location(LocationType.LongshipTilesPile)
-        .moveItem(() => ({ type: LocationType.OceanBoardHexSpace, rotation: false, x: i, y: 0 }))
-    }*/
-  }
-
   setupTrophyBoard(edge: LandscapeEdge) {
     // TODO: the trophy board can overlap another board in rare scenarios. Loop on getSideTileLocation until the location is fine.
     const location = this.getSideTileLocation(edge)
     this.material(MaterialType.TrophyBoard).createItem({ id: sample(getEnumValues(TrophyBoard)), location })
-    for (let i = 0; i < getEnumValues(Trophy).length; i++) {
-      const trophy = getEnumValues(Trophy)[i]
-      const { x, y } = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
+    const trophies = getEnumValues(Trophy)
+    for (let i = 0; i < trophies.length; i++) {
+      const trophy = trophies[i]
+      const rotated = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
+      const { x, y } = hexTranslate(rotated, location, HexGridSystem.EvenQ)
       this.material(MaterialType.TrophyTile).createItem({
         id: trophy,
-        location: { type: LocationType.Landscape, x: location.x + x, y: location.y + y, rotation: location.rotation }
+        location: { type: LocationType.Landscape, x, y, rotation: location.rotation }
       })
+    }
+  }
+
+  setupOceanBoard(edge: LandscapeEdge) {
+    // TODO: the ocean board can overlap another board in rare scenarios. Loop on getSideTileLocation until the location is fine.
+    const location = this.getSideTileLocation(edge)
+    this.material(MaterialType.OceanBoard).createItem({ id: sample(getEnumValues(OceanBoard)), location })
+    const longships = shuffle(getEnumValues(Longship))
+    const longshipTiles = longships.map((longship) => ({ id: longship, location: { type: LocationType.InsideBag } }))
+    this.material(MaterialType.LongshipTile).createItems(longshipTiles)
+
+    for (let i = 0; i < 5; i++) {
+      const rotated = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
+      const { x, y } = hexTranslate(rotated, location, HexGridSystem.EvenQ)
+      this.material(MaterialType.LongshipTile)
+        .location(LocationType.InsideBag)
+        .moveItem(() => ({ type: LocationType.Landscape, x, y, rotation: 0 }))
     }
   }
 

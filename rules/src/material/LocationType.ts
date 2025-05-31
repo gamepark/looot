@@ -1,7 +1,6 @@
 export enum LocationType {
   Landscape = 1,
-  OceanBoardHexSpace,
-  LongshipTilesPile,
+  InsideBag,
   ResourceTilesPile,
   Bag,
   FjordBoard,

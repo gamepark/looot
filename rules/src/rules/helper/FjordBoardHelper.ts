@@ -1,7 +1,7 @@
 import { Location, MaterialGame, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
 import { getConstructionSiteNeededTiles } from '../../material/ConstructionSiteTile'
 import { LocationType } from '../../material/LocationType'
-import { getLongshipNeededTiles } from '../../material/LongshipTile'
+import { getLongshipNeededTiles } from '../../material/Longship'
 import { MaterialType } from '../../material/MaterialType'
 
 export class FjordBoardHelper extends MaterialRulesPart {

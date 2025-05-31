@@ -9,8 +9,7 @@ export class BagDescription extends BoardDescription {
 
   image = Bag
 
-  stockLocation = { type: LocationType.Bag }
-  staticItem = { location: { ...this.stockLocation } }
+  staticItem = { location: { type: LocationType.Bag } }
 }
 
 export const bagDescription = new BagDescription()

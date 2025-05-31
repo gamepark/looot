@@ -2,7 +2,7 @@ import { MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
 import { Building } from '../../material/Building'
 import { ConstructionSiteTile, ConstructionSiteTileType, getConstructionSiteType } from '../../material/ConstructionSiteTile'
 import { LocationType } from '../../material/LocationType'
-import { getLongshipType, getLongshipValue, LongshipTile, LongshipTileType } from '../../material/LongshipTile'
+import { getLongshipType, getLongshipValue, Longship, LongshipType } from '../../material/Longship'
 import { MaterialType } from '../../material/MaterialType'
 import { Resource } from '../../material/Resource'
 import { Trophy, trophyValue } from '../../material/Trophy'
@@ -70,7 +70,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getCastleValue() {
-    return this.getMultipleValue(LongshipTileType.Castle, 4)
+    return this.getMultipleValue(LongshipType.Castle, 4)
   }
 
   getNbWatchTower() {
@@ -78,7 +78,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getWatchTowerValue() {
-    return this.getMultipleValue(LongshipTileType.Watchtower, 2)
+    return this.getMultipleValue(LongshipType.Watchtower, 2)
   }
 
   getNbHouse() {
@@ -86,7 +86,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getHouseValue() {
-    return this.getMultipleValue(LongshipTileType.House, 1)
+    return this.getMultipleValue(LongshipType.House, 1)
   }
 
   getNbGold() {
@@ -94,7 +94,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getGoldValue() {
-    return this.getMultipleValue(LongshipTileType.Gold, 2)
+    return this.getMultipleValue(LongshipType.Gold, 2)
   }
 
   getNbWood() {
@@ -102,7 +102,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getWoodValue() {
-    return this.getMultipleValue(LongshipTileType.Wood, 1)
+    return this.getMultipleValue(LongshipType.Wood, 1)
   }
 
   getNbSheep() {
@@ -110,7 +110,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getSheepValue() {
-    return this.getMultipleValue(LongshipTileType.Sheep, 1)
+    return this.getMultipleValue(LongshipType.Sheep, 1)
   }
 
   getNbTile(materialType: MaterialType, resourceType: Resource | Building) {
@@ -120,14 +120,14 @@ export class ScoreHelper extends MaterialRulesPart {
       .filter((it) => it.id === resourceType).length
   }
 
-  getMultipleValue(longShipType: LongshipTileType, baseValue: number) {
+  getMultipleValue(longShipType: LongshipType, baseValue: number) {
     return this.material(MaterialType.LongshipTile)
       .location(LocationType.FjordBoardHexSpace)
       .rotation((r) => r === true)
       .player(this.player)
       .getItems()
-      .filter((it) => getLongshipType(it.id as LongshipTile) === longShipType)
-      .map((it) => getLongshipValue(it.id as LongshipTile))
+      .filter((it) => getLongshipType(it.id as Longship) === longShipType)
+      .map((it) => getLongshipValue(it.id as Longship))
       .reduce((old, curr) => old + curr, baseValue)
   }
 
