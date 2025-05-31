@@ -20,6 +20,7 @@ import Palace3 from '../images/chantiers/palais3.png'
 import Palace4 from '../images/chantiers/palais4.png'
 import Palace5 from '../images/chantiers/palais5.png'
 import PalaceBack from '../images/chantiers/palais_back.png'
+import { ConstructionSiteTileHelp } from './help/ConstructionSiteTileHelp'
 
 export class ConstructionSiteTileDescription extends CardDescription {
   height = 2.9
@@ -31,6 +32,8 @@ export class ConstructionSiteTileDescription extends CardDescription {
   isFlipped(item: Partial<MaterialItem>): boolean {
     return item.location?.rotation as boolean
   }
+
+  help = ConstructionSiteTileHelp
 }
 
 const backImages = {

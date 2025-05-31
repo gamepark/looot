@@ -5,6 +5,7 @@ import BlueFjord from '../images/plateaux/fjord_bleu.png'
 import RedFjord from '../images/plateaux/fjord_rouge.png'
 import GreyFjord from '../images/plateaux/fjord_gris.png'
 import YellowFjord from '../images/plateaux/fjord_jaune.png'
+import { FjordBoardHelp } from './help/FjordBoardHelp'
 
 export class FjordBoardDescription extends BoardDescription {
   height = 24
@@ -16,6 +17,8 @@ export class FjordBoardDescription extends BoardDescription {
     [PlayerColor.Grey]: GreyFjord,
     [PlayerColor.Yellow]: YellowFjord
   }
+
+  help = FjordBoardHelp
 }
 
 export const fjordBoardDescription = new FjordBoardDescription()

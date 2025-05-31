@@ -10,6 +10,7 @@ import Board5 from '../images/plateaux/plateau5.png'
 import Board6 from '../images/plateaux/plateau6.png'
 import Board7 from '../images/plateaux/plateau7.png'
 import Board8 from '../images/plateaux/plateau8.png'
+import { LandscapeBoardHelp } from './help/LandscapeBoardHelp'
 
 export class LandscapeBoardDescription extends PolyhexDescription {
   height = 18.46
@@ -17,6 +18,8 @@ export class LandscapeBoardDescription extends PolyhexDescription {
   images = images
   coordinatesSystem = HexGridSystem.EvenQ
   polyhexShape = landscapeBoards[LandscapeBoard.LandscapeBoard1] // All boards have the same shape
+
+  help = LandscapeBoardHelp
 }
 
 const images = {

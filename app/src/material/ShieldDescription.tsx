@@ -19,6 +19,7 @@ import PlayAgainRed from '../images/boucliers/rouge1.jpg'
 import DoubleGainRed from '../images/boucliers/rouge2.jpg'
 import PlaceOnOccupiedSpaceRed from '../images/boucliers/rouge3.jpg'
 import BackRed from '../images/boucliers/rouge_back.jpg'
+import { ShieldHelp } from './help/ShieldHelp'
 
 export class ShieldDescription extends TokenDescription {
   height = 2.8
@@ -35,6 +36,8 @@ export class ShieldDescription extends TokenDescription {
   isFlipped(item: Partial<MaterialItem>): boolean {
     return item.location?.rotation as boolean
   }
+
+  help = ShieldHelp
 }
 
 const backImages = {

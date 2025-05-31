@@ -17,7 +17,6 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   updateScore() {
-    console.log(this.getTotalScore())
     this.memorize(MemoryType.PlayerScore, this.getTotalScore(), this.player)
   }
 
@@ -34,10 +33,6 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getNotReturnedLongshipMalus() {
-    console.log(this.material(MaterialType.LongshipTile)
-      .location(LocationType.FjordBoardHexSpace)
-      .rotation((r) => r === false || r === undefined)
-      .player(this.player).length)
     return (
       this.material(MaterialType.LongshipTile)
         .location(LocationType.FjordBoardHexSpace)

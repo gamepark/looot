@@ -3,6 +3,7 @@ import { Building } from '@gamepark/looot/material/Building'
 import House from '../images/batiments/maison.png'
 import WatchTower from '../images/batiments/tour.png'
 import Castle from '../images/batiments/chateau.png'
+import { BuildingTileHelp } from './help/BuildingTileHelp'
 import { HexagoneDescription } from './HexagoneDescription'
 
 export class BuildingTileDescription extends HexagoneDescription {
@@ -10,6 +11,8 @@ export class BuildingTileDescription extends HexagoneDescription {
   width = 3.2
 
   images = images
+
+  help = BuildingTileHelp
 }
 
 const images = {

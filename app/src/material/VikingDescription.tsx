@@ -5,6 +5,7 @@ import BlueViking from '../images/meeples/bleu.png'
 import RedViking from '../images/meeples/rouge.png'
 import GreyViking from '../images/meeples/gris.png'
 import YellowViking from '../images/meeples/jaune.png'
+import { VikingHelp } from './help/VikingHelp'
 
 export class VikingDescription extends TokenDescription {
   height = 1.9
@@ -16,6 +17,8 @@ export class VikingDescription extends TokenDescription {
     [PlayerColor.Grey]: GreyViking,
     [PlayerColor.Yellow]: YellowViking
   }
+
+  help = VikingHelp
 }
 
 export const vikingDescription = new VikingDescription()

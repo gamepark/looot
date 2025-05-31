@@ -44,6 +44,7 @@ import House4 from '../images/drakkars/maison4.png'
 import House5 from '../images/drakkars/maison5.png'
 import HouseBack1 from '../images/drakkars/maison_back_1.png'
 import HouseBack2 from '../images/drakkars/maison_back_2.png'
+import { LongshipTileHelp } from './help/LongshipTileHelp'
 
 export class LongshipTileDescription extends CardDescription {
   height = 2.9
@@ -55,6 +56,8 @@ export class LongshipTileDescription extends CardDescription {
   isFlipped(item: Partial<MaterialItem>): boolean {
     return item.location?.rotation as boolean
   }
+
+  help = LongshipTileHelp
 }
 
 const backImages = {

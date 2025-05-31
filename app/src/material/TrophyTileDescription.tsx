@@ -13,6 +13,7 @@ import Trophy3 from '../images/trophees/trophee3.png'
 import Trophy4 from '../images/trophees/trophee4.png'
 import Trophy5 from '../images/trophees/trophee5.png'
 import Trophy6 from '../images/trophees/trophee6.png'
+import { TrophyHelp } from './help/TrophyHelp'
 
 export class TrophyTileDescription extends CardDescription {
   height = 2.9
@@ -24,6 +25,8 @@ export class TrophyTileDescription extends CardDescription {
   isFlipped(item: Partial<MaterialItem>) {
     return item.location?.type === LocationType.FjordBoardHexSpace
   }
+
+  help = TrophyHelp
 }
 
 const images = {
