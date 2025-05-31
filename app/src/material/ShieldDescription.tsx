@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { getShieldType, Shield } from '@gamepark/looot/material/Shield'
+import { Shield } from '@gamepark/looot/material/Shield'
 import { PlayerColor } from '@gamepark/looot/PlayerColor'
 import { TokenDescription } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
@@ -25,15 +25,11 @@ export class ShieldDescription extends TokenDescription {
   width = 2.8
   borderRadius = 1.4
 
-  getBackImage(itemId: number): string | undefined {
-    const playerColor: PlayerColor = Math.floor(itemId / 10) as PlayerColor
-    return backImages[playerColor]
-  }
+  images = images
+  backImages = backImages
 
-  getImage(itemId: number): string | undefined {
-    const playerColor: PlayerColor = Math.floor(itemId / 10) as PlayerColor
-    const shieldType: Shield = getShieldType(itemId)
-    return images[playerColor][shieldType]
+  protected getBackId(itemId: number) {
+    return Math.floor(itemId / 10)
   }
 
   isFlipped(item: Partial<MaterialItem>): boolean {
@@ -49,26 +45,18 @@ const backImages = {
 }
 
 const images = {
-  [PlayerColor.Blue]: {
-    [Shield.PlayAgain]: PlayAgainBlue,
-    [Shield.DoubleGain]: DoubleGainBlue,
-    [Shield.PlaceOnOccupiedSpace]: PlaceOnOccupiedSpaceBlue
-  },
-  [PlayerColor.Red]: {
-    [Shield.PlayAgain]: PlayAgainRed,
-    [Shield.DoubleGain]: DoubleGainRed,
-    [Shield.PlaceOnOccupiedSpace]: PlaceOnOccupiedSpaceRed
-  },
-  [PlayerColor.Grey]: {
-    [Shield.PlayAgain]: PlayAgainGrey,
-    [Shield.DoubleGain]: DoubleGainGrey,
-    [Shield.PlaceOnOccupiedSpace]: PlaceOnOccupiedSpaceGrey
-  },
-  [PlayerColor.Yellow]: {
-    [Shield.PlayAgain]: PlayAgainYellow,
-    [Shield.DoubleGain]: DoubleGainYellow,
-    [Shield.PlaceOnOccupiedSpace]: PlaceOnOccupiedSpaceYellow
-  }
+  [PlayerColor.Blue * 10 + Shield.PlayAgain]: PlayAgainBlue,
+  [PlayerColor.Blue * 10 + Shield.DoubleGain]: DoubleGainBlue,
+  [PlayerColor.Blue * 10 + Shield.PlaceOnOccupiedSpace]: PlaceOnOccupiedSpaceBlue,
+  [PlayerColor.Red * 10 + Shield.PlayAgain]: PlayAgainRed,
+  [PlayerColor.Red * 10 + Shield.DoubleGain]: DoubleGainRed,
+  [PlayerColor.Red * 10 + Shield.PlaceOnOccupiedSpace]: PlaceOnOccupiedSpaceRed,
+  [PlayerColor.Grey * 10 + Shield.PlayAgain]: PlayAgainGrey,
+  [PlayerColor.Grey * 10 + Shield.DoubleGain]: DoubleGainGrey,
+  [PlayerColor.Grey * 10 + Shield.PlaceOnOccupiedSpace]: PlaceOnOccupiedSpaceGrey,
+  [PlayerColor.Yellow * 10 + Shield.PlayAgain]: PlayAgainYellow,
+  [PlayerColor.Yellow * 10 + Shield.DoubleGain]: DoubleGainYellow,
+  [PlayerColor.Yellow * 10 + Shield.PlaceOnOccupiedSpace]: PlaceOnOccupiedSpaceYellow
 }
 
 export const shieldDescription = new ShieldDescription()
