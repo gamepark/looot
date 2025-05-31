@@ -1,28 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import { getShieldType, Shield } from '@gamepark/looot/material/Shield'
 import { PlayerColor } from '@gamepark/looot/PlayerColor'
-import { CardDescription } from '@gamepark/react-game'
+import { TokenDescription } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
-import PlayAgainBlue from '../images/boucliers/bleu1.png'
-import DoubleGainBlue from '../images/boucliers/bleu2.png'
-import PlaceOnOccupiedSpaceBlue from '../images/boucliers/bleu3.png'
-import BackBlue from '../images/boucliers/bleu_back.png'
-import PlayAgainRed from '../images/boucliers/rouge1.png'
-import DoubleGainRed from '../images/boucliers/rouge2.png'
-import PlaceOnOccupiedSpaceRed from '../images/boucliers/rouge3.png'
-import BackRed from '../images/boucliers/rouge_back.png'
-import PlayAgainGrey from '../images/boucliers/gris1.png'
-import DoubleGainGrey from '../images/boucliers/gris2.png'
-import PlaceOnOccupiedSpaceGrey from '../images/boucliers/gris3.png'
-import BackGrey from '../images/boucliers/gris_back.png'
-import PlayAgainYellow from '../images/boucliers/jaune1.png'
-import DoubleGainYellow from '../images/boucliers/jaune2.png'
-import PlaceOnOccupiedSpaceYellow from '../images/boucliers/jaune3.png'
-import BackYellow from '../images/boucliers/jaune_back.png'
+import PlayAgainBlue from '../images/boucliers/bleu1.jpg'
+import DoubleGainBlue from '../images/boucliers/bleu2.jpg'
+import PlaceOnOccupiedSpaceBlue from '../images/boucliers/bleu3.jpg'
+import BackBlue from '../images/boucliers/bleu_back.jpg'
+import PlayAgainGrey from '../images/boucliers/gris1.jpg'
+import DoubleGainGrey from '../images/boucliers/gris2.jpg'
+import PlaceOnOccupiedSpaceGrey from '../images/boucliers/gris3.jpg'
+import BackGrey from '../images/boucliers/gris_back.jpg'
+import PlayAgainYellow from '../images/boucliers/jaune1.jpg'
+import DoubleGainYellow from '../images/boucliers/jaune2.jpg'
+import PlaceOnOccupiedSpaceYellow from '../images/boucliers/jaune3.jpg'
+import BackYellow from '../images/boucliers/jaune_back.jpg'
+import PlayAgainRed from '../images/boucliers/rouge1.jpg'
+import DoubleGainRed from '../images/boucliers/rouge2.jpg'
+import PlaceOnOccupiedSpaceRed from '../images/boucliers/rouge3.jpg'
+import BackRed from '../images/boucliers/rouge_back.jpg'
 
-export class ShieldDescription extends CardDescription {
+export class ShieldDescription extends TokenDescription {
   height = 2.8
   width = 2.8
+  borderRadius = 1.4
 
   getBackImage(itemId: number): string | undefined {
     const playerColor: PlayerColor = Math.floor(itemId / 10) as PlayerColor
