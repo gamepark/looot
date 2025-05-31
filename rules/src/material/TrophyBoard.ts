@@ -8,7 +8,7 @@ export enum TrophyBoard {
 const T = 10 // Trophy space
 const W = Resource.Wood
 const G = Resource.Gold
-const _ = null
+const _ = undefined
 
 export const trophyBoards: Record<TrophyBoard, (Resource | typeof T | typeof _)[][]> = {
   [TrophyBoard.TrophyBoard1]: [

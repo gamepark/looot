@@ -5,7 +5,6 @@ import { Locator } from '@gamepark/react-game'
 import { bagLocator } from './BagLocator'
 import { fjordBoardHexSpaceLocator } from './FjordBoardHexSpaceLocator'
 import { fjordBoardLocator } from './FjordBoardLocator'
-import { landscapeBoardHexSpaceLocator } from './LandscapeBoardHexSpaceLocator'
 import { landscapeLocator } from './LandscapeLocator'
 import { longshipTilesPileLocator } from './longshipTilesPileLocator'
 import { oceanBoardHexSpaceLocator } from './OceanBoardHexSpaceLocator'
@@ -16,7 +15,6 @@ import { trophyBoardHexSpaceLocator } from './TrophyBoardHexSpaceLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<PlayerColor, MaterialType, LocationType>>> = {
   [LocationType.Landscape]: landscapeLocator,
-  [LocationType.LandscapeBoardHexSpace]: landscapeBoardHexSpaceLocator,
   [LocationType.OceanBoardHexSpace]: oceanBoardHexSpaceLocator,
   [LocationType.TrophyBoardHexSpace]: trophyBoardHexSpaceLocator,
   [LocationType.LongshipTilesPile]: longshipTilesPileLocator,

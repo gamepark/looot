@@ -19,9 +19,12 @@ export const W = Resource.Wood
 export const T = Building.Watchtower
 export const H = Building.House
 export const C = Building.Castle
-export const _ = null
+export const _ = undefined
 
-type Land = Resource | Building
+export type Land = Resource | Building
+
+export const isResource = (land: Land): land is Resource => land < Building.House
+export const isBuilding = (land: Land): land is Building => land >= Building.House
 
 export const landscapeBoards: Record<LandscapeBoard, (Land | typeof _)[][]> = {
   [LandscapeBoard.LandscapeBoard1]: [

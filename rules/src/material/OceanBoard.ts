@@ -8,7 +8,7 @@ export enum OceanBoard {
 const W = 10 // Water
 const X = Resource.Axe
 const S = Resource.Sheep
-const _ = null
+const _ = undefined
 
 export const oceanBoards: Record<OceanBoard, (Resource | typeof W | typeof _)[][]> = {
   [OceanBoard.OceanBoard1]: [

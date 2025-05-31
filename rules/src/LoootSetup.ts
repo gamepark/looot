@@ -4,13 +4,14 @@ import { LoootOptions } from './LoootOptions'
 import { LoootRules } from './LoootRules'
 import { Building } from './material/Building'
 import { altarConstructionSites, palaceConstructionSites, portConstructionSites } from './material/ConstructionSiteTile'
-import { LandscapeBoard } from './material/LandscapeBoard'
+import { isBuilding, LandscapeBoard } from './material/LandscapeBoard'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { OceanBoard } from './material/OceanBoard'
 import { shields } from './material/Shield'
 import { TrophyBoard } from './material/TrophyBoard'
 import { PlayerColor } from './PlayerColor'
+import { LandscapeHelper } from './rules/helpers/LandscapeHelper'
 import { RuleId } from './rules/RuleId'
 
 /**
@@ -44,26 +45,9 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
         { x, y, direction: (edge.direction + 5) % 6, longSide: (edge.direction - rotation + 5) % 6 === 3 }
       )
     }
+    this.createBuildingTiles()
     this.setupOceanBoard(popRandom(availableEdges))
     this.setupTrophyBoard(popRandom(availableEdges))
-
-    this.material(MaterialType.BuildingTile).createItem({ id: Building.House, location: { type: LocationType.Landscape, x: 0, y: 0, rotation: 0 } })
-    /*boards.forEach((board, index) => {
-      const id = index * 10 + sample([0, 1, 2])
-      this.material(MaterialType.LandscapeBoard).createItem({ id: board, location: { type: LocationType.LandscapeBoard, rotation: sample([false, true]), id } })
-    })
-
-    const boards2 = this.material(MaterialType.LandscapeBoard).getItems()
-
-    boards2.forEach((board, index) => {
-      const representation = getLandscapeBoardRepresentation(board.id as LandscapeBoard)
-
-      if (!representation) return
-
-      this.createBuildingTiles(representation.houses(board.location), BuildingTile.House, index, 2)
-      this.createBuildingTiles(representation.towers(board.location), BuildingTile.Watchtower, index, 2)
-      this.createBuildingTiles(representation.castles(board.location), BuildingTile.Castle, index, 3)
-    })*/
   }
 
   getLandscapeBoardLocation(center: XYCoordinates, rotation: number) {
@@ -118,14 +102,22 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
     return { type: LocationType.Landscape, ...locationCoordinates, rotation: edge.direction }
   }
 
-  createBuildingTiles(tilesLocations: XYCoordinates[], tileId: Building, parent: number, quantity: number) {
-    tilesLocations.forEach((tileLocation) => {
-      this.material(MaterialType.BuildingTile).createItem({
-        id: tileId,
-        location: { ...tileLocation, type: LocationType.LandscapeBoardHexSpace, parent },
-        quantity
-      })
-    })
+  createBuildingTiles() {
+    const landscapeHelper = new LandscapeHelper(this.game)
+    const { xMin, yMin } = landscapeHelper
+    for (let y = 0; y < landscapeHelper.landscape.length; y++) {
+      const line = landscapeHelper.landscape[y]
+      for (let x = 0; x < line.length; x++) {
+        const land = line[x]
+        if (land && isBuilding(land)) {
+          this.material(MaterialType.BuildingTile).createItem({
+            id: land,
+            location: { type: LocationType.Landscape, x: x + xMin, y: y + yMin, rotation: 0 },
+            quantity: land === Building.Castle ? 3 : 2
+          })
+        }
+      }
+    }
   }
 
   setupPlayers() {
