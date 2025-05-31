@@ -60,7 +60,7 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
   getNewLandscapeBoardCenter(edge: LandscapeEdge, rotation: number) {
     const isLongSide = rotation === edge.direction
     // Move center of the tile 4 hex away in the direction
-    const x = isLongSide !== edge.longSide ? 0 : sample([-1, 1])
+    const x = isLongSide !== !!edge.longSide ? 0 : sample([-1, 1])
     const y = isLongSide && edge.longSide ? -3 : -4
     const vector = hexRotate({ x, y }, edge.direction, HexGridSystem.EvenQ)
     return hexTranslate(edge, vector, HexGridSystem.EvenQ)
