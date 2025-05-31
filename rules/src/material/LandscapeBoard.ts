@@ -22,6 +22,7 @@ export const C = Building.Castle
 export const _ = undefined
 
 export type Land = Resource | Building
+export const Water = 10
 
 export const isResource = (land: Land): land is Resource => land < Building.House
 export const isBuilding = (land: Land): land is Building => land >= Building.House

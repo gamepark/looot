@@ -3,17 +3,15 @@ import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { LandscapeHelper } from '@gamepark/looot/rules/helpers/LandscapeHelper'
 import { HexagonalGridLocator, ItemContext } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
-import { HexGridSystem, Location, MaterialItem } from '@gamepark/rules-api'
+import { HexGridSystem, Location, MaterialGame, MaterialItem } from '@gamepark/rules-api'
 
 class LandscapeLocator extends HexagonalGridLocator {
   coordinatesSystem = HexGridSystem.EvenQ
   size = 1.92
 
   getCoordinates(_: Location, { rules }: MaterialContext) {
-    const helper = new LandscapeHelper(rules.game)
-    const x = -(helper.xMin + helper.xMax) / 2
-    const y = -(helper.yMin + helper.yMax) / 2
-    return this.getHexagonPosition({ x, y })
+    const { xMin, xMax, yMin, yMax } = new LandscapeHelper(rules.game)
+    return { x: -(xMax + xMin - 1) * 0.75 * this.size, y: -(yMax + yMin - 2) * (Math.sqrt(3) / 2) * this.size }
   }
 
   getItemCoordinates(item: MaterialItem, context: ItemContext) {
@@ -28,6 +26,13 @@ class LandscapeLocator extends HexagonalGridLocator {
       }
     }
     return { x, y, z }
+  }
+
+  getLandscapeSize(game: MaterialGame) {
+    const helper = new LandscapeHelper(game)
+    const { x: xMin, y: yMin } = this.getHexagonPosition({ x: helper.xMin, y: helper.yMin })
+    const { x: xMax, y: yMax } = this.getHexagonPosition({ x: helper.xMax, y: helper.yMax })
+    return { width: xMax - xMin, height: yMax - yMin }
   }
 }
 

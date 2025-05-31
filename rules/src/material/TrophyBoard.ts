@@ -1,3 +1,4 @@
+import { Water } from './LandscapeBoard'
 import { Resource } from './Resource'
 
 export enum TrophyBoard {
@@ -5,7 +6,7 @@ export enum TrophyBoard {
   TrophyBoard2
 }
 
-const T = 10 // Trophy space
+const T = Water // Trophy space
 const W = Resource.Wood
 const G = Resource.Gold
 const _ = undefined

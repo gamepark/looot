@@ -1,11 +1,13 @@
 import { HexGridSystem, hexRotate, hexTranslate, Location, MaterialGame, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
-import { Land, LandscapeBoard, landscapeBoards } from '../../material/LandscapeBoard'
+import { Land, LandscapeBoard, landscapeBoards, Water } from '../../material/LandscapeBoard'
 import { MaterialType } from '../../material/MaterialType'
 import { OceanBoard, oceanBoards } from '../../material/OceanBoard'
 import { trophyBoards } from '../../material/TrophyBoard'
 
+export type Hex = Land | typeof Water | undefined
+
 export class LandscapeHelper extends MaterialRulesPart {
-  landscape: (Land | undefined)[][] = []
+  landscape: Hex[][] = []
   xMin = 0
   yMin = 0
 
@@ -34,19 +36,17 @@ export class LandscapeHelper extends MaterialRulesPart {
     }
   }
 
-  private addBoardToLandscape(board: (Land | 10 | undefined)[][], location: Location) {
+  private addBoardToLandscape(board: Hex[][], location: Location) {
     for (let y = 0; y < board.length; y++) {
       const line = board[y]
       for (let x = 0; x < line.length; x++) {
-        const land = line[x]
-        if (land && land !== 10) {
-          this.addLandToLandscape(land, { x, y }, location)
-        }
+        this.addLandToLandscape(line[x], { x, y }, location)
       }
     }
   }
 
-  private addLandToLandscape(land: Land, coordinates: XYCoordinates, location: Location) {
+  private addLandToLandscape(hex: Hex, coordinates: XYCoordinates, location: Location) {
+    if (hex === undefined) return
     const rotatedCoordinates = hexRotate(coordinates, location.rotation as number, HexGridSystem.EvenQ)
     const { x, y } = hexTranslate(rotatedCoordinates, location as XYCoordinates, HexGridSystem.EvenQ)
     while (y < this.yMin) {
@@ -62,6 +62,6 @@ export class LandscapeHelper extends MaterialRulesPart {
     if (!this.landscape[y - this.yMin]) {
       this.landscape[y - this.yMin] = []
     }
-    this.landscape[y - this.yMin][x - this.xMin] = land
+    this.landscape[y - this.yMin][x - this.xMin] = hex
   }
 }

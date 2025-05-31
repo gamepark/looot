@@ -1,3 +1,4 @@
+import { Water } from './LandscapeBoard'
 import { Resource } from './Resource'
 
 export enum OceanBoard {
@@ -5,7 +6,7 @@ export enum OceanBoard {
   OceanBoard2
 }
 
-const W = 10 // Water
+const W = Water
 const X = Resource.Axe
 const S = Resource.Sheep
 const _ = undefined
