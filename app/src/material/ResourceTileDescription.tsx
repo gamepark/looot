@@ -8,8 +8,8 @@ import Gold from '../images/ressources/or.png'
 import { HexagoneDescription } from './HexagoneDescription'
 
 export class ResourceTileDescription extends HexagoneDescription {
-  height = 2.3
-  width = 2.5
+  height = 2.5
+  width = 2.7
 
   images = images
 

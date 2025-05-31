@@ -46,8 +46,8 @@ import HouseBack1 from '../images/drakkars/maison_back_1.png'
 import HouseBack2 from '../images/drakkars/maison_back_2.png'
 
 export class LongshipTileDescription extends CardDescription {
-  height = 2.7
-  width = 3
+  height = 2.9
+  width = 3.2
 
   backImages = backImages
   images = images

@@ -6,8 +6,8 @@ import Castle from '../images/batiments/chateau.png'
 import { HexagoneDescription } from './HexagoneDescription'
 
 export class BuildingTileDescription extends HexagoneDescription {
-  height = 2.7
-  width = 3
+  height = 2.9
+  width = 3.2
 
   images = images
 }

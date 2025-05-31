@@ -22,8 +22,8 @@ import Palace5 from '../images/chantiers/palais5.png'
 import PalaceBack from '../images/chantiers/palais_back.png'
 
 export class ConstructionSiteTileDescription extends CardDescription {
-  height = 2.7
-  width = 3
+  height = 2.9
+  width = 3.2
 
   backImages = backImages
   images = images
