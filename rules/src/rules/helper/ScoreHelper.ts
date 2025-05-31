@@ -34,7 +34,7 @@ export class ScoreHelper extends MaterialRulesPart {
 
   getNotReturnedLongshipMalus() {
     return (
-      this.material(MaterialType.LongshipTile)
+      this.material(MaterialType.Longship)
         .location(LocationType.FjordBoardHexSpace)
         .rotation((r) => r === false || r === undefined)
         .player(this.player).length * 5
@@ -42,7 +42,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getTrophyScore() {
-    return this.material(MaterialType.TrophyTile)
+    return this.material(MaterialType.Trophy)
       .location(LocationType.FjordBoardHexSpace)
       .player(this.player)
       .getItems()
@@ -116,7 +116,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getMultipleValue(longShipType: LongshipType, baseValue: number) {
-    return this.material(MaterialType.LongshipTile)
+    return this.material(MaterialType.Longship)
       .location(LocationType.FjordBoardHexSpace)
       .rotation((r) => r === true)
       .player(this.player)

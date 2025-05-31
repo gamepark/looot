@@ -5,12 +5,12 @@ import { buildingTileDescription } from './BuildingTileDescription'
 import { constructionSiteTileDescription } from './ConstructionSiteTileDescription'
 import { fjordBoardDescription } from './FjordBoardDescription'
 import { landscapeBoardDescription } from './LandscapeBoardDescription'
-import { longshipTileDescription } from './LongshipTileDescription'
+import { longshipDescription } from './LongshipDescription'
 import { oceanBoardDescription } from './OceanBoardDescription'
 import { resourceTileDescription } from './ResourceTileDescription'
 import { shieldDescription } from './ShieldDescription'
 import { trophyBoardDescription } from './TrophyBoardDescription'
-import { trophyTileDescription } from './TrophyTileDescription'
+import { trophyDescription } from './TrophyDescription'
 import { vikingDescription } from './VikingDescription'
 
 export const Material: Partial<Record<MaterialType, MaterialDescription>> = {
@@ -18,8 +18,8 @@ export const Material: Partial<Record<MaterialType, MaterialDescription>> = {
   [MaterialType.OceanBoard]: oceanBoardDescription,
   [MaterialType.TrophyBoard]: trophyBoardDescription,
   [MaterialType.BuildingTile]: buildingTileDescription,
-  [MaterialType.TrophyTile]: trophyTileDescription,
-  [MaterialType.LongshipTile]: longshipTileDescription,
+  [MaterialType.Trophy]: trophyDescription,
+  [MaterialType.Longship]: longshipDescription,
   [MaterialType.ResourceTile]: resourceTileDescription,
   [MaterialType.Bag]: bagDescription,
   [MaterialType.FjordBoard]: fjordBoardDescription,

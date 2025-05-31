@@ -44,9 +44,9 @@ import House4 from '../images/drakkars/maison4.png'
 import House5 from '../images/drakkars/maison5.png'
 import HouseBack1 from '../images/drakkars/maison_back_1.png'
 import HouseBack2 from '../images/drakkars/maison_back_2.png'
-import { LongshipTileHelp } from './help/LongshipTileHelp'
+import { LongshipHelp } from './help/LongshipHelp'
 
-export class LongshipTileDescription extends CardDescription {
+export class LongshipDescription extends CardDescription {
   height = 2.9
   width = 3.2
 
@@ -57,7 +57,7 @@ export class LongshipTileDescription extends CardDescription {
     return item.location?.rotation as boolean
   }
 
-  help = LongshipTileHelp
+  help = LongshipHelp
 }
 
 const backImages = {
@@ -126,4 +126,4 @@ const images = {
   [Longship.House21]: House5
 }
 
-export const longshipTileDescription = new LongshipTileDescription()
+export const longshipDescription = new LongshipDescription()

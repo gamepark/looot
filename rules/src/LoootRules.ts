@@ -31,7 +31,7 @@ export class LoootRules
   }
 
   hidingStrategies = {
-    [MaterialType.LongshipTile]: {
+    [MaterialType.Longship]: {
       [LocationType.InsideBag]: hideItemId
     }
   }

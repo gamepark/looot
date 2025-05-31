@@ -155,7 +155,7 @@
       "help.landscape.rule.2": "Il doit être adjacent à un autre viking (peu importe sa couleur) ou à un drakkar.",
       "help.landscape.descr.3": "Prenez ensuite la ressource correspondante dans la réserve et placez-la sur une case vide de votre fjord. Cette ressource ne pourra plus être déplacée.",
       "help.landscape.descr.4": "Si vous n’avez plus aucun viking, vous passez votre tour.",
-      "help.longship.tile": "Tuile drakkar",
+      "help.longship.tile": "Drakkar",
       "help.longship.tile.descr.1": "À la fin de votre tour, vous pouvez choisir <bold>un et un seul</bold> drakkar.",
       "help.longship.tile.descr.2": "Placez-le ensuite sur une case vide de votre fjord.",
       "help.longship.tile.descr.3": "Chaque drakkar apporte un bonus à une ressource ou à un bâtiment lorsqu’il est validé. Pour valider un drakkar, vous devez posséder les trois ressources demandées adjacentes au drakkar.",

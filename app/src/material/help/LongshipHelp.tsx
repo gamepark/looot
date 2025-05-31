@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { getLongshipNeededTiles, getLongshipType, getLongshipValue, LongshipTile } from '@gamepark/looot/material/LongshipTile'
+import { getLongshipNeededTiles, getLongshipType, getLongshipValue, Longship } from '@gamepark/looot/material/Longship'
 import { MaterialHelpProps } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
@@ -11,12 +11,12 @@ const components = {
   underline: <u />
 }
 
-export const LongshipTileHelp: FC<MaterialHelpProps> = ({ item }) => {
+export const LongshipHelp: FC<MaterialHelpProps> = ({ item }) => {
   const { t } = useTranslation()
 
-  const type = getLongshipType(item.id as LongshipTile)
-  const value = getLongshipValue(item.id as LongshipTile)
-  const resources = getLongshipNeededTiles(item.id as LongshipTile)
+  const type = getLongshipType(item.id as Longship)
+  const value = getLongshipValue(item.id as Longship)
+  const resources = getLongshipNeededTiles(item.id as Longship)
 
   return (
     <>

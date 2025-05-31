@@ -15,7 +15,7 @@ import Trophy5 from '../images/trophees/trophee5.png'
 import Trophy6 from '../images/trophees/trophee6.png'
 import { TrophyHelp } from './help/TrophyHelp'
 
-export class TrophyTileDescription extends CardDescription {
+export class TrophyDescription extends CardDescription {
   height = 2.9
   width = 3.2
 
@@ -45,4 +45,4 @@ const backImages = {
   [Trophy.Trophy6]: Trophy6
 }
 
-export const trophyTileDescription = new TrophyTileDescription()
+export const trophyDescription = new TrophyDescription()

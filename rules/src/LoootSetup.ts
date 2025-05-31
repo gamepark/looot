@@ -75,7 +75,7 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
       const trophy = trophies[i]
       const rotated = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
       const { x, y } = hexTranslate(rotated, location, HexGridSystem.EvenQ)
-      this.material(MaterialType.TrophyTile).createItem({
+      this.material(MaterialType.Trophy).createItem({
         id: trophy,
         location: { type: LocationType.Landscape, x, y, rotation: 0 }
       })
@@ -88,12 +88,12 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
     this.material(MaterialType.OceanBoard).createItem({ id: sample(getEnumValues(OceanBoard)), location })
     const longships = shuffle(getEnumValues(Longship))
     const longshipTiles = longships.map((longship) => ({ id: longship, location: { type: LocationType.InsideBag } }))
-    this.material(MaterialType.LongshipTile).createItems(longshipTiles)
+    this.material(MaterialType.Longship).createItems(longshipTiles)
 
     for (let i = 0; i < 5; i++) {
       const rotated = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
       const { x, y } = hexTranslate(rotated, location, HexGridSystem.EvenQ)
-      this.material(MaterialType.LongshipTile)
+      this.material(MaterialType.Longship)
         .location(LocationType.InsideBag)
         .moveItem(() => ({ type: LocationType.Landscape, x, y, rotation: 0 }))
     }

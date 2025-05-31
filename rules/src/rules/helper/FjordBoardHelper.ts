@@ -27,7 +27,7 @@ export class FjordBoardHelper extends MaterialRulesPart {
   }
 
   checkLongship(): MaterialMove[] {
-    return this.checkResources(MaterialType.LongshipTile, getLongshipNeededTiles)
+    return this.checkResources(MaterialType.Longship, getLongshipNeededTiles)
   }
 
   private checkResources(tileType: MaterialType, getNeededTiles: (id: number) => number[]): MaterialMove[] {
@@ -49,7 +49,7 @@ export class FjordBoardHelper extends MaterialRulesPart {
     return (
       !this.checkIfTileExistInCase(MaterialType.BuildingTile, location) &&
       !this.checkIfTileExistInCase(MaterialType.ResourceTile, location) &&
-      !this.checkIfTileExistInCase(MaterialType.LongshipTile, location) &&
+      !this.checkIfTileExistInCase(MaterialType.Longship, location) &&
       !this.checkIfTileExistInCase(MaterialType.ConstructionSiteTile, location)
     )
   }

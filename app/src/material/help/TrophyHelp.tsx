@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { TrophyTile, trophyValue } from '@gamepark/looot/material/TrophyTile'
+import { Trophy, trophyValue } from '@gamepark/looot/material/Trophy'
 import { MaterialHelpProps } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
@@ -12,7 +12,7 @@ const components = {
 export const TrophyHelp: FC<MaterialHelpProps> = ({ item }) => {
   const { t } = useTranslation()
   const nbHaches = item.id
-  const value = trophyValue[item.id as TrophyTile]
+  const value = trophyValue[item.id as Trophy]
   return (
     <>
       <h2>{t(`help.trophy`)}</h2>
