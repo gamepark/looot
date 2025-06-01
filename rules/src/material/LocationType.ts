@@ -6,5 +6,6 @@ export enum LocationType {
   FjordBoard,
   FjordBoardHexSpace,
   PlayerVikingPile,
-  PlayerResourcesIdleLayout
+  PlayerResourcesIdleLayout,
+  PlayerBuildingIdleLayout
 }

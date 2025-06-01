@@ -2,7 +2,7 @@ import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepar
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
-import { FjordBoardHelper } from './helper/FjordBoardHelper'
+import { FjordBoardHelper } from './helpers/FjordBoardHelper'
 
 export class PlaceResourceRule extends PlayerTurnRule {
   fjordBoardHelper = new FjordBoardHelper(this.game)
@@ -17,10 +17,16 @@ export class PlaceResourceRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {
+    const moves: MaterialMove[] = []
+    // TODO start opponent turn
     if (isMoveItemType(MaterialType.ResourceTile)(move) || isMoveItemType(MaterialType.BuildingTile)(move)) {
-      return [...this.fjordBoardHelper.checkConstructionSite(), ...this.fjordBoardHelper.checkLongship(), this.startRule(RuleId.PlaceResource)]
+      moves.push(...this.fjordBoardHelper.checkConstructionSite())
+      moves.push(...this.fjordBoardHelper.checkLongship())
     }
-    return [this.startRule(RuleId.PlaceResource)]
+    if (this.playerResourceTiles.length === 0 && this.playerBuildingTiles.length === 0) {
+      moves.push(this.startRule(RuleId.PlaceViking))
+    }
+    return moves
   }
 
   get playerResourceTiles() {
@@ -28,6 +34,6 @@ export class PlaceResourceRule extends PlayerTurnRule {
   }
 
   get playerBuildingTiles() {
-    return this.material(MaterialType.BuildingTile).location(LocationType.PlayerResourcesIdleLayout).player(this.player)
+    return this.material(MaterialType.BuildingTile).location(LocationType.PlayerBuildingIdleLayout).player(this.player)
   }
 }

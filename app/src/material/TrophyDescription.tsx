@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/looot/material/LocationType'
 import { Trophy } from '@gamepark/looot/material/Trophy'
-import { CardDescription } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import Back2 from '../images/trophees/back2.png'
 import Back3 from '../images/trophees/back3.png'
@@ -14,8 +13,9 @@ import Trophy4 from '../images/trophees/trophee4.png'
 import Trophy5 from '../images/trophees/trophee5.png'
 import Trophy6 from '../images/trophees/trophee6.png'
 import { TrophyHelp } from './help/TrophyHelp'
+import { HexagoneDescription } from './HexagoneDescription'
 
-export class TrophyDescription extends CardDescription {
+export class TrophyDescription extends HexagoneDescription {
   height = 2.9
   width = 3.2
 

@@ -2,7 +2,7 @@ import { hideItemId, isMoveItem, ItemMove, MaterialGame, MaterialMove, PositiveS
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
-import { ScoreHelper } from './rules/helper/ScoreHelper'
+import { ScoreHelper } from './rules/helpers/ScoreHelper'
 import { PlaceResourceRule } from './rules/PlaceResourceRule'
 import { PlaceVikingRule } from './rules/PlaceVikingRule'
 import { RuleId } from './rules/RuleId'
@@ -23,7 +23,7 @@ export class LoootRules
 
   locationsStrategies = {
     [MaterialType.BuildingTile]: {
-      [LocationType.PlayerResourcesIdleLayout]: new PositiveSequenceStrategy()
+      [LocationType.PlayerBuildingIdleLayout]: new PositiveSequenceStrategy()
     },
     [MaterialType.ResourceTile]: {
       [LocationType.PlayerResourcesIdleLayout]: new PositiveSequenceStrategy()

@@ -3,6 +3,7 @@ import { getConstructionSiteNeededTiles } from '../../material/ConstructionSiteT
 import { LocationType } from '../../material/LocationType'
 import { getLongshipNeededTiles } from '../../material/Longship'
 import { MaterialType } from '../../material/MaterialType'
+import { getNeighbors } from './utils'
 
 export class FjordBoardHelper extends MaterialRulesPart {
   constructor(
@@ -33,7 +34,7 @@ export class FjordBoardHelper extends MaterialRulesPart {
   private checkResources(tileType: MaterialType, getNeededTiles: (id: number) => number[]): MaterialMove[] {
     return this.material(tileType)
       .location(LocationType.FjordBoardHexSpace)
-      .location(loc => !loc.rotation)
+      .location((loc) => !loc.rotation)
       .player(this.player)
       .filter((it) => {
         const tilesNeeded = getNeededTiles(it.id as number)
@@ -63,40 +64,18 @@ export class FjordBoardHelper extends MaterialRulesPart {
   }
 
   private getNeighborsId(location: Location, materialType: MaterialType) {
-    return getNeighbors(location).map(
-      (it) =>
-        this.material(materialType)
-          .location(LocationType.FjordBoardHexSpace)
-          .location((loc) => loc.x === it.x && loc.y === it.y)
-          .player(this.player)
-          .getItem()?.id
-    )
+    return getNeighbors(location)
+      .filter((it) => it.x >= 0 && it.x <= 6)
+      .filter((it) => it.y >= 0 && it.y <= 6)
+      .map(
+        (it) =>
+          this.material(materialType)
+            .location(LocationType.FjordBoardHexSpace)
+            .location((loc) => loc.x === it.x && loc.y === it.y)
+            .player(this.player)
+            .getItem()?.id
+      )
   }
-}
-
-const getNeighbors = (location: Location) => {
-  const x: number = location.x ?? 0
-  const y: number = location.y ?? 0
-  const neighbors =
-    x % 2 !== 0
-      ? [
-          { x: x + 1, y },
-          { x: x + 1, y: y - 1 },
-          { x, y: y - 1 },
-          { x: x - 1, y: y - 1 },
-          { x: x - 1, y },
-          { x, y: y + 1 }
-        ]
-      : [
-          { x: x + 1, y: y + 1 },
-          { x: x + 1, y },
-          { x, y: y - 1 },
-          { x: x - 1, y },
-          { x: x - 1, y: y + 1 },
-          { x, y: y + 1 }
-        ]
-
-  return neighbors.filter((it) => it.x >= 0 && it.x <= 6).filter((it) => it.y >= 0 && it.y <= 6)
 }
 
 const checkIfAllNeededTilesIsAround = (needed: number[], actuals: number[]) => {

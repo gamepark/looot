@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Longship } from '@gamepark/looot/material/Longship'
-import { CardDescription } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import Castle1 from '../images/drakkars/chateau1.png'
 import Castle2 from '../images/drakkars/chateau2.png'
@@ -45,8 +44,9 @@ import House5 from '../images/drakkars/maison5.png'
 import HouseBack1 from '../images/drakkars/maison_back_1.png'
 import HouseBack2 from '../images/drakkars/maison_back_2.png'
 import { LongshipHelp } from './help/LongshipHelp'
+import { HexagoneDescription } from './HexagoneDescription'
 
-export class LongshipDescription extends CardDescription {
+export class LongshipDescription extends HexagoneDescription {
   height = 2.9
   width = 3.2
 

@@ -4,13 +4,13 @@ import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
 import { Location } from '@gamepark/rules-api'
 import { fjordBoardLocator } from './FjordBoardLocator'
 
-class PlayerResourcesIdleLayoutLocator extends ListLocator {
+class PlayerBuildingIdleLayoutLocator extends ListLocator {
   gap = { x: 3 }
-  maxCount = 2
+  maxCount = 4
   getCoordinates(location: Location, context: MaterialContext) {
     const base = fjordBoardLocator.getCoordinates(location, context)
-    return { x: base.x! - 10, y: base.y! - 14 }
+    return { x: base.x! - 4, y: base.y! - 14 }
   }
 }
 
-export const playerResourcesIdleLayoutLocator = new PlayerResourcesIdleLayoutLocator()
+export const playerBuildingIdleLayoutLocator = new PlayerBuildingIdleLayoutLocator()

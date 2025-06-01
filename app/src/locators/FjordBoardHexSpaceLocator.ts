@@ -22,20 +22,16 @@ class FjordBoardHexSpaceLocator extends HexagonalGridLocator {
     return { x: 17.5, y: 18 }
   }
 
-  locationDescription = new OceanBoardHexDropDescription()
+  locationDescription = new FjordBoardHexDropDescription()
 }
 
-class OceanBoardHexDropDescription extends DropAreaDescription {
+class FjordBoardHexDropDescription extends DropAreaDescription {
   width = 2.6
   height = 2.2
   extraCss = css`
     aspect-ratio: 1 / cos(30deg);
     clip-path: polygon(50% -50%, 100% 50%, 50% 150%, 0 50%);
   `
-
-  canShortClick(): boolean {
-    return true
-  }
 }
 
 export const fjordBoardHexSpaceLocator = new FjordBoardHexSpaceLocator()

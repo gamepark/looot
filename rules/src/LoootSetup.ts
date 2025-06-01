@@ -158,7 +158,7 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
   }
 
   start() {
-    this.startPlayerTurn(RuleId.PlaceResource, this.players[0])
+    this.startPlayerTurn(RuleId.PlaceViking, this.players[0])
   }
 }
 

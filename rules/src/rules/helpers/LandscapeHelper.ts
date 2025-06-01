@@ -1,8 +1,22 @@
-import { HexGridSystem, hexRotate, hexTranslate, Location, MaterialGame, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
+import {
+  getEnumValues,
+  HexGridSystem,
+  hexRotate,
+  hexTranslate,
+  Location,
+  MaterialGame,
+  MaterialMove,
+  MaterialRulesPart,
+  XYCoordinates
+} from '@gamepark/rules-api'
 import { Land, LandscapeBoard, landscapeBoards, Water } from '../../material/LandscapeBoard'
+import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { OceanBoard, oceanBoards } from '../../material/OceanBoard'
+import { Resource } from '../../material/Resource'
 import { trophyBoards } from '../../material/TrophyBoard'
+import { PlayerColor } from '../../PlayerColor'
+import { getNeighbors } from './utils'
 
 export type Hex = Land | typeof Water | undefined
 
@@ -34,6 +48,73 @@ export class LandscapeHelper extends MaterialRulesPart {
     if (trophyBoardItem) {
       this.addBoardToLandscape(trophyBoards[trophyBoardItem.id], trophyBoardItem.location)
     }
+  }
+
+  getPossiblePlaces(): Location[] {
+    const drakkars = this.material(MaterialType.Longship).location(LocationType.Landscape).getItems()
+    const vikings = this.material(MaterialType.Viking).location(LocationType.Landscape).getItems()
+    const places: Location[] = []
+
+    drakkars.forEach(({ location }) => {
+      getNeighbors(location).forEach((neighbor) => {
+        if (!places.find((p) => p.x === neighbor.x && p.y === neighbor.y)) {
+          places.push({ type: LocationType.Landscape, ...neighbor })
+        }
+      })
+    })
+
+    vikings.forEach(({ location }) => {
+      getNeighbors(location).forEach((neighbor) => {
+        if (!places.find((p) => p.x === neighbor.x && p.y === neighbor.y)) {
+          places.push({ type: LocationType.Landscape, ...neighbor })
+        }
+      })
+    })
+
+    return places
+      .filter((it) => (it.y ?? 0) >= this.yMin && (it.y ?? 0) <= this.yMax)
+      .filter((it) => (it.x ?? 0) >= this.xMin && (it.x ?? 0) <= this.xMax)
+      .filter((it) => this.isEligiblePlace(it.x ?? 0, it.y ?? 0))
+      .filter((it) => this.placeIsEmpty(it.x ?? 0, it.y ?? 0))
+  }
+
+  getLandscapeCaseType(x: number, y: number): number | undefined {
+    if (x < this.xMin || x > this.xMax) return undefined
+    if (y < this.yMin || y > this.yMax) return undefined
+    return this.landscape[y + Math.abs(this.yMin)][x + Math.abs(this.xMin)]
+  }
+
+  getSpecificCaseTypeLocations(type: number): Location[] {
+    const locations: Location[] = []
+    for (let i = 0; i < this.landscape.length; i++) {
+      for (let j = 0; j < this.landscape[i].length; j++) {
+        if(this.landscape[i][j] === type) {
+          const x = j - Math.abs(this.xMin)
+          const y = i - Math.abs(this.yMin)
+          locations.push({type: LocationType.Landscape, x, y})
+        }
+      }
+    }
+    return locations
+  }
+
+  checkIfTileInCaseAndMoveIt(x: number, y: number, player: PlayerColor): MaterialMove[] {
+    const tiles = this.material(MaterialType.BuildingTile)
+      .location(LocationType.Landscape)
+      .location((loc) => loc.x === x && loc.y === y)
+    if (tiles.length === 0) return []
+    return [tiles.moveItem({ type: LocationType.PlayerBuildingIdleLayout, player })]
+  }
+
+  private isEligiblePlace(x: number, y: number): boolean {
+    const caseType = this.getLandscapeCaseType(x, y)
+    if (!caseType) return false
+    const allowedType = getEnumValues(Resource)
+    return allowedType.includes(caseType)
+  }
+
+  private placeIsEmpty(x: number, y: number): boolean {
+    return this.material(MaterialType.Viking).location((loc) => loc.type === LocationType.Landscape && loc.x === x && loc.y === y).length === 0
   }
 
   private addBoardToLandscape(board: Hex[][], location: Location) {

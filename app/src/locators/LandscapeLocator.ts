@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { LandscapeHelper } from '@gamepark/looot/rules/helpers/LandscapeHelper'
-import { HexagonalGridLocator, ItemContext } from '@gamepark/react-game'
+import { DropAreaDescription, HexagonalGridLocator, ItemContext } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
 import { HexGridSystem, Location, MaterialGame, MaterialItem } from '@gamepark/rules-api'
 
@@ -34,6 +35,17 @@ class LandscapeLocator extends HexagonalGridLocator {
     const { x: xMax, y: yMax } = this.getHexagonPosition({ x: helper.xMax, y: helper.yMax })
     return { width: xMax - xMin, height: yMax - yMin }
   }
+
+  locationDescription = new LandscapeHexDropDescription()
+}
+
+class LandscapeHexDropDescription extends DropAreaDescription {
+  width = 2.6
+  height = 2.2
+  extraCss = css`
+    aspect-ratio: 1 / cos(30deg);
+    clip-path: polygon(50% -50%, 100% 50%, 50% 150%, 0 50%);
+  `
 }
 
 export const landscapeLocator = new LandscapeLocator()
