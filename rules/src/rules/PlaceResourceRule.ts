@@ -18,13 +18,12 @@ export class PlaceResourceRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
-    // TODO start opponent turn
     if (isMoveItemType(MaterialType.ResourceTile)(move) || isMoveItemType(MaterialType.BuildingTile)(move)) {
       moves.push(...this.fjordBoardHelper.checkConstructionSite())
       moves.push(...this.fjordBoardHelper.checkLongship())
     }
     if (this.playerResourceTiles.length === 0 && this.playerBuildingTiles.length === 0) {
-      moves.push(this.startRule(RuleId.PlaceViking))
+      moves.push(this.startRule(RuleId.TakeLongship))
     }
     return moves
   }

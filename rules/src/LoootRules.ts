@@ -6,6 +6,8 @@ import { ScoreHelper } from './rules/helpers/ScoreHelper'
 import { PlaceResourceRule } from './rules/PlaceResourceRule'
 import { PlaceVikingRule } from './rules/PlaceVikingRule'
 import { RuleId } from './rules/RuleId'
+import { TakeLongshipRule } from './rules/TakeLongshipRule'
+import { TakeTrophyRule } from './rules/TakeTrophyRule'
 
 /**
  * This class implements the rules of the board game.
@@ -18,7 +20,9 @@ export class LoootRules
   scoreHelper = new ScoreHelper(this.game)
   rules = {
     [RuleId.PlaceViking]: PlaceVikingRule,
-    [RuleId.PlaceResource]: PlaceResourceRule
+    [RuleId.PlaceResource]: PlaceResourceRule,
+    [RuleId.TakeLongship]: TakeLongshipRule,
+    [RuleId.TakeTrophy]: TakeTrophyRule
   }
 
   locationsStrategies = {
