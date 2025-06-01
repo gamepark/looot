@@ -79,8 +79,8 @@ export class LandscapeHelper extends MaterialRulesPart {
   }
 
   getLandscapeCaseType(x: number, y: number): number | undefined {
-    if (x < this.xMin || x > this.xMax) return undefined
-    if (y < this.yMin || y > this.yMax) return undefined
+    if (x < this.xMin || x >= this.xMax) return undefined
+    if (y < this.yMin || y >= this.yMax) return undefined
     return this.landscape[y + Math.abs(this.yMin)][x + Math.abs(this.xMin)]
   }
 
