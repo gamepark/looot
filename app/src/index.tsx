@@ -7,6 +7,7 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import { gameAnimations } from './animations/GameAnimations'
 import App from './App'
+import { RulesHelp } from './dialogs/RulesHelp'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import translations from './translations.json'
@@ -18,6 +19,7 @@ ReactDOM.render(
     <GameProvider
       game="looot"
       Rules={LoootRules}
+      rulesHelp={RulesHelp}
       optionsSpec={LoootOptionsSpec}
       GameSetup={LoootSetup}
       material={Material}

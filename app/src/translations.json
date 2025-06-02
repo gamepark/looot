@@ -115,7 +115,7 @@
   },
   "fr": {
     "translation": {
-      "header.place.viking.you": "Vous devez placer un viking",
+      "header.place.viking.you": "Vous devez placer un viking, <shield>Utiliser un bouclier</shield>",
       "header.place.viking.player": "{player} doit placer un viking",
       "header.place.resource.you": "Vous devez placer vos ressources",
       "header.place.resource.player": "{player} doit placer ses ressources",
@@ -193,6 +193,7 @@
       "help.shield.bonus.1": "Posez immédiatement un second viking en respectant les règles de pose.",
       "help.shield.bonus.2": "Lorsque vous posez votre viking, gagnez deux ressources au lieu d’une.",
       "help.shield.bonus.3": "Posez votre viking sur une case ressource où se trouve un autre viking.",
+      "help.shield.bonus.use": "<shield>Utiliser ce bouclier</shield>",
       "help.trophy": "Trophée",
       "help.trophy.descr.1": "À la fin de votre tour, vous pouvez prendre un trophée.",
       "help.trophy.descr.2": "Attention, vous ne pourrez prendre qu’un seul trophée pour toute la partie et chaque trophée est unique.",

@@ -1,7 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { LoootRules } from '@gamepark/looot/LoootRules'
-import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { RuleId } from '@gamepark/looot/rules/RuleId'
+import { PlayMoveButton, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { Trans } from 'react-i18next'
+import displayRulesHelp = MaterialMoveBuilder.displayRulesHelp
 
 export const PlaceVikingHeader = () => {
   const player = usePlayerId()
@@ -11,7 +14,14 @@ export const PlaceVikingHeader = () => {
   const name = usePlayerName(activePlayer)
 
   if (itsMe) {
-    return <Trans defaults="header.place.viking.you" />
+    return (
+      <Trans
+        defaults="header.place.viking.you"
+        components={{
+          shield: <PlayMoveButton move={displayRulesHelp(RuleId.PlaceViking)} transient />
+        }}
+      />
+    )
   }
 
   return <Trans defaults="header.place.viking.player" values={{ player: name }} />

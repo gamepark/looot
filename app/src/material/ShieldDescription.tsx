@@ -1,10 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { LocationType } from '@gamepark/looot/material/LocationType'
-import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { Shield } from '@gamepark/looot/material/Shield'
 import { PlayerColor } from '@gamepark/looot/PlayerColor'
-import { ItemContext, TokenDescription } from '@gamepark/react-game'
-import { isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { TokenDescription } from '@gamepark/react-game'
+import { MaterialItem } from '@gamepark/rules-api'
 import PlayAgainBlue from '../images/boucliers/bleu1.jpg'
 import DoubleGainBlue from '../images/boucliers/bleu2.jpg'
 import PlaceOnOccupiedSpaceBlue from '../images/boucliers/bleu3.jpg'
@@ -40,15 +38,6 @@ export class ShieldDescription extends TokenDescription {
   }
 
   help = ShieldHelp
-
-  canShortClick(move: MaterialMove, context: ItemContext): boolean {
-    return (
-      isMoveItemType(MaterialType.Shield)(move) &&
-      move.location.type === LocationType.FjordBoardHexSpace &&
-      move.location.player === context.player &&
-      move.itemIndex === context.index
-    )
-  }
 }
 
 const backImages = {
