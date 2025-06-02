@@ -88,10 +88,10 @@ export class LandscapeHelper extends MaterialRulesPart {
     const locations: Location[] = []
     for (let i = 0; i < this.landscape.length; i++) {
       for (let j = 0; j < this.landscape[i].length; j++) {
-        if(this.landscape[i][j] === type) {
+        if (this.landscape[i][j] === type) {
           const x = j - Math.abs(this.xMin)
           const y = i - Math.abs(this.yMin)
-          locations.push({type: LocationType.Landscape, x, y})
+          locations.push({ type: LocationType.Landscape, x, y })
         }
       }
     }

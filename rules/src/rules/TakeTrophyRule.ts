@@ -7,7 +7,7 @@ import { RuleId } from './RuleId'
 
 export class TakeTrophyRule extends PlayerTurnRule {
   onRuleStart(): MaterialMove[] {
-    if(this.eligiblesTrophies.length === 0 || this.playerTrophy.length > 0) {
+    if (this.eligiblesTrophies.length === 0 || this.playerTrophy.length > 0) {
       return [this.startRule(RuleId.PlaceViking)]
     }
     return []

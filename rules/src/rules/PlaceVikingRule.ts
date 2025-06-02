@@ -44,7 +44,7 @@ export class PlaceVikingRule extends PlayerTurnRule {
       moves.push(...this.buildingHelper.checkAndGetHouse(move.location as Location))
       moves.push(...this.buildingHelper.checkAndGetTower())
       moves.push(...this.buildingHelper.checkAndGetCastle())
-      if(this.selectedShields?.includes(Shield.PlayAgain)) {
+      if (this.selectedShields?.includes(Shield.PlayAgain)) {
         moves.push(this.startRule(RuleId.PlaceViking))
       } else {
         moves.push(this.startRule(RuleId.PlaceResource))

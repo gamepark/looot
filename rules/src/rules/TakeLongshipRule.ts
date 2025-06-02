@@ -36,7 +36,7 @@ export class TakeLongshipRule extends PlayerTurnRule {
   }
 
   onCustomMove(move: CustomMove): MaterialMove[] {
-    if(isCustomMoveType(CustomMoveType.Pass)(move)) {
+    if (isCustomMoveType(CustomMoveType.Pass)(move)) {
       return [this.startRule(RuleId.TakeTrophy)]
     }
     return []
