@@ -50,7 +50,7 @@ export class LandscapeHelper extends MaterialRulesPart {
     }
   }
 
-  getPossiblePlaces(): Location[] {
+  getPossiblePlaces(canPlaceOnOccupedPlace: boolean): Location[] {
     const drakkars = this.material(MaterialType.Longship).location(LocationType.Landscape).getItems()
     const vikings = this.material(MaterialType.Viking).location(LocationType.Landscape).getItems()
     const places: Location[] = []
@@ -75,7 +75,7 @@ export class LandscapeHelper extends MaterialRulesPart {
       .filter((it) => (it.y ?? 0) >= this.yMin && (it.y ?? 0) <= this.yMax)
       .filter((it) => (it.x ?? 0) >= this.xMin && (it.x ?? 0) <= this.xMax)
       .filter((it) => this.isEligiblePlace(it.x ?? 0, it.y ?? 0))
-      .filter((it) => this.placeIsEmpty(it.x ?? 0, it.y ?? 0))
+      .filter((it) => canPlaceOnOccupedPlace || this.placeIsEmpty(it.x ?? 0, it.y ?? 0))
   }
 
   getLandscapeCaseType(x: number, y: number): number | undefined {

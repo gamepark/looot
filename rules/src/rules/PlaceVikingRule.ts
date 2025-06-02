@@ -1,8 +1,10 @@
 import { isMoveItemType, ItemMove, Location, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { getShieldType, Shield } from '../material/Shield'
 import { BuildingHelper } from './helpers/BuildingHelper'
 import { LandscapeHelper } from './helpers/LandscapeHelper'
+import { MemoryType } from './Memory'
 import { RuleId } from './RuleId'
 
 export class PlaceVikingRule extends PlayerTurnRule {
@@ -10,10 +12,21 @@ export class PlaceVikingRule extends PlayerTurnRule {
   buildingHelper = new BuildingHelper(this.game)
   getPlayerMoves(): MaterialMove[] {
     const moves: MaterialMove[] = []
-    this.landscapeHelper.getPossiblePlaces().forEach((place) => {
+    this.landscapeHelper.getPossiblePlaces(this.selectedShields?.includes(Shield.PlaceOnOccupiedSpace) ?? false).forEach((place) => {
       moves.push(...this.playerVikings.moveItems(place))
     })
+    moves.push(...this.playerShields.moveItems((item) => ({ ...item.location, rotation: true })))
     return moves
+  }
+
+  beforeItemMove(move: ItemMove): MaterialMove[] {
+    if (isMoveItemType(MaterialType.Shield)(move)) {
+      const shieldId: number | undefined = this.material(MaterialType.Shield).index(move.itemIndex).getItem()?.id
+      if (shieldId === undefined) return []
+      const shieldType = getShieldType(shieldId)
+      this.memorize(MemoryType.PlayerSelectedShield, (oldValue?: Shield[]) => (oldValue ? [...oldValue, shieldType] : [shieldType]), this.player)
+    }
+    return []
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {
@@ -23,15 +36,37 @@ export class PlaceVikingRule extends PlayerTurnRule {
       moves.push(
         this.material(MaterialType.ResourceTile).createItem({ id: resource, location: { type: LocationType.PlayerResourcesIdleLayout, player: this.player } })
       )
+      if (this.selectedShields?.includes(Shield.DoubleGain)) {
+        moves.push(
+          this.material(MaterialType.ResourceTile).createItem({ id: resource, location: { type: LocationType.PlayerResourcesIdleLayout, player: this.player } })
+        )
+      }
       moves.push(...this.buildingHelper.checkAndGetHouse(move.location as Location))
       moves.push(...this.buildingHelper.checkAndGetTower())
       moves.push(...this.buildingHelper.checkAndGetCastle())
-      moves.push(this.startRule(RuleId.PlaceResource))
+      if(this.selectedShields?.includes(Shield.PlayAgain)) {
+        moves.push(this.startRule(RuleId.PlaceViking))
+      } else {
+        moves.push(this.startRule(RuleId.PlaceResource))
+      }
     }
     return moves
   }
 
+  onRuleEnd(): MaterialMove[] {
+    this.forget(MemoryType.PlayerSelectedShield, this.player)
+    return []
+  }
+
   get playerVikings() {
     return this.material(MaterialType.Viking).location(LocationType.PlayerVikingPile).player(this.player)
+  }
+
+  get playerShields() {
+    return this.material(MaterialType.Shield).location(LocationType.FjordBoardHexSpace).player(this.player).rotation(undefined)
+  }
+
+  get selectedShields(): Shield[] | undefined {
+    return this.remind(MemoryType.PlayerSelectedShield, this.player) ?? []
   }
 }
