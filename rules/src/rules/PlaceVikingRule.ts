@@ -10,6 +10,14 @@ import { RuleId } from './RuleId'
 export class PlaceVikingRule extends PlayerTurnRule {
   landscapeHelper = new LandscapeHelper(this.game)
   buildingHelper = new BuildingHelper(this.game)
+
+  onRuleStart(): MaterialMove[] {
+    if (this.playerVikings.length === 0) {
+      return [this.startPlayerTurn(RuleId.PlaceViking, this.nextPlayer)]
+    }
+    return []
+  }
+
   getPlayerMoves(): MaterialMove[] {
     const moves: MaterialMove[] = []
     this.landscapeHelper.getPossiblePlaces(this.selectedShields?.includes(Shield.PlaceOnOccupiedSpace) ?? false).forEach((place) => {

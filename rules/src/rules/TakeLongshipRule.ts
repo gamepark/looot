@@ -28,10 +28,16 @@ export class TakeLongshipRule extends PlayerTurnRule {
     return moves
   }
 
-  afterItemMove(_: ItemMove): MaterialMove[] {
+  afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
-    moves.push(...this.fjordBoardHelper.checkLongship())
-    moves.push(this.startRule(RuleId.TakeTrophy))
+    if (!isMoveItemType(MaterialType.Longship)(move)) return moves
+
+    if (move.location.type === LocationType.FjordBoardHexSpace) {
+      moves.push(...this.fjordBoardHelper.checkLongship())
+    }
+    if (move.location.type === LocationType.Landscape) {
+      moves.push(this.startRule(RuleId.TakeTrophy))
+    }
     return moves
   }
 

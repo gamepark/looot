@@ -122,6 +122,7 @@
       "header.take.longship.you": "Vous pouvez récupérer un drakkar ou <pass>Passer</pass>",
       "header.take.longship.player": "{player} peut récupérer un drakkar",
       "header.take.trophy.you": "Vous pouvez récupérer un trophée ou <pass>Passer</pass>",
+      "header.take.trophy.pass": "Vous ne pouvez pas récupérer de trophée : <pass>Passer</pass>",
       "header.take.trophy.player": "{player} peut récupérer un trophée",
       "help.building.tile": "Tuiles batiments",
       "help.building.tile.descr.5": "Il y a 3 types de batiments différents, les maisons, les <tower>tours</tower> et les <castle>chateaux</castle>.",
