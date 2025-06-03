@@ -1,8 +1,20 @@
-import { hideItemId, isMoveItem, ItemMove, MaterialGame, MaterialMove, PositiveSequenceStrategy, SecretMaterialRules, TimeLimit } from '@gamepark/rules-api'
+import {
+  CompetitiveScore,
+  hideItemId,
+  isMoveItem,
+  ItemMove,
+  MaterialGame,
+  MaterialMove,
+  PositiveSequenceStrategy,
+  SecretMaterialRules, StakingStrategy,
+  TimeLimit
+} from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
+import { Trophy, trophyValue } from './material/Trophy'
 import { PlayerColor } from './PlayerColor'
 import { ScoreHelper } from './rules/helpers/ScoreHelper'
+import { MemoryType } from './rules/Memory'
 import { PlaceResourceRule } from './rules/PlaceResourceRule'
 import { PlaceVikingRule } from './rules/PlaceVikingRule'
 import { RuleId } from './rules/RuleId'
@@ -13,10 +25,7 @@ import { TakeTrophyRule } from './rules/TakeTrophyRule'
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
-export class LoootRules
-  extends SecretMaterialRules<PlayerColor, MaterialType, LocationType>
-  implements TimeLimit<MaterialGame<PlayerColor, MaterialType, LocationType>, MaterialMove<PlayerColor, MaterialType, LocationType>, PlayerColor>
-{
+export class LoootRules extends SecretMaterialRules implements TimeLimit<MaterialGame, MaterialMove, PlayerColor>, CompetitiveScore {
   scoreHelper = new ScoreHelper(this.game)
   rules = {
     [RuleId.PlaceViking]: PlaceVikingRule,
@@ -31,6 +40,9 @@ export class LoootRules
     },
     [MaterialType.ResourceTile]: {
       [LocationType.PlayerResourcesIdleLayout]: new PositiveSequenceStrategy()
+    },
+    [MaterialType.Viking]: {
+      [LocationType.Landscape]: new StakingStrategy()
     }
   }
 
@@ -49,5 +61,18 @@ export class LoootRules
 
   giveTime(): number {
     return 60
+  }
+
+  getScore(playerId: PlayerColor): number {
+    return this.remind(MemoryType.PlayerScore, playerId)
+  }
+
+  getTieBreaker(tieBreaker: number, playerId: PlayerColor): number | undefined {
+    if (tieBreaker === 1) {
+      const playerTrophy = this.material(MaterialType.Trophy).location(LocationType.FjordBoardHexSpace).player(playerId).getItem()
+      if (!playerTrophy) return 0
+      return trophyValue[playerTrophy.id as Trophy]
+    }
+    return undefined
   }
 }

@@ -18,12 +18,12 @@ class LandscapeLocator extends HexagonalGridLocator {
   getItemCoordinates(item: MaterialItem, context: ItemContext) {
     const { x = 0, y = 0 } = super.getItemCoordinates(item, context)
     const isBoard = context.type === MaterialType.LandscapeBoard || context.type === MaterialType.TrophyBoard || context.type === MaterialType.OceanBoard
-    const z = isBoard ? 0 : 0.2
+    const z = isBoard ? 0 : (item.location.z ?? 0)
     if (context.type === MaterialType.Viking) {
       return {
-        x: x - 0.3 + context.displayIndex * 0.7,
-        y: y - 0.3 + context.displayIndex * 0.7,
-        z: z + context.displayIndex * 0.1
+        x: x - 0.3 + z * 0.7,
+        y: y - 0.3 + z * 0.7,
+        z: z
       }
     }
     if (context.type === MaterialType.BuildingTile) {
