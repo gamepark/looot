@@ -10,9 +10,10 @@ class LandscapeLocator extends HexagonalGridLocator {
   coordinatesSystem = HexGridSystem.EvenQ
   size = 1.92
 
-  getCoordinates(_: Location, { rules }: MaterialContext) {
-    const { xMin, xMax, yMin, yMax } = new LandscapeHelper(rules.game)
-    return { x: -(xMax + xMin - 1) * 0.75 * this.size, y: -(yMax + yMin - 2) * (Math.sqrt(3) / 2) * this.size }
+  getCoordinates(_: Location, context: MaterialContext) {
+    const landscape = new LandscapeHelper(context.rules.game).landscape
+    const { xMin, xMax, yMin, yMax } = this.getBoundaries(landscape)
+    return { x: -(xMin + xMax) / 2, y: -(yMin + yMax) / 2 }
   }
 
   getItemCoordinates(item: MaterialItem, context: ItemContext) {
@@ -37,9 +38,8 @@ class LandscapeLocator extends HexagonalGridLocator {
   }
 
   getLandscapeSize(game: MaterialGame) {
-    const helper = new LandscapeHelper(game)
-    const { x: xMin, y: yMin } = this.getHexagonPosition({ x: helper.xMin, y: helper.yMin })
-    const { x: xMax, y: yMax } = this.getHexagonPosition({ x: helper.xMax, y: helper.yMax })
+    const landscape = new LandscapeHelper(game).landscape
+    const { xMin, xMax, yMin, yMax } = this.getBoundaries(landscape)
     return { width: xMax - xMin, height: yMax - yMin }
   }
 

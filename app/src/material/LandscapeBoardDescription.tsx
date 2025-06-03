@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { LandscapeBoard, landscapeBoards } from '@gamepark/looot/material/LandscapeBoard'
+import { getLandscape, LandscapeBoard } from '@gamepark/looot/material/LandscapeBoard'
 import { PolyhexDescription } from '@gamepark/react-game'
-import { HexGridSystem } from '@gamepark/rules-api'
+import { HexGridSystem, Polyhex } from '@gamepark/rules-api'
 import Board1 from '../images/plateaux/plateau1.png'
 import Board2 from '../images/plateaux/plateau2.png'
 import Board3 from '../images/plateaux/plateau3.png'
@@ -16,8 +16,7 @@ export class LandscapeBoardDescription extends PolyhexDescription {
   height = 18.46
   width = 21.1
   images = images
-  coordinatesSystem = HexGridSystem.EvenQ
-  polyhexShape = landscapeBoards[LandscapeBoard.LandscapeBoard1] // All boards have the same shape
+  polyhex = new Polyhex(getLandscape(LandscapeBoard.LandscapeBoard1), { system: HexGridSystem.EvenQ }) // All boards have the same shape
 
   help = LandscapeBoardHelp
 }
