@@ -23,7 +23,7 @@ export const GameDisplay = ({ game }: Props) => {
   const yMin = -yMax
 
   const getNavigationCss = () => {
-    if (players < 3) {
+    if (players < 4) {
       return css`
         left: 1em;
         top: 8em;

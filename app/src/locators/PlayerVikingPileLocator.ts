@@ -10,8 +10,16 @@ class PlayerVikingPileLocator extends ListLocator {
   getCoordinates(location: Location, context: MaterialContext) {
     const { x = 0, y = 0 } = fjordBoardLocator.getCoordinates(location, context)
     const index = getRelativePlayerIndex(context, location.player)
-    const deltaX = index % 2 ? -14 : 14
-    return { x: x + deltaX, y: y - 11 }
+    const deltaX = 14
+    switch (context.rules.game.players.length) {
+      case 2:
+        return { x: x + (index === 0 ? deltaX : -deltaX), y: y - 11 }
+      case 3:
+        return { x: x + (index === 0 ? deltaX : -deltaX), y: y - 11 }
+      case 4:
+      default:
+        return { x: x + (index <= 1 ? deltaX : -deltaX), y: y - 11 }
+    }
   }
 }
 

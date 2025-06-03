@@ -16,7 +16,7 @@ class BagLocator extends Locator {
         this.coordinatesCache = { x: 28, y: -13 }
         break
       case 3:
-        this.coordinatesCache = { x: 40, y: -13 }
+        this.coordinatesCache = { x: -50, y: -13 }
         break
       default: {
         const landscape = new LandscapeHelper(context.rules.game).landscape

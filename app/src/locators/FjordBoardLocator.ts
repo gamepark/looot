@@ -13,10 +13,10 @@ class FjordBoardLocator extends Locator {
       case 2:
         return { x: index === 1 ? deltaX : -deltaX, y: 5 }
       case 3:
-        return { x: index === 1 ? deltaX : -deltaX, y: index === 2 ? -13 : 13 }
+        return { x: index === 0 ? -deltaX : deltaX, y: index === 1 ? -13 : 13 }
       case 4:
       default:
-        return { x: index % 2 ? deltaX : -deltaX, y: index < 2 ? 13 : -13 }
+        return { x: index <= 1 ? -deltaX : deltaX, y: index % 3 ? -13 : 13 }
     }
   }
 }

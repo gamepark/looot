@@ -25,7 +25,7 @@ export const PlayerPanels = () => {
         <StyledPlayerPanel
           key={player.id}
           player={player}
-          css={panelPosition(index)}
+          css={panelPosition(index, players.length)}
           counters={[
             {
               image: Star,
@@ -40,17 +40,45 @@ export const PlayerPanels = () => {
   )
 }
 
-const panelPosition = (index: number) => css`
+const panelPosition = (index: number, nbPlayers: number) => css`
   position: absolute;
   width: 28em;
   height: 8.3em;
   border: 0;
-  ${panelPositionsByPlayerIndex[index]};
+  ${getPanelPositionsByPlayerIndex(index, nbPlayers)};
 `
-const panelPositionsByPlayerIndex = [
+
+const getPanelPositionsByPlayerIndex = (index: number, nbPlayers: number) => {
+  switch (nbPlayers) {
+    case 2:
+      return panelPositionsByPlayerIndexFor2[index]
+    case 3:
+      return panelPositionsByPlayerIndexFor3[index]
+    case 4:
+    default:
+      return panelPositionsByPlayerIndexFor4[index]
+  }
+}
+
+const panelPositionsByPlayerIndexFor2 = [
   css`
     bottom: 1em;
     left: 1em;
+  `,
+  css`
+    bottom: 1em;
+    right: 1em;
+  `
+]
+
+const panelPositionsByPlayerIndexFor3 = [
+  css`
+    bottom: 1em;
+    left: 1em;
+  `,
+  css`
+    top: 8.5em;
+    right: 1em;
   `,
   css`
     bottom: 1em;
@@ -59,9 +87,24 @@ const panelPositionsByPlayerIndex = [
   css`
     top: 8.5em;
     left: 1em;
+  `
+]
+
+const panelPositionsByPlayerIndexFor4 = [
+  css`
+    bottom: 1em;
+    left: 1em;
   `,
   css`
     top: 8.5em;
+    left: 1em;
+  `,
+  css`
+    top: 8.5em;
+    right: 1em;
+  `,
+  css`
+    bottom: 1em;
     right: 1em;
   `
 ]
