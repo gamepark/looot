@@ -2,7 +2,7 @@
 import { css } from '@emotion/react'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { DropAreaDescription, HexagonalGridLocator } from '@gamepark/react-game'
-import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
+import { ItemContext, MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
 import { HexGridSystem, Location, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 
 class FjordBoardHexSpaceLocator extends HexagonalGridLocator {
@@ -23,6 +23,14 @@ class FjordBoardHexSpaceLocator extends HexagonalGridLocator {
   }
 
   locationDescription = new FjordBoardHexDropDescription()
+
+  getHoverTransform = (_: MaterialItem, context: ItemContext) => {
+    const typesToScale = [MaterialType.Longship, MaterialType.ConstructionSiteTile]
+    if (typesToScale.includes(context.type)) {
+      return ['translateZ(10em)', 'scale(3.5)']
+    }
+    return []
+  }
 }
 
 class FjordBoardHexDropDescription extends DropAreaDescription {
