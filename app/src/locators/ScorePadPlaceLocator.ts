@@ -6,17 +6,17 @@ import { Location, XYCoordinates } from '@gamepark/rules-api'
 import { range } from 'lodash'
 import { landscapeLocator } from './LandscapeLocator'
 
-class BagLocator extends Locator {
+class ScorePadPlaceLocator extends Locator {
   coordinatesCache?: XYCoordinates
 
   getCoordinates(_: Location, context: MaterialContext) {
     if (this.coordinatesCache) return this.coordinatesCache
     switch (context.rules.players.length) {
       case 2:
-        this.coordinatesCache = { x: 28, y: -13 }
+        this.coordinatesCache = { x: 38, y: -13 }
         break
       case 3:
-        this.coordinatesCache = { x: -40, y: -5 }
+        this.coordinatesCache = { x: -30, y: -15 }
         break
       default: {
         const landscape = new LandscapeHelper(context.rules.game).landscape
@@ -46,4 +46,4 @@ class BagLocator extends Locator {
   }
 }
 
-export const bagLocator = new BagLocator()
+export const scorePadPlaceLocator = new ScorePadPlaceLocator()

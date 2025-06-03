@@ -19,7 +19,7 @@ class ResourceTilesDeckLocator extends DeckLocator {
           this.coordinatesCache = { x: -28, y: -13 }
           break
         case 3:
-          this.coordinatesCache = { x: -42, y: -13 }
+          this.coordinatesCache = { x: -30, y: -5 }
           break
         default: {
           const landscape = new LandscapeHelper(context.rules.game).landscape

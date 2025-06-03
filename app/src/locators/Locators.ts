@@ -9,6 +9,8 @@ import { landscapeLocator } from './LandscapeLocator'
 import { longshipsPileLocator } from './longshipsPileLocator'
 import { playerVikingPileLocator } from './PlayerVikingPileLocator'
 import { resourceTilesDeckLocator } from './ResourceTilesDeckLocator'
+import { scorePadBoxLocator } from './ScorePadBoxLocator'
+import { scorePadPlaceLocator } from './ScorePadPlaceLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<PlayerColor, MaterialType, LocationType>>> = {
   [LocationType.Landscape]: landscapeLocator,
@@ -17,5 +19,7 @@ export const Locators: Partial<Record<LocationType, Locator<PlayerColor, Materia
   [LocationType.Bag]: bagLocator,
   [LocationType.FjordBoard]: fjordBoardLocator,
   [LocationType.FjordBoardHexSpace]: fjordBoardHexSpaceLocator,
-  [LocationType.PlayerVikingPile]: playerVikingPileLocator
+  [LocationType.PlayerVikingPile]: playerVikingPileLocator,
+  [LocationType.ScorePadPlace]: scorePadPlaceLocator,
+  [LocationType.ScorePadBox]: scorePadBoxLocator
 }

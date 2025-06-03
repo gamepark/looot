@@ -58,7 +58,7 @@ export class PlaceVikingRule extends PlayerTurnRule {
       this.memorize(MemoryType.BuildingToGet, (oldValue?: number[]) =>
         oldValue ? [...oldValue, ...this.buildingHelper.checkAndGetCastle()] : this.buildingHelper.checkAndGetCastle()
       )
-      if (this.selectedShields?.includes(Shield.PlayAgain)) {
+      if (this.selectedShields?.includes(Shield.PlayAgain) && this.playerVikings.length) {
         moves.push(this.startRule(RuleId.PlaceViking))
       } else {
         moves.push(this.startRule(RuleId.PlaceResource))

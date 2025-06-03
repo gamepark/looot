@@ -21,6 +21,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getTotalScore() {
+    console.log(this.player)
     return this.getResourcesScore() + this.getBuildingssScore() + this.getConstructionSiteScore() + this.getTrophyScore() - this.getNotReturnedLongshipMalus()
   }
 

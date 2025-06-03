@@ -10,5 +10,6 @@ export enum MaterialType {
   FjordBoard,
   Shield,
   Viking,
-  ConstructionSiteTile
+  ConstructionSiteTile,
+  ScorePad,
 }
