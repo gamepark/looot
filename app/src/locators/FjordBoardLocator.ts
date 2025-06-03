@@ -5,11 +5,6 @@ import { Coordinates, Location } from '@gamepark/rules-api'
 import { landscapeLocator } from './LandscapeLocator'
 
 class FjordBoardLocator extends Locator {
-  getRotateZ(location: Location, context: MaterialContext): number {
-    const index = getRelativePlayerIndex(context, location.player)
-    return index >= 2 ? 180 : 0
-  }
-
   getCoordinates(location: Location, context: MaterialContext): Partial<Coordinates> {
     const landscapeSize = landscapeLocator.getLandscapeSize(context.rules.game)
     const index = getRelativePlayerIndex(context, location.player)
