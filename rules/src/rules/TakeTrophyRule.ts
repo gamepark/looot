@@ -6,11 +6,9 @@ import { CustomMoveType } from './CustomMove'
 import { RuleId } from './RuleId'
 
 export class TakeTrophyRule extends PlayerTurnRule {
-
   getPlayerMoves(): MaterialMove[] {
-    console.log("coucou")
     const moves: MaterialMove[] = []
-    if(this.playerTrophy.length === 0) {
+    if (this.playerTrophy.length === 0) {
       moves.push(...this.eligiblesTrophies.moveItems({ type: LocationType.FjordBoardHexSpace, x: 1, y: 1, player: this.player }))
     }
     moves.push(this.customMove(CustomMoveType.Pass))
@@ -19,7 +17,7 @@ export class TakeTrophyRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
-    if(isMoveItemType(MaterialType.Trophy)(move)) {
+    if (isMoveItemType(MaterialType.Trophy)(move)) {
       moves.push(this.startNext())
     }
     return moves

@@ -11,5 +11,5 @@ export enum MaterialType {
   Shield,
   Viking,
   ConstructionSiteTile,
-  ScorePad,
+  ScorePad
 }

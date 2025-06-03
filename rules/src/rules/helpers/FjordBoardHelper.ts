@@ -82,8 +82,8 @@ const checkIfAllNeededTilesIsAround = (needed: number[], actuals: number[]) => {
   if (actuals.length < needed.length) return false
 
   const res = []
-  for (let i = 0; i < needed.length; i++) {
-    const index = actuals.findIndex((it) => it === needed[i])
+  for (const item of needed) {
+    const index = actuals.findIndex((it) => it === item)
     if (index !== -1) {
       res.push(...actuals.splice(index, 1))
     }
