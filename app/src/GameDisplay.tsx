@@ -1,27 +1,26 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { GameTable, GameTableNavigation } from '@gamepark/react-game'
-import { FC } from 'react'
+import { MaterialGame } from '@gamepark/rules-api'
+import { landscapeLocator } from './locators/LandscapeLocator'
+import { fjordBoardDescription } from './material/FjordBoardDescription'
 import { PlayerPanels } from './panels/PlayerPanels'
 
-type GameDisplayProps = {
-  players: number
+type Props = {
+  game: MaterialGame
 }
 
-export const GameDisplay: FC<GameDisplayProps> = ({ players }: GameDisplayProps) => {
+export const GameDisplay = ({ game }: Props) => {
   const margin = { top: 7, left: 0, right: 0, bottom: 0 }
-
-  const getTableWidth = (): { xMin: number; xMax: number; yMin: number; yMax: number } => {
-    switch (players) {
-      case 2:
-        return { xMin: -50, xMax: 50, yMin: -17, yMax: 30 }
-      case 3:
-        return { xMin: -55, xMax: 55, yMin: -35, yMax: 35 }
-      case 4:
-      default:
-        return { xMin: -60, xMax: 60, yMin: -35, yMax: 35 }
-    }
-  }
+  const players = game.players.length
+  const landscapeSize = landscapeLocator.getLandscapeSize(game)
+  const horizontalSpaceForPlayers = fjordBoardDescription.width + 5
+  const verticalSpaceForPlayer = fjordBoardDescription.height
+  const verticalSpaceForPlayers = players === 2 ? verticalSpaceForPlayer : verticalSpaceForPlayer * 2 + 2
+  const xMax = landscapeSize.width / 2 + horizontalSpaceForPlayers + 1
+  const xMin = -xMax
+  const yMax = Math.max(landscapeSize.height / 2, verticalSpaceForPlayers / 2) + 1
+  const yMin = -yMax
 
   const getNavigationCss = () => {
     if (players < 3) {
@@ -38,14 +37,7 @@ export const GameDisplay: FC<GameDisplayProps> = ({ players }: GameDisplayProps)
 
   return (
     <>
-      <GameTable
-        xMin={getTableWidth().xMin}
-        xMax={getTableWidth().xMax}
-        yMin={getTableWidth().yMin}
-        yMax={getTableWidth().yMax}
-        margin={margin}
-        css={process.env.NODE_ENV === 'development' && tableBorder}
-      >
+      <GameTable xMin={xMin} xMax={xMax} yMin={yMin} yMax={yMax} margin={margin} css={process.env.NODE_ENV === 'development' && tableBorder}>
         <GameTableNavigation css={getNavigationCss()} />
         <PlayerPanels />
       </GameTable>

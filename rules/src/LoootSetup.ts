@@ -109,10 +109,10 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
   }
 
   createBuildingTiles() {
-    const landscapeHelper = new LandscapeHelper(this.game)
-    const { xMin, yMin } = landscapeHelper
-    for (let y = 0; y < landscapeHelper.landscape.length; y++) {
-      const line = landscapeHelper.landscape[y]
+    const landscape = new LandscapeHelper(this.game).landscape
+    const { xMin, yMin } = landscape
+    for (let y = 0; y < landscape.grid.length; y++) {
+      const line = landscape.grid[y]
       for (let x = 0; x < line.length; x++) {
         const land = line[x]
         if (land && isBuilding(land)) {

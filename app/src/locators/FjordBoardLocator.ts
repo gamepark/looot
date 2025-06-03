@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { getRelativePlayerIndex, Locator } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
-import { Coordinates, Location, XYCoordinates } from '@gamepark/rules-api'
+import { Coordinates, Location } from '@gamepark/rules-api'
+import { landscapeLocator } from './LandscapeLocator'
 
 class FjordBoardLocator extends Locator {
   getRotateZ(location: Location, context: MaterialContext): number {
@@ -10,35 +11,19 @@ class FjordBoardLocator extends Locator {
   }
 
   getCoordinates(location: Location, context: MaterialContext): Partial<Coordinates> {
+    const landscapeSize = landscapeLocator.getLandscapeSize(context.rules.game)
     const index = getRelativePlayerIndex(context, location.player)
+    const deltaX = landscapeSize.width / 2 + 17
     switch (context.rules.game.players.length) {
       case 2:
-        return playersPositionFor2[index]
+        return { x: index === 1 ? deltaX : -deltaX }
       case 3:
-        return playersPositionFor3[index]
+        return { x: index === 1 ? deltaX : -deltaX, y: index === 2 ? -13 : 13 }
       case 4:
       default:
-        return playersPositionFor4[index]
+        return { x: index % 2 ? deltaX : -deltaX, y: index < 2 ? 13 : -13 }
     }
   }
 }
-
-const playersPositionFor2: XYCoordinates[] = [
-  { x: -36, y: 10 },
-  { x: 36, y: 10 }
-]
-
-const playersPositionFor3: XYCoordinates[] = [
-  { x: -40, y: 15 },
-  { x: 40, y: 15 },
-  { x: -40, y: -15 }
-]
-
-const playersPositionFor4: XYCoordinates[] = [
-  { x: -45, y: 15 },
-  { x: 45, y: 15 },
-  { x: -45, y: -15 },
-  { x: 45, y: -15 }
-]
 
 export const fjordBoardLocator = new FjordBoardLocator()
