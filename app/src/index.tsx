@@ -10,6 +10,7 @@ import App from './App'
 import { RulesHelp } from './dialogs/RulesHelp'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
+import { LoootScoringDescription } from './scoring/LoootScoringDescription'
 import translations from './translations.json'
 
 setupTranslation(translations, { debug: false })
@@ -20,6 +21,7 @@ ReactDOM.render(
       game="looot"
       Rules={LoootRules}
       rulesHelp={RulesHelp}
+      scoring={new LoootScoringDescription()}
       optionsSpec={LoootOptionsSpec}
       GameSetup={LoootSetup}
       material={Material}
