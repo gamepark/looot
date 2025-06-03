@@ -1,4 +1,4 @@
-import { Location, MaterialGame, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
+import { Location, MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
 import { CastleHelper } from './buildings/CastleHelper'
 import { HouseHelper } from './buildings/HouseHelper'
 import { WatchTowerHelper } from './buildings/WatchTowerHelper'
@@ -16,15 +16,15 @@ export class BuildingHelper extends MaterialRulesPart {
     super(game)
   }
 
-  checkAndGetHouse(moveLocation: Location): MaterialMove[] {
+  checkAndGetHouse(moveLocation: Location): number[] {
     return this.houseHelper.checkAndGetHouse(moveLocation)
   }
 
-  checkAndGetTower(): MaterialMove[] {
+  checkAndGetTower(): number[] {
     return this.watchTowerHelper.checkAndGetTower()
   }
 
-  checkAndGetCastle(): MaterialMove[] {
+  checkAndGetCastle(): number[] {
     return this.castleHelper.checkAndGetCastle()
   }
 }

@@ -1,4 +1,4 @@
-import { Location, MaterialGame, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
+import { Location, MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
 import { Building } from '../../../material/Building'
 import { PlayerColor } from '../../../PlayerColor'
 import { LandscapeHelper } from '../LandscapeHelper'
@@ -15,15 +15,15 @@ export class HouseHelper extends MaterialRulesPart {
     this.landscapeHelper = landscapeHelper
   }
 
-  checkAndGetHouse(moveLocation: Location): MaterialMove[] {
+  checkAndGetHouse(moveLocation: Location): number[] {
     const neighbors = getNeighbors(moveLocation)
-    const moves: MaterialMove[] = []
+    const houses: number[] = []
     for (const neighbor of neighbors) {
       const neighborType = this.landscapeHelper.getLandscapeCaseType(neighbor.x, neighbor.y)
       if (neighborType === Building.House) {
-        moves.push(...this.landscapeHelper.checkIfTileInCaseAndMoveIt(neighbor.x, neighbor.y, this.player!))
+        houses.push(...this.landscapeHelper.checkIfTileInCaseAndReturnIndex(neighbor.x, neighbor.y))
       }
     }
-    return moves
+    return houses
   }
 }

@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { LocationType } from '@gamepark/looot/material/LocationType'
 import { Resource } from '@gamepark/looot/material/Resource'
 import Wood from '../images/ressources/bois.png'
 import Axe from '../images/ressources/haches.png'
@@ -14,13 +13,6 @@ export class ResourceTileDescription extends HexagoneDescription {
 
   images = images
 
-  stockLocation = { type: LocationType.ResourceTilesPile }
-  staticItems = [
-    { quantity: 20, location: { ...this.stockLocation, id: Resource.Axe }, id: Resource.Axe },
-    { quantity: 20, location: { ...this.stockLocation, id: Resource.Gold }, id: Resource.Gold },
-    { quantity: 25, location: { ...this.stockLocation, id: Resource.Sheep }, id: Resource.Sheep },
-    { quantity: 25, location: { ...this.stockLocation, id: Resource.Wood }, id: Resource.Wood }
-  ]
   help = ResourceTileHelp
 }
 

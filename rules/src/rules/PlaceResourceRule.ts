@@ -1,6 +1,6 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { LocationType } from '../material/LocationType'
+import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
 import { MaterialType } from '../material/MaterialType'
+import { MemoryType } from './Memory'
 import { RuleId } from './RuleId'
 import { FjordBoardHelper } from './helpers/FjordBoardHelper'
 
@@ -10,10 +10,33 @@ export class PlaceResourceRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
     const moves: MaterialMove[] = []
     this.fjordBoardHelper.getPossiblePlaces().forEach((place) => {
-      moves.push(...this.playerResourceTiles.moveItems(place))
-      moves.push(...this.playerBuildingTiles.moveItems(place))
+      this.playerResourceTiles.forEach((tile) => {
+        moves.push(this.material(MaterialType.ResourceTile).index(tile).moveItem(place))
+      })
+      this.playerBuildingTiles.forEach((tile) => {
+        moves.push(this.material(MaterialType.BuildingTile).index(tile).moveItem(place))
+      })
+      //moves.push(...this.playerBuildingTiles.moveItems(place))
     })
     return moves
+  }
+
+  beforeItemMove(move: ItemMove, _context?: PlayMoveContext): MaterialMove[] {
+    if (isMoveItemType(MaterialType.ResourceTile)(move)) {
+      this.memorize(MemoryType.ResourcesToGet, (oldValue: number[]) => {
+        const index = oldValue.findIndex((it) => it === move.itemIndex)
+        if (index === -1) return oldValue
+        return [...oldValue.slice(0, index), ...oldValue.slice(index + 1)]
+      })
+    }
+    if (isMoveItemType(MaterialType.BuildingTile)(move)) {
+      this.memorize(MemoryType.BuildingToGet, (oldValue: number[]) => {
+        const index = oldValue.findIndex((it) => it === move.itemIndex)
+        if (index === -1) return oldValue
+        return [...oldValue.slice(0, index), ...oldValue.slice(index + 1)]
+      })
+    }
+    return []
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {
@@ -29,10 +52,12 @@ export class PlaceResourceRule extends PlayerTurnRule {
   }
 
   get playerResourceTiles() {
-    return this.material(MaterialType.ResourceTile).location(LocationType.PlayerResourcesIdleLayout).player(this.player)
+    const resources: number[] | undefined = this.remind(MemoryType.ResourcesToGet) ?? []
+    return resources
   }
 
   get playerBuildingTiles() {
-    return this.material(MaterialType.BuildingTile).location(LocationType.PlayerBuildingIdleLayout).player(this.player)
+    const buildings: number[] | undefined = this.remind(MemoryType.BuildingToGet) ?? []
+    return buildings
   }
 }

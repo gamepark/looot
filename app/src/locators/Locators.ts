@@ -10,12 +10,12 @@ import { longshipsPileLocator } from './longshipsPileLocator'
 import { playerBuildingIdleLayoutLocator } from './PlayerBuildingIdleLayoutLocator'
 import { playerResourcesIdleLayoutLocator } from './PlayerResourcesIdleLayoutLocator'
 import { playerikingPileLocator } from './PlayerVikingPileLocator'
-import { resourceTilesPileLocator } from './ResourceTilesPileLocator'
+import { resourceTilesDeckLocator } from './ResourceTilesDeckLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<PlayerColor, MaterialType, LocationType>>> = {
   [LocationType.Landscape]: landscapeLocator,
   [LocationType.InsideBag]: longshipsPileLocator,
-  [LocationType.ResourceTilesPile]: resourceTilesPileLocator,
+  [LocationType.ResourceTilesDeck]: resourceTilesDeckLocator,
   [LocationType.Bag]: bagLocator,
   [LocationType.FjordBoard]: fjordBoardLocator,
   [LocationType.FjordBoardHexSpace]: fjordBoardHexSpaceLocator,

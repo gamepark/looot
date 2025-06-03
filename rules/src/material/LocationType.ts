@@ -1,11 +1,9 @@
 export enum LocationType {
   Landscape = 1,
   InsideBag,
-  ResourceTilesPile,
+  ResourceTilesDeck,
   Bag,
   FjordBoard,
   FjordBoardHexSpace,
-  PlayerVikingPile,
-  PlayerResourcesIdleLayout,
-  PlayerBuildingIdleLayout
+  PlayerVikingPile
 }

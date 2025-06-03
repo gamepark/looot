@@ -6,7 +6,8 @@ import {
   MaterialGame,
   MaterialMove,
   PositiveSequenceStrategy,
-  SecretMaterialRules, StakingStrategy,
+  SecretMaterialRules,
+  StakingStrategy,
   TimeLimit
 } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
@@ -35,11 +36,8 @@ export class LoootRules extends SecretMaterialRules implements TimeLimit<Materia
   }
 
   locationsStrategies = {
-    [MaterialType.BuildingTile]: {
-      [LocationType.PlayerBuildingIdleLayout]: new PositiveSequenceStrategy()
-    },
     [MaterialType.ResourceTile]: {
-      [LocationType.PlayerResourcesIdleLayout]: new PositiveSequenceStrategy()
+      [LocationType.ResourceTilesDeck]: new PositiveSequenceStrategy()
     },
     [MaterialType.Viking]: {
       [LocationType.Landscape]: new StakingStrategy()

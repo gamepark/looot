@@ -1,6 +1,7 @@
 import { isMoveItemType, ItemMove, Location, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { Resource } from '../material/Resource'
 import { getShieldType, Shield } from '../material/Shield'
 import { BuildingHelper } from './helpers/BuildingHelper'
 import { LandscapeHelper } from './helpers/LandscapeHelper'
@@ -37,21 +38,37 @@ export class PlaceVikingRule extends PlayerTurnRule {
     return []
   }
 
+  checkIfResourceIsNotEmptyAndReturnIt(id?: Resource): number | undefined {
+    const tiles = this.material(MaterialType.ResourceTile)
+      .location(LocationType.ResourceTilesDeck)
+      .location((loc) => loc.id === id)
+      .maxBy((it) => it.location.x!)
+    if (tiles.length === 0) return undefined
+    return tiles.getIndex()
+  }
+
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
     if (isMoveItemType(MaterialType.Viking)(move)) {
       const resource = this.landscapeHelper.getLandscapeCaseType(move.location.x ?? 0, move.location.y ?? 0)
-      moves.push(
-        this.material(MaterialType.ResourceTile).createItem({ id: resource, location: { type: LocationType.PlayerResourcesIdleLayout, player: this.player } })
-      )
-      if (this.selectedShields?.includes(Shield.DoubleGain)) {
-        moves.push(
-          this.material(MaterialType.ResourceTile).createItem({ id: resource, location: { type: LocationType.PlayerResourcesIdleLayout, player: this.player } })
-        )
+      const resourceToAdd = this.checkIfResourceIsNotEmptyAndReturnIt(resource)
+      if (resourceToAdd) {
+        this.memorize(MemoryType.ResourcesToGet, (oldValue?: number[]) => (oldValue ? [...oldValue, resourceToAdd] : [resourceToAdd]))
+        if (this.selectedShields?.includes(Shield.DoubleGain)) {
+          this.memorize(MemoryType.ResourcesToGet, (oldValue?: number[]) => (oldValue ? [...oldValue, resourceToAdd] : [resourceToAdd]))
+        }
       }
-      moves.push(...this.buildingHelper.checkAndGetHouse(move.location as Location))
-      moves.push(...this.buildingHelper.checkAndGetTower())
-      moves.push(...this.buildingHelper.checkAndGetCastle())
+      this.memorize(MemoryType.BuildingToGet, (oldValue?: number[]) =>
+        oldValue
+          ? [...oldValue, ...this.buildingHelper.checkAndGetHouse(move.location as Location)]
+          : this.buildingHelper.checkAndGetHouse(move.location as Location)
+      )
+      this.memorize(MemoryType.BuildingToGet, (oldValue?: number[]) =>
+        oldValue ? [...oldValue, ...this.buildingHelper.checkAndGetTower()] : this.buildingHelper.checkAndGetTower()
+      )
+      this.memorize(MemoryType.BuildingToGet, (oldValue?: number[]) =>
+        oldValue ? [...oldValue, ...this.buildingHelper.checkAndGetCastle()] : this.buildingHelper.checkAndGetCastle()
+      )
       if (this.selectedShields?.includes(Shield.PlayAgain)) {
         moves.push(this.startRule(RuleId.PlaceViking))
       } else {

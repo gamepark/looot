@@ -1,4 +1,4 @@
-import { Location, MaterialGame, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
+import { Location, MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
 import { Building } from '../../../material/Building'
 import { LocationType } from '../../../material/LocationType'
 import { MaterialType } from '../../../material/MaterialType'
@@ -31,16 +31,16 @@ export class WatchTowerHelper extends MaterialRulesPart {
     return this.getMovesFromTowersToGet()
   }
 
-  private getMovesFromTowersToGet(): MaterialMove[] {
-    const moves: MaterialMove[] = []
+  private getMovesFromTowersToGet(): number[] {
+    const towers: number[] = []
     this.towersToGet.forEach((it) => {
       const startTowerLocation = this.towers[it[0]]
       const endTowerLocation = this.towers[it[1]]
       this.memorizeTowersPath(startTowerLocation, endTowerLocation)
-      moves.push(...this.landscapeHelper.checkIfTileInCaseAndMoveIt(startTowerLocation.x ?? 0, startTowerLocation.y ?? 0, this.player!))
-      moves.push(...this.landscapeHelper.checkIfTileInCaseAndMoveIt(endTowerLocation.x ?? 0, endTowerLocation.y ?? 0, this.player!))
+      towers.push(...this.landscapeHelper.checkIfTileInCaseAndReturnIndex(startTowerLocation.x ?? 0, startTowerLocation.y ?? 0))
+      towers.push(...this.landscapeHelper.checkIfTileInCaseAndReturnIndex(endTowerLocation.x ?? 0, endTowerLocation.y ?? 0))
     })
-    return moves
+    return towers
   }
 
   private memorizeTowersPath(startTowerLocation: Location, endTowerLocation: Location) {

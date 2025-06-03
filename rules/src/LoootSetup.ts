@@ -9,6 +9,7 @@ import { LocationType } from './material/LocationType'
 import { Longship } from './material/Longship'
 import { MaterialType } from './material/MaterialType'
 import { OceanBoard } from './material/OceanBoard'
+import { Resource } from './material/Resource'
 import { shields } from './material/Shield'
 import { Trophy } from './material/Trophy'
 import { TrophyBoard } from './material/TrophyBoard'
@@ -25,6 +26,12 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
   setupMaterial(_options: LoootOptions) {
     this.setupLandscapeBoards()
     this.setupPlayers()
+    for (let i = 0; i < 20; i++) {
+      this.material(MaterialType.ResourceTile).createItem({ location: { type: LocationType.ResourceTilesDeck, id: Resource.Axe }, id: Resource.Axe })
+      this.material(MaterialType.ResourceTile).createItem({ location: { type: LocationType.ResourceTilesDeck, id: Resource.Gold }, id: Resource.Gold })
+      this.material(MaterialType.ResourceTile).createItem({ location: { type: LocationType.ResourceTilesDeck, id: Resource.Sheep }, id: Resource.Sheep })
+      this.material(MaterialType.ResourceTile).createItem({ location: { type: LocationType.ResourceTilesDeck, id: Resource.Wood }, id: Resource.Wood })
+    }
   }
 
   setupLandscapeBoards() {

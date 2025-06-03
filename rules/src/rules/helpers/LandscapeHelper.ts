@@ -1,21 +1,10 @@
-import {
-  getEnumValues,
-  HexGridSystem,
-  hexRotate,
-  hexTranslate,
-  Location,
-  MaterialGame,
-  MaterialMove,
-  MaterialRulesPart,
-  XYCoordinates
-} from '@gamepark/rules-api'
+import { getEnumValues, HexGridSystem, hexRotate, hexTranslate, Location, MaterialGame, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
 import { Land, LandscapeBoard, landscapeBoards, Water } from '../../material/LandscapeBoard'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { OceanBoard, oceanBoards } from '../../material/OceanBoard'
 import { Resource } from '../../material/Resource'
 import { trophyBoards } from '../../material/TrophyBoard'
-import { PlayerColor } from '../../PlayerColor'
 import { getNeighbors } from './utils'
 
 export type Hex = Land | typeof Water | undefined
@@ -98,12 +87,12 @@ export class LandscapeHelper extends MaterialRulesPart {
     return locations
   }
 
-  checkIfTileInCaseAndMoveIt(x: number, y: number, player: PlayerColor): MaterialMove[] {
+  checkIfTileInCaseAndReturnIndex(x: number, y: number): number[] {
     const tiles = this.material(MaterialType.BuildingTile)
       .location(LocationType.Landscape)
       .location((loc) => loc.x === x && loc.y === y)
     if (tiles.length === 0) return []
-    return [tiles.moveItem({ type: LocationType.PlayerBuildingIdleLayout, player })]
+    return tiles.getIndexes()
   }
 
   private isEligiblePlace(x: number, y: number): boolean {

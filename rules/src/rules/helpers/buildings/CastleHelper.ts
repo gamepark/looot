@@ -1,4 +1,4 @@
-import { Location, MaterialGame, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
+import { Location, MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
 import { Building } from '../../../material/Building'
 import { LocationType } from '../../../material/LocationType'
 import { MaterialType } from '../../../material/MaterialType'
@@ -24,19 +24,19 @@ export class CastleHelper extends MaterialRulesPart {
     this.path = []
   }
 
-  checkAndGetCastle() {
+  checkAndGetCastle(): number[] {
     for (const item of this.castles) {
       this.checkPath(item)
     }
     return this.getMovesFromCastlesToGet()
   }
 
-  private getMovesFromCastlesToGet(): MaterialMove[] {
-    const moves: MaterialMove[] = []
+  private getMovesFromCastlesToGet(): number[] {
+    const castles: number[] = []
     this.castlesToGet.forEach((it) => {
-      moves.push(...this.landscapeHelper.checkIfTileInCaseAndMoveIt(it.x ?? 0, it.y ?? 0, this.player!))
+      castles.push(...this.landscapeHelper.checkIfTileInCaseAndReturnIndex(it.x ?? 0, it.y ?? 0))
     })
-    return moves
+    return castles
   }
 
   private checkPath(castle: Location) {
