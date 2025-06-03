@@ -1,7 +1,6 @@
 import { isMoveItemType, ItemMove, Location, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { Resource } from '../material/Resource'
 import { getShieldType, Shield } from '../material/Shield'
 import { BuildingHelper } from './helpers/BuildingHelper'
 import { LandscapeHelper } from './helpers/LandscapeHelper'
@@ -38,24 +37,14 @@ export class PlaceVikingRule extends PlayerTurnRule {
     return []
   }
 
-  checkIfResourceIsNotEmptyAndReturnIt(id?: Resource): number | undefined {
-    const tiles = this.material(MaterialType.ResourceTile)
-      .location(LocationType.ResourceTilesDeck)
-      .location((loc) => loc.id === id)
-      .maxBy((it) => it.location.x!)
-    if (tiles.length === 0) return undefined
-    return tiles.getIndex()
-  }
-
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
     if (isMoveItemType(MaterialType.Viking)(move)) {
       const resource = this.landscapeHelper.getLandscapeCaseType(move.location.x ?? 0, move.location.y ?? 0)
-      const resourceToAdd = this.checkIfResourceIsNotEmptyAndReturnIt(resource)
-      if (resourceToAdd) {
-        this.memorize(MemoryType.ResourcesToGet, (oldValue?: number[]) => (oldValue ? [...oldValue, resourceToAdd] : [resourceToAdd]))
+      if (resource) {
+        this.memorize(MemoryType.ResourcesToGet, (oldValue?: number[]) => (oldValue ? [...oldValue, resource] : [resource]))
         if (this.selectedShields?.includes(Shield.DoubleGain)) {
-          this.memorize(MemoryType.ResourcesToGet, (oldValue?: number[]) => (oldValue ? [...oldValue, resourceToAdd] : [resourceToAdd]))
+          this.memorize(MemoryType.ResourcesToGet, (oldValue?: number[]) => (oldValue ? [...oldValue, resource] : [resource]))
         }
       }
       this.memorize(MemoryType.BuildingToGet, (oldValue?: number[]) =>

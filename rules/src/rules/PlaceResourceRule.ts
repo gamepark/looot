@@ -11,7 +11,7 @@ export class PlaceResourceRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
     this.fjordBoardHelper.getPossiblePlaces().forEach((place) => {
       this.playerResourceTiles.forEach((tile) => {
-        moves.push(this.material(MaterialType.ResourceTile).index(tile).moveItem(place))
+        moves.push(this.material(MaterialType.ResourceTile).id(tile).moveItem(place, 1))
       })
       this.playerBuildingTiles.forEach((tile) => {
         moves.push(this.material(MaterialType.BuildingTile).index(tile).moveItem(place))
@@ -24,7 +24,7 @@ export class PlaceResourceRule extends PlayerTurnRule {
   beforeItemMove(move: ItemMove, _context?: PlayMoveContext): MaterialMove[] {
     if (isMoveItemType(MaterialType.ResourceTile)(move)) {
       this.memorize(MemoryType.ResourcesToGet, (oldValue: number[]) => {
-        const index = oldValue.findIndex((it) => it === move.itemIndex)
+        const index = oldValue.findIndex((it) => it === this.material(MaterialType.ResourceTile).index(move.itemIndex).getItem()?.id)
         if (index === -1) return oldValue
         return [...oldValue.slice(0, index), ...oldValue.slice(index + 1)]
       })
