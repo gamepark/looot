@@ -9,21 +9,22 @@ import { getNeighbors } from './utils'
 
 export class LandscapeHelper extends MaterialRulesPart {
   landscape: Polyhex<Land | typeof Water | typeof TrophyPlace>
+  overlap = false
 
   constructor(game: MaterialGame) {
     super(game)
     this.landscape = new Polyhex([], { system: HexGridSystem.EvenQ })
     const landscapeBoardItems = this.material(MaterialType.LandscapeBoard).getItems<LandscapeBoard>()
     for (const item of landscapeBoardItems) {
-      this.landscape.merge(getLandscape(item.id), item.location, () => console.error('Overlapping boards!'))
+      this.landscape.merge(getLandscape(item.id), item.location, () => (this.overlap = true))
     }
     const oceanBoardItem = this.material(MaterialType.OceanBoard).getItem<OceanBoard>()
     if (oceanBoardItem) {
-      this.landscape.merge(oceanBoards[oceanBoardItem.id], oceanBoardItem.location, () => console.error('Overlapping boards!'))
+      this.landscape.merge(oceanBoards[oceanBoardItem.id], oceanBoardItem.location, () => (this.overlap = true))
     }
     const trophyBoardItem = this.material(MaterialType.TrophyBoard).getItem<OceanBoard>()
     if (trophyBoardItem) {
-      this.landscape.merge(trophyBoards[trophyBoardItem.id], trophyBoardItem.location, () => console.error('Overlapping boards!'))
+      this.landscape.merge(trophyBoards[trophyBoardItem.id], trophyBoardItem.location, () => (this.overlap = true))
     }
   }
 

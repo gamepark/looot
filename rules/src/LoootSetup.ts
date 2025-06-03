@@ -1,4 +1,4 @@
-import { getEnumValues, HexGridSystem, hexRotate, hexTranslate, MaterialGameSetup, XYCoordinates } from '@gamepark/rules-api'
+import { getEnumValues, HexGridSystem, hexRotate, hexTranslate, loopWithFuse, MaterialGameSetup, XYCoordinates } from '@gamepark/rules-api'
 import { sample, shuffle } from 'lodash'
 import { LoootOptions } from './LoootOptions'
 import { LoootRules } from './LoootRules'
@@ -74,36 +74,52 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
   }
 
   setupTrophyBoard(edge: LandscapeEdge) {
-    // TODO: the trophy board can overlap another board in rare scenarios. Loop on getSideTileLocation until the location is fine.
-    const location = this.getSideTileLocation(edge)
-    this.material(MaterialType.TrophyBoard).createItem({ id: sample(getEnumValues(TrophyBoard)), location })
-    const trophies = getEnumValues(Trophy)
-    for (let i = 0; i < trophies.length; i++) {
-      const trophy = trophies[i]
-      const rotated = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
-      const { x, y } = hexTranslate(rotated, location, HexGridSystem.EvenQ)
-      this.material(MaterialType.Trophy).createItem({
-        id: trophy,
-        location: { type: LocationType.Landscape, x, y, rotation: 0 }
-      })
-    }
+    loopWithFuse(() => {
+      const location = this.getSideTileLocation(edge)
+      this.material(MaterialType.TrophyBoard).createItem({ id: sample(getEnumValues(TrophyBoard)), location })
+
+      if (new LandscapeHelper(this.game).overlap) {
+        this.material(MaterialType.TrophyBoard).deleteItem()
+        return true
+      }
+
+      const trophies = getEnumValues(Trophy)
+      for (let i = 0; i < trophies.length; i++) {
+        const trophy = trophies[i]
+        const rotated = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
+        const { x, y } = hexTranslate(rotated, location, HexGridSystem.EvenQ)
+        this.material(MaterialType.Trophy).createItem({
+          id: trophy,
+          location: { type: LocationType.Landscape, x, y, rotation: 0 }
+        })
+      }
+      return false
+    })
   }
 
   setupOceanBoard(edge: LandscapeEdge) {
-    // TODO: the ocean board can overlap another board in rare scenarios. Loop on getSideTileLocation until the location is fine.
-    const location = this.getSideTileLocation(edge)
-    this.material(MaterialType.OceanBoard).createItem({ id: sample(getEnumValues(OceanBoard)), location })
-    const longships = shuffle(getEnumValues(Longship))
-    const longshipTiles = longships.map((longship) => ({ id: longship, location: { type: LocationType.InsideBag } }))
-    this.material(MaterialType.Longship).createItems(longshipTiles)
+    loopWithFuse(() => {
+      const location = this.getSideTileLocation(edge)
+      this.material(MaterialType.OceanBoard).createItem({ id: sample(getEnumValues(OceanBoard)), location })
 
-    for (let i = 0; i < 5; i++) {
-      const rotated = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
-      const { x, y } = hexTranslate(rotated, location, HexGridSystem.EvenQ)
-      this.material(MaterialType.Longship)
-        .location(LocationType.InsideBag)
-        .moveItem(() => ({ type: LocationType.Landscape, x, y, rotation: 0 }))
-    }
+      if (new LandscapeHelper(this.game).overlap) {
+        this.material(MaterialType.OceanBoard).deleteItem()
+        return true
+      }
+
+      const longships = shuffle(getEnumValues(Longship))
+      const longshipTiles = longships.map((longship) => ({ id: longship, location: { type: LocationType.InsideBag } }))
+      this.material(MaterialType.Longship).createItems(longshipTiles)
+
+      for (let i = 0; i < 5; i++) {
+        const rotated = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
+        const { x, y } = hexTranslate(rotated, location, HexGridSystem.EvenQ)
+        this.material(MaterialType.Longship)
+          .location(LocationType.InsideBag)
+          .moveItem(() => ({ type: LocationType.Landscape, x, y, rotation: 0 }))
+      }
+      return false
+    })
   }
 
   getSideTileLocation(edge: LandscapeEdge) {

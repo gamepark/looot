@@ -16,7 +16,7 @@ export const GameDisplay = ({ game }: Props) => {
   const landscapeSize = landscapeLocator.getLandscapeSize(game)
   const horizontalSpaceForPlayers = fjordBoardDescription.width + 5
   const verticalSpaceForPlayer = fjordBoardDescription.height
-  const verticalSpaceForPlayers = players === 2 ? verticalSpaceForPlayer : verticalSpaceForPlayer * 2 + 2
+  const verticalSpaceForPlayers = players === 2 ? verticalSpaceForPlayer + 10 : verticalSpaceForPlayer * 2 + 2
   const xMax = landscapeSize.width / 2 + horizontalSpaceForPlayers + 1
   const xMin = -xMax
   const yMax = Math.max(landscapeSize.height / 2, verticalSpaceForPlayers / 2) + 1
