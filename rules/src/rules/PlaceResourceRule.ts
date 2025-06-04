@@ -31,7 +31,7 @@ export class PlaceResourceRule extends PlayerTurnRule {
       })
     }
     if (isMoveItemType(MaterialType.BuildingTile)(move)) {
-      if(this.material(MaterialType.BuildingTile).location(LocationType.Landscape).index(move.itemIndex).length > this.playerResourceTiles.length) {
+      if(this.material(MaterialType.BuildingTile).location(LocationType.Landscape).index(move.itemIndex).getQuantity() - 1) {
         this.memorize(MemoryType.BuildingToGet, (oldValue: number[]) => {
           const index = oldValue.findIndex((it) => it === move.itemIndex)
           if (index === -1) return oldValue
