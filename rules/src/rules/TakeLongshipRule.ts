@@ -22,7 +22,12 @@ export class TakeLongshipRule extends PlayerTurnRule {
     if (isMoveItemType(MaterialType.Longship)(move)) {
       const oldLongshipLocation = this.material(MaterialType.Longship).index(move.itemIndex).getItem()?.location
       if (oldLongshipLocation?.type === LocationType.Landscape) {
-        moves.push(this.material(MaterialType.Longship).location(LocationType.InsideBag).moveItem(oldLongshipLocation))
+        moves.push(
+          this.material(MaterialType.Longship)
+            .location(LocationType.InsideBag)
+            .maxBy((item) => item.location.x!)
+            .moveItem(oldLongshipLocation)
+        )
       }
     }
     return moves

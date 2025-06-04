@@ -4,7 +4,7 @@ import {
   isMoveItem,
   ItemMove,
   MaterialGame,
-  MaterialMove,
+  MaterialMove, PositiveSequenceStrategy,
   SecretMaterialRules,
   StakingStrategy,
   TimeLimit
@@ -37,6 +37,9 @@ export class LoootRules extends SecretMaterialRules implements TimeLimit<Materia
   locationsStrategies = {
     [MaterialType.Viking]: {
       [LocationType.Landscape]: new StakingStrategy()
+    },
+    [MaterialType.Longship]: {
+      [LocationType.InsideBag]: new PositiveSequenceStrategy()
     }
   }
 
