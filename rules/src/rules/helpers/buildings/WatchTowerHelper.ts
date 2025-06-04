@@ -104,6 +104,6 @@ export class WatchTowerHelper extends MaterialRulesPart {
   }
 
   private towerNotInTowerToGetAndNotStartTower(towerIndex: number, startTowerIndex: number): boolean {
-    return towerIndex !== -1 && towerIndex !== startTowerIndex && !this.towersToGet.find((it) => it[1] === startTowerIndex)
+    return towerIndex !== -1 && towerIndex !== startTowerIndex && !this.towersToGet.find((it) => it[1] === startTowerIndex || it[0] === startTowerIndex)
   }
 }

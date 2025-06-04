@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
+import { LoootBot } from '@gamepark/looot/bot/LoootBot'
 import { LoootOptionsSpec } from '@gamepark/looot/LoootOptions'
 import { LoootRules } from '@gamepark/looot/LoootRules'
 import { LoootSetup } from '@gamepark/looot/LoootSetup'
 import { GameProvider, setupTranslation } from '@gamepark/react-game'
+import { MaterialGame } from '@gamepark/rules-api'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import { gameAnimations } from './animations/GameAnimations'
@@ -29,6 +31,7 @@ ReactDOM.render(
       material={Material}
       locators={Locators}
       animations={gameAnimations}
+      ai={(game: MaterialGame, playerId: number) => Promise.resolve(new LoootBot(playerId).run(game))}
     >
       <App />
     </GameProvider>

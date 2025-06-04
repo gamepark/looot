@@ -55,7 +55,7 @@ export const getConstructionSiteNeededTiles = (id: number) => {
     [ConstructionSiteTile.Palace2]: [Building.Watchtower, Building.Watchtower, Building.House, Building.House, Building.Castle],
     [ConstructionSiteTile.Palace3]: [Building.Watchtower, Building.Watchtower, Building.House, Building.Castle, Resource.Wood],
     [ConstructionSiteTile.Palace4]: [Building.Watchtower, Building.House, Building.Castle, Building.Castle, Resource.Wood],
-    [ConstructionSiteTile.Palace5]: [Building.Watchtower, Building.Watchtower, Building.House, Building.Castle, Resource.Wood]
+    [ConstructionSiteTile.Palace5]: [Building.Watchtower, Building.Watchtower, Building.House, Building.Castle, Resource.Sheep]
   }
   return constructionSiteResources[id as ConstructionSiteTile]
 }
