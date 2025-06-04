@@ -42,7 +42,7 @@ class ResourceTilesDeckLocator extends DeckLocator {
             this.coordinatesCache = { x: -deltaX, y: -deltaY }
             break
           }
-          this.coordinatesCache = { x: deltaX, y: -deltaY }
+          this.coordinatesCache = { x: -deltaX, y: 0 }
         }
       }
     }

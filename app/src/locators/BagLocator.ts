@@ -39,7 +39,7 @@ class BagLocator extends Locator {
           this.coordinatesCache = { x: deltaX, y: -deltaY }
           break
         }
-        this.coordinatesCache = { x: -deltaX, y: -deltaY }
+        this.coordinatesCache = { x: -deltaX, y: 10 }
       }
     }
     return this.coordinatesCache
