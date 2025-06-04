@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom'
 import { gameAnimations } from './animations/GameAnimations'
 import App from './App'
 import { RulesHelp } from './dialogs/RulesHelp'
+import { LoootLogs } from './history/LoootLogs'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import { LoootScoringDescription } from './scoring/LoootScoringDescription'
@@ -21,6 +22,7 @@ ReactDOM.render(
       game="looot"
       Rules={LoootRules}
       rulesHelp={RulesHelp}
+      logs={new LoootLogs()}
       scoring={new LoootScoringDescription()}
       optionsSpec={LoootOptionsSpec}
       GameSetup={LoootSetup}
