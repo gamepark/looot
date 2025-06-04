@@ -1,4 +1,5 @@
 import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
+import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { MemoryType } from './Memory'
 import { RuleId } from './RuleId'
@@ -14,7 +15,7 @@ export class PlaceResourceRule extends PlayerTurnRule {
         moves.push(this.material(MaterialType.ResourceTile).id(tile).moveItem(place, 1))
       })
       this.playerBuildingTiles.forEach((tile) => {
-        moves.push(this.material(MaterialType.BuildingTile).index(tile).moveItem(place))
+        moves.push(this.material(MaterialType.BuildingTile).location(LocationType.Landscape).index(tile).moveItem(place))
       })
       //moves.push(...this.playerBuildingTiles.moveItems(place))
     })
@@ -30,11 +31,17 @@ export class PlaceResourceRule extends PlayerTurnRule {
       })
     }
     if (isMoveItemType(MaterialType.BuildingTile)(move)) {
-      this.memorize(MemoryType.BuildingToGet, (oldValue: number[]) => {
-        const index = oldValue.findIndex((it) => it === move.itemIndex)
-        if (index === -1) return oldValue
-        return [...oldValue.slice(0, index), ...oldValue.slice(index + 1)]
-      })
+      if(this.material(MaterialType.BuildingTile).location(LocationType.Landscape).index(move.itemIndex).length > this.playerResourceTiles.length) {
+        this.memorize(MemoryType.BuildingToGet, (oldValue: number[]) => {
+          const index = oldValue.findIndex((it) => it === move.itemIndex)
+          if (index === -1) return oldValue
+          return [...oldValue.slice(0, index), ...oldValue.slice(index + 1)]
+        })
+      } else {
+        this.memorize(MemoryType.BuildingToGet, (oldValue: number[]) => {
+          return oldValue.filter((it) => it !== move.itemIndex)
+        })
+      }
     }
     return []
   }
