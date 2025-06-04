@@ -21,15 +21,15 @@ class BagLocator extends Locator {
       default: {
         const landscape = new LandscapeHelper(context.rules.game).landscape
         const landscapeSize = landscapeLocator.getLandscapeSize(context.rules.game)
-        const yGap = Math.min(4, landscape.grid.length - 9)
+        const yGap = Math.min(4, landscape.grid.length - 11)
         if (yGap <= 0) {
           this.coordinatesCache = { x: landscapeSize.width / 2 - 4, y: 20 }
           break
         }
         const xRange = range(landscape.xMax, landscape.xMax - 3, -1)
         const bottomRight = xRange.flatMap((x) => range(landscape.yMax, landscape.yMax - yGap, -1).map((y) => ({ x, y })))
-        const deltaX = landscapeSize.width / 2 - 4
-        const deltaY = Math.max(landscapeSize.height / 2 - (yGap - 1) * Math.sqrt(3) * landscapeLocator.size, 21)
+        const deltaX = landscapeSize.width / 2 - 3
+        const deltaY = Math.max(landscapeSize.height / 2, 25) - 4
         if (bottomRight.every((hex) => landscape.getValue(hex) === undefined)) {
           this.coordinatesCache = { x: deltaX, y: deltaY }
           break

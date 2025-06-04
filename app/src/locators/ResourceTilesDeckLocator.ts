@@ -32,7 +32,7 @@ class ResourceTilesDeckLocator extends DeckLocator {
           const xRange = range(landscape.xMin, landscape.xMin + 3)
           const bottomLeft = xRange.flatMap((x) => range(landscape.yMax, landscape.yMax - yGap, -1).map((y) => ({ x, y })))
           const deltaX = landscapeSize.width / 2 - 3
-          const deltaY = Math.max(landscapeSize.height / 2 - (yGap - 1) * Math.sqrt(3) * landscapeLocator.size, 22)
+          const deltaY = Math.max(landscapeSize.height / 2, 25) - 3
           if (bottomLeft.every((hex) => landscape.getValue(hex) === undefined)) {
             this.coordinatesCache = { x: -deltaX, y: deltaY }
             break
