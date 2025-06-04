@@ -115,7 +115,7 @@
   },
   "fr": {
     "translation": {
-      "header.place.viking.you": "Vous devez placer un viking, <shield>Utiliser un bouclier</shield>",
+      "header.place.viking.you": "Placez un viking ou <shield>Utilisez un bouclier</shield>",
       "header.place.viking.player": "{player} doit placer un viking",
       "header.place.resource.you": "Vous devez placer vos ressources",
       "header.place.resource.player": "{player} doit placer ses ressources",
