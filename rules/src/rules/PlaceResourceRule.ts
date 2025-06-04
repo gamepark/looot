@@ -8,6 +8,14 @@ import { FjordBoardHelper } from './helpers/FjordBoardHelper'
 export class PlaceResourceRule extends PlayerTurnRule {
   fjordBoardHelper = new FjordBoardHelper(this.game)
 
+  onRuleStart(): MaterialMove[] {
+    const noMorePlacesOnBoard = this.fjordBoardHelper.getPossiblePlaces().length === 0
+    if (noMorePlacesOnBoard) {
+      return[this.startRule(RuleId.TakeLongship)]
+    }
+    return []
+  }
+
   getPlayerMoves(): MaterialMove[] {
     const moves: MaterialMove[] = []
     this.fjordBoardHelper.getPossiblePlaces().forEach((place) => {
@@ -31,7 +39,7 @@ export class PlaceResourceRule extends PlayerTurnRule {
       })
     }
     if (isMoveItemType(MaterialType.BuildingTile)(move)) {
-      if(this.material(MaterialType.BuildingTile).location(LocationType.Landscape).index(move.itemIndex).getQuantity() - 1) {
+      if (this.material(MaterialType.BuildingTile).location(LocationType.Landscape).index(move.itemIndex).getQuantity() - 1) {
         this.memorize(MemoryType.BuildingToGet, (oldValue: number[]) => {
           const index = oldValue.findIndex((it) => it === move.itemIndex)
           if (index === -1) return oldValue
@@ -52,10 +60,18 @@ export class PlaceResourceRule extends PlayerTurnRule {
       moves.push(...this.fjordBoardHelper.checkConstructionSite())
       moves.push(...this.fjordBoardHelper.checkLongship())
     }
-    if (this.playerResourceTiles.length === 0 && this.playerBuildingTiles.length === 0) {
+    const noMoreResourcesOrBuildings = this.playerResourceTiles.length === 0 && this.playerBuildingTiles.length === 0
+    const noMorePlacesOnBoard = this.fjordBoardHelper.getPossiblePlaces().length === 0
+    if (noMoreResourcesOrBuildings || noMorePlacesOnBoard) {
       moves.push(this.startRule(RuleId.TakeLongship))
     }
     return moves
+  }
+
+  onRuleEnd(): MaterialMove[] {
+    this.forget(MemoryType.ResourcesToGet)
+    this.forget(MemoryType.BuildingToGet)
+    return []
   }
 
   get playerResourceTiles() {
