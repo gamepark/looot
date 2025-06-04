@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { pointerWithin } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import { GameTable, GameTableNavigation } from '@gamepark/react-game'
 import { MaterialGame } from '@gamepark/rules-api'
@@ -37,7 +38,15 @@ export const GameDisplay = ({ game }: Props) => {
 
   return (
     <>
-      <GameTable xMin={xMin} xMax={xMax} yMin={yMin} yMax={yMax} margin={margin} css={process.env.NODE_ENV === 'development' && tableBorder}>
+      <GameTable
+        xMin={xMin}
+        xMax={xMax}
+        yMin={yMin}
+        yMax={yMax}
+        margin={margin}
+        css={process.env.NODE_ENV === 'development' && tableBorder}
+        collisionAlgorithm={pointerWithin}
+      >
         <GameTableNavigation css={getNavigationCss()} />
         <PlayerPanels />
       </GameTable>
