@@ -24,10 +24,11 @@ class FjordBoardHexSpaceLocator extends HexagonalGridLocator {
 
   locationDescription = new FjordBoardHexDropDescription()
 
-  getHoverTransform = (_: MaterialItem, context: ItemContext) => {
+  getHoverTransform = (item: MaterialItem, context: ItemContext) => {
     const typesToScale = [MaterialType.Longship, MaterialType.ConstructionSiteTile]
     if (typesToScale.includes(context.type)) {
-      return ['translateZ(10em)', 'scale(3.5)']
+      const translateZ = item.location.rotation ? 'translateZ(-10em)' : 'translateZ(10em)'
+      return [translateZ, 'scale(3.5)']
     }
     return []
   }

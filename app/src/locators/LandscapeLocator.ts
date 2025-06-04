@@ -45,9 +45,10 @@ class LandscapeLocator extends HexagonalGridLocator {
 
   locationDescription = new LandscapeHexDropDescription()
 
-  getHoverTransform = (_: MaterialItem, context: ItemContext) => {
+  getHoverTransform = (item: MaterialItem, context: ItemContext) => {
     if (context.type === MaterialType.Longship) {
-      return ['translateZ(10em)', 'scale(3.5)']
+      const translateZ = item.location.rotation ? 'translateZ(-10em)' : 'translateZ(10em)'
+      return [translateZ, 'scale(3.5)']
     }
     return []
   }
