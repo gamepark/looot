@@ -55,8 +55,8 @@ class LandscapeLocator extends HexagonalGridLocator {
 }
 
 class LandscapeHexDropDescription extends DropAreaDescription {
-  width = 2.6
-  height = 2.2
+  width = 3
+  height = 2.6
   extraCss = css`
     aspect-ratio: 1 / cos(30deg);
     clip-path: polygon(50% -50%, 100% 50%, 50% 150%, 0 50%);

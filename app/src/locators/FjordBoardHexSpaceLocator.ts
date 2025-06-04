@@ -8,7 +8,7 @@ import { HexGridSystem, Location, MaterialItem, XYCoordinates } from '@gamepark/
 class FjordBoardHexSpaceLocator extends HexagonalGridLocator {
   parentItemType = MaterialType.FjordBoard
   coordinatesSystem = HexGridSystem.EvenQ
-  size = { x: 1.73, y: 1.7 }
+  size = { x: 1.74, y: 1.7 }
 
   getRotateZ(): number {
     return 0
@@ -35,8 +35,8 @@ class FjordBoardHexSpaceLocator extends HexagonalGridLocator {
 }
 
 class FjordBoardHexDropDescription extends DropAreaDescription {
-  width = 2.6
-  height = 2.2
+  width = 3
+  height = 2.6
   extraCss = css`
     aspect-ratio: 1 / cos(30deg);
     clip-path: polygon(50% -50%, 100% 50%, 50% 150%, 0 50%);
