@@ -21,7 +21,7 @@ export class PlaceVikingRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
     const moves: MaterialMove[] = []
     this.landscapeHelper.getPossiblePlaces(this.selectedShields?.includes(Shield.PlaceOnOccupiedSpace) ?? false).forEach((place) => {
-      moves.push(...this.playerVikings.moveItems(place))
+      moves.push(this.playerVikings.moveItem(place))
     })
     moves.push(...this.playerShields.moveItems((item) => ({ ...item.location, rotation: true })))
     return moves

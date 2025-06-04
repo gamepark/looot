@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
+import { Shield } from '@gamepark/looot/material/Shield'
 import { LandscapeHelper } from '@gamepark/looot/rules/helpers/LandscapeHelper'
+import { MemoryType } from '@gamepark/looot/rules/Memory'
 import { DropAreaDescription, HexagonalGridLocator, ItemContext } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
-import { HexGridSystem, Location, MaterialGame, MaterialItem } from '@gamepark/rules-api'
+import { HexGridSystem, isMoveItemType, Location, MaterialGame, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 
 class LandscapeLocator extends HexagonalGridLocator {
   coordinatesSystem = HexGridSystem.EvenQ
@@ -53,6 +55,12 @@ class LandscapeLocator extends HexagonalGridLocator {
     }
     return []
   }
+
+  getLocations(context: MaterialContext): Partial<Location>[] {
+    if (!context.rules.game.rule || context.rules.getActivePlayer() !== context.player) return []
+    const selectedShields = context.rules.remind(MemoryType.PlayerSelectedShield, context.player) ?? []
+    return new LandscapeHelper(context.rules.game).getPossiblePlaces(selectedShields.includes(Shield.PlaceOnOccupiedSpace))
+  }
 }
 
 class LandscapeHexDropDescription extends DropAreaDescription {
@@ -61,7 +69,16 @@ class LandscapeHexDropDescription extends DropAreaDescription {
   extraCss = css`
     aspect-ratio: 1 / cos(30deg);
     clip-path: polygon(50% -50%, 100% 50%, 50% 150%, 0 50%);
+    background-color: rgba(0, 255, 0, 0.3);
+
+    &:hover {
+      background-color: rgba(0, 255, 0, 0.6) !important;
+    }
   `
+
+  canShortClick(move: MaterialMove, location: Location): boolean {
+    return isMoveItemType(MaterialType.Viking)(move) && move.location.type === location.type && move.location.x === location.x && move.location.y === location.y
+  }
 }
 
 export const landscapeLocator = new LandscapeLocator()
