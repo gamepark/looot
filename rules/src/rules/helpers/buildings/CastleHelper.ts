@@ -28,6 +28,7 @@ export class CastleHelper extends MaterialRulesPart {
     for (const item of this.castles) {
       this.checkPath(item)
     }
+    this.memorizeCastles(this.castlesToGet)
     return this.getMovesFromCastlesToGet()
   }
 
@@ -51,14 +52,13 @@ export class CastleHelper extends MaterialRulesPart {
 
   private checkPathAndAddCastle(castle: Location, nbTimeCastleReached: number) {
     const pathLengthWithoutCastle = this.path.length - 1
-    if (pathLengthWithoutCastle >= 4 + 4 * nbTimeCastleReached) {
+    for (let i = 0; i < Math.floor(pathLengthWithoutCastle / 4) - nbTimeCastleReached; i++) {
       this.castlesToGet.push(castle)
-      this.memorizeCastle(castle)
     }
   }
 
-  private memorizeCastle(castle: Location) {
-    this.memorize(MemoryType.PlayerCastlesAlreadyReached, (oldValue?: Location[]) => (oldValue ? [...oldValue, castle] : [castle]), this.player)
+  private memorizeCastles(castles: Location[]) {
+    this.memorize(MemoryType.PlayerCastlesAlreadyReached, (oldValue?: Location[]) => (oldValue ? [...oldValue, ...castles] : castles), this.player)
   }
 
   private checkNeighbors(location: Location) {
