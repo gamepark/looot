@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/looot/material/LocationType'
+import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { Trophy } from '@gamepark/looot/material/Trophy'
-import { MaterialItem } from '@gamepark/rules-api'
+import { ItemContext } from '@gamepark/react-game/dist/locators/Locator'
+import { isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import Back2 from '../images/trophees/back2.png'
 import Back3 from '../images/trophees/back3.png'
 import Back4 from '../images/trophees/back4.png'
@@ -27,6 +29,10 @@ export class TrophyDescription extends HexagoneDescription {
   }
 
   help = TrophyHelp
+
+  canShortClick(move: MaterialMove, context: ItemContext): boolean {
+    return isMoveItemType(MaterialType.Trophy)(move) && move.location.type === LocationType.FjordBoardHexSpace && move.itemIndex === context.index
+  }
 }
 
 const images = {
