@@ -73,12 +73,10 @@ export class LandscapeHelper extends MaterialRulesPart {
     return locations
   }
 
-  checkIfTileInCaseAndReturnIndex(x: number, y: number): number[] {
-    const tiles = this.material(MaterialType.BuildingTile)
+  getBuildingAt(hex: XYCoordinates) {
+    return this.material(MaterialType.BuildingTile)
       .location(LocationType.Landscape)
-      .location((loc) => loc.x === x && loc.y === y)
-    if (tiles.length === 0) return []
-    return tiles.getIndexes()
+      .location((location) => location.x === hex.x && location.y === hex.y)
   }
 
   private placeIsEmpty(x: number, y: number): boolean {

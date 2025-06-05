@@ -37,8 +37,8 @@ export class WatchTowerHelper extends MaterialRulesPart {
       const startTowerLocation = this.towers[it[0]]
       const endTowerLocation = this.towers[it[1]]
       this.memorizeTowersPath(startTowerLocation, endTowerLocation)
-      towers.push(...this.landscapeHelper.checkIfTileInCaseAndReturnIndex(startTowerLocation.x ?? 0, startTowerLocation.y ?? 0))
-      towers.push(...this.landscapeHelper.checkIfTileInCaseAndReturnIndex(endTowerLocation.x ?? 0, endTowerLocation.y ?? 0))
+      towers.push(...this.landscapeHelper.getBuildingAt({ x: startTowerLocation.x ?? 0, y: startTowerLocation.y ?? 0 }).getIndexes())
+      towers.push(...this.landscapeHelper.getBuildingAt({ x: endTowerLocation.x ?? 0, y: endTowerLocation.y ?? 0 }).getIndexes())
     })
     return towers
   }

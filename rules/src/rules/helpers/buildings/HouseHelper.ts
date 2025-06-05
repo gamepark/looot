@@ -20,7 +20,7 @@ export class HouseHelper extends MaterialRulesPart {
     for (const neighbor of neighbors) {
       const neighborType = this.landscapeHelper.getLand(neighbor)
       if (neighborType === Building.House) {
-        houses.push(...this.landscapeHelper.checkIfTileInCaseAndReturnIndex(neighbor.x, neighbor.y))
+        houses.push(...this.landscapeHelper.getBuildingAt(neighbor).getIndexes())
       }
     }
     return houses

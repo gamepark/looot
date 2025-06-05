@@ -36,7 +36,7 @@ export class CastleHelper extends MaterialRulesPart {
   private getMovesFromCastlesToGet(): number[] {
     const castles: number[] = []
     this.castlesToGet.forEach((it) => {
-      castles.push(...this.landscapeHelper.checkIfTileInCaseAndReturnIndex(it.x ?? 0, it.y ?? 0))
+      castles.push(...this.landscapeHelper.getBuildingAt({ x: it.x ?? 0, y: it.y ?? 0 }).getIndexes())
     })
     return castles
   }
