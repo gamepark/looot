@@ -1,4 +1,5 @@
 import { getAdjacentHexagons, HexGridSystem, Location, MaterialGame, MaterialRulesPart, Polyhex, XYCoordinates } from '@gamepark/rules-api'
+import { Building } from '../../material/Building'
 import { getLandscape, isResource, Land, LandscapeBoard, TrophyPlace, Water } from '../../material/LandscapeBoard'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
@@ -77,6 +78,14 @@ export class LandscapeHelper extends MaterialRulesPart {
     return this.material(MaterialType.BuildingTile)
       .location(LocationType.Landscape)
       .location((location) => location.x === hex.x && location.y === hex.y)
+  }
+
+  getHousesAround(hex: XYCoordinates) {
+    const around = getAdjacentHexagons(hex, HexGridSystem.EvenQ)
+    return this.material(MaterialType.BuildingTile)
+      .id(Building.House)
+      .location(LocationType.Landscape)
+      .location((location) => around.some((hex) => location.x === hex.x && location.y === hex.y))
   }
 
   private placeIsEmpty(x: number, y: number): boolean {

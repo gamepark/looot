@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, Location, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getShieldType, Shield } from '../material/Shield'
@@ -49,7 +49,7 @@ export class PlaceVikingRule extends PlayerTurnRule {
       }
       this.memorize<number[]>(MemoryType.BuildingToGet, (oldValue = []) => [
         ...oldValue,
-        ...this.buildingHelper.checkAndGetHouse(move.location as Location),
+        ...this.landscapeHelper.getHousesAround(move.location as XYCoordinates).getIndexes(),
         ...this.buildingHelper.checkAndGetTower(),
         ...this.buildingHelper.checkAndGetCastle()
       ])
