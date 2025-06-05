@@ -1,7 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { getRelativePlayerIndex, Locator } from '@gamepark/react-game'
+import { LocationType } from '@gamepark/looot/material/LocationType'
+import { getRelativePlayerIndex, LocationDescription, Locator } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
 import { Coordinates, Location } from '@gamepark/rules-api'
+import { fjordBoardDescription } from '../material/FjordBoardDescription'
+import { FjordPlayer } from './FjordPlayer'
 import { landscapeLocator } from './LandscapeLocator'
 
 class FjordBoardLocator extends Locator {
@@ -19,6 +22,20 @@ class FjordBoardLocator extends Locator {
         return { x: index <= 1 ? -deltaX : deltaX, y: index % 3 ? -13 : 13 }
     }
   }
+
+  getLocations(context: MaterialContext) {
+    return context.rules.players.map((player) => ({ type: LocationType.FjordBoard, player }))
+  }
+
+  locationDescription = new FjordBoardDescription()
+}
+
+class FjordBoardDescription extends LocationDescription {
+  constructor() {
+    super(fjordBoardDescription)
+  }
+
+  content = FjordPlayer
 }
 
 export const fjordBoardLocator = new FjordBoardLocator()

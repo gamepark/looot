@@ -5,7 +5,6 @@ import { GameTable, GameTableNavigation } from '@gamepark/react-game'
 import { MaterialGame } from '@gamepark/rules-api'
 import { landscapeLocator } from './locators/LandscapeLocator'
 import { fjordBoardDescription } from './material/FjordBoardDescription'
-import { PlayerPanels } from './panels/PlayerPanels'
 
 type Props = {
   game: MaterialGame
@@ -48,7 +47,6 @@ export const GameDisplay = ({ game }: Props) => {
         collisionAlgorithm={pointerWithin}
       >
         <GameTableNavigation css={getNavigationCss()} />
-        <PlayerPanels />
       </GameTable>
     </>
   )
