@@ -42,22 +42,17 @@ export class PlaceVikingRule extends PlayerTurnRule {
     if (isMoveItemType(MaterialType.Viking)(move)) {
       const resource = this.landscapeHelper.getLandscapeCaseType(move.location.x ?? 0, move.location.y ?? 0)
       if (resource) {
-        this.memorize(MemoryType.ResourcesToGet, (oldValue?: number[]) => (oldValue ? [...oldValue, resource] : [resource]))
+        this.memorize<number[]>(MemoryType.ResourcesToGet, (oldValue = []) => [...oldValue, resource])
         if (this.selectedShields?.includes(Shield.DoubleGain)) {
-          this.memorize(MemoryType.ResourcesToGet, (oldValue?: number[]) => (oldValue ? [...oldValue, resource] : [resource]))
+          this.memorize<number[]>(MemoryType.ResourcesToGet, (oldValue = []) => [...oldValue, resource])
         }
       }
-      this.memorize(MemoryType.BuildingToGet, (oldValue?: number[]) =>
-        oldValue
-          ? [...oldValue, ...this.buildingHelper.checkAndGetHouse(move.location as Location)]
-          : this.buildingHelper.checkAndGetHouse(move.location as Location)
-      )
-      this.memorize(MemoryType.BuildingToGet, (oldValue?: number[]) =>
-        oldValue ? [...oldValue, ...this.buildingHelper.checkAndGetTower()] : this.buildingHelper.checkAndGetTower()
-      )
-      this.memorize(MemoryType.BuildingToGet, (oldValue?: number[]) =>
-        oldValue ? [...oldValue, ...this.buildingHelper.checkAndGetCastle()] : this.buildingHelper.checkAndGetCastle()
-      )
+      this.memorize<number[]>(MemoryType.BuildingToGet, (oldValue = []) => [
+        ...oldValue,
+        ...this.buildingHelper.checkAndGetHouse(move.location as Location),
+        ...this.buildingHelper.checkAndGetTower(),
+        ...this.buildingHelper.checkAndGetCastle()
+      ])
       if (this.selectedShields?.includes(Shield.PlayAgain) && this.playerVikings.length) {
         moves.push(this.startRule(RuleId.PlaceViking))
       } else {
