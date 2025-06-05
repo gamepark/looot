@@ -4,7 +4,7 @@ import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { OceanBoard, oceanBoards } from '../../material/OceanBoard'
 import { Resource } from '../../material/Resource'
-import { trophyBoards } from '../../material/TrophyBoard'
+import { TrophyBoard, trophyBoards } from '../../material/TrophyBoard'
 import { getNeighbors } from './utils'
 
 export class LandscapeHelper extends MaterialRulesPart {
@@ -22,7 +22,7 @@ export class LandscapeHelper extends MaterialRulesPart {
     if (oceanBoardItem) {
       this.landscape.merge(oceanBoards[oceanBoardItem.id], oceanBoardItem.location, () => (this.overlap = true))
     }
-    const trophyBoardItem = this.material(MaterialType.TrophyBoard).getItem<OceanBoard>()
+    const trophyBoardItem = this.material(MaterialType.TrophyBoard).getItem<TrophyBoard>()
     if (trophyBoardItem) {
       this.landscape.merge(trophyBoards[trophyBoardItem.id], trophyBoardItem.location, () => (this.overlap = true))
     }

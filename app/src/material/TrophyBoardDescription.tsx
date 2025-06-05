@@ -1,12 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import Front from '../images/plateaux/trophee1.png'
-import Back from '../images/plateaux/trophee2.png'
+import { TrophyBoard } from '@gamepark/looot/material/TrophyBoard'
+import TrophyBoard1 from '../images/plateaux/trophee1.png'
+import TrophyBoard2 from '../images/plateaux/trophee2.png'
 import { TrophyBoardHelp } from './help/TrophyBoardHelp'
 import { SideBoardDescription } from './SideBoardDescription'
 
 export class TrophyBoardDescription extends SideBoardDescription {
-  backImage = Back
-  image = Front
+  images = {
+    [TrophyBoard.TrophyBoard1]: TrophyBoard1,
+    [TrophyBoard.TrophyBoard2]: TrophyBoard2
+  }
   help = TrophyBoardHelp
 }
 
