@@ -4,7 +4,7 @@ import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { Shield } from '@gamepark/looot/material/Shield'
 import { LandscapeHelper } from '@gamepark/looot/rules/helpers/LandscapeHelper'
 import { MemoryType } from '@gamepark/looot/rules/Memory'
-import { DropAreaDescription, HexagonalGridLocator, ItemContext } from '@gamepark/react-game'
+import { DropAreaDescription, HexagonalGridLocator, isItemContext, ItemContext } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
 import { HexGridSystem, isMoveItemType, Location, MaterialGame, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 
@@ -15,7 +15,7 @@ class LandscapeLocator extends HexagonalGridLocator {
   getCoordinates(_: Location, context: MaterialContext) {
     const landscape = new LandscapeHelper(context.rules.game).landscape
     const { xMin, xMax, yMin, yMax } = this.getBoundaries(landscape)
-    return { x: -(xMin + xMax) / 2, y: -(yMin + yMax) / 2 }
+    return { x: -(xMin + xMax) / 2, y: -(yMin + yMax) / 2, z: isItemContext(context) ? 0 : 1 }
   }
 
   getItemCoordinates(item: MaterialItem, context: ItemContext) {
