@@ -1,9 +1,8 @@
-import { Location, MaterialGame, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
+import { getAdjacentHexagons, HexGridSystem, Location, MaterialGame, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
 import { getConstructionSiteNeededTiles } from '../../material/ConstructionSiteTile'
 import { LocationType } from '../../material/LocationType'
 import { getLongshipNeededTiles } from '../../material/Longship'
 import { MaterialType } from '../../material/MaterialType'
-import { getNeighbors } from './utils'
 
 export class FjordBoardHelper extends MaterialRulesPart {
   constructor(
@@ -64,7 +63,7 @@ export class FjordBoardHelper extends MaterialRulesPart {
   }
 
   private getNeighborsId(location: Location, materialType: MaterialType) {
-    return getNeighbors(location)
+    return getAdjacentHexagons(location as XYCoordinates, HexGridSystem.EvenQ)
       .filter((it) => it.x >= 0 && it.x <= 6)
       .filter((it) => it.y >= 0 && it.y <= 6)
       .map(

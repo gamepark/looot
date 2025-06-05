@@ -1,8 +1,8 @@
-import { Location, MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
+import { getAdjacentHexagons, HexGridSystem, Location, MaterialGame, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
 import { LocationType } from '../../../material/LocationType'
 import { MaterialType } from '../../../material/MaterialType'
 import { PlayerColor } from '../../../PlayerColor'
-import { getNeighbors } from '../utils'
+
 export class CastleVikingGroupHelper extends MaterialRulesPart {
   path: Location[]
   pathWithoutCastle: Location[]
@@ -36,7 +36,7 @@ export class CastleVikingGroupHelper extends MaterialRulesPart {
   }
 
   private checkNeighbors(location: Location) {
-    const neighbors = getNeighbors(location)
+    const neighbors = getAdjacentHexagons(location as XYCoordinates, HexGridSystem.EvenQ)
     neighbors.forEach((neighbor) => {
       this.checkVikingAndAddToPath(neighbor)
     })

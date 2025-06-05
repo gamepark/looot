@@ -1,12 +1,13 @@
-import { Location, MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
+import { getAdjacentHexagons, HexGridSystem, Location, MaterialGame, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
 import { Building } from '../../../material/Building'
 import { LocationType } from '../../../material/LocationType'
 import { MaterialType } from '../../../material/MaterialType'
 import { PlayerColor } from '../../../PlayerColor'
 import { MemoryType } from '../../Memory'
 import { LandscapeHelper } from '../LandscapeHelper'
-import { getNeighbors, locationsEquals } from '../utils'
+import { locationsEquals } from '../utils'
 import { CastleVikingGroupHelper } from './CastleVikingGroupHelper'
+
 export class CastleHelper extends MaterialRulesPart {
   landscapeHelper: LandscapeHelper
   castles: Location[]
@@ -63,7 +64,7 @@ export class CastleHelper extends MaterialRulesPart {
   }
 
   private checkNeighbors(location: Location) {
-    const neighbors = getNeighbors(location)
+    const neighbors = getAdjacentHexagons(location as XYCoordinates, HexGridSystem.EvenQ)
     neighbors.forEach((neighbor) => {
       this.addNeighborToPathIfPlayerVikingIsInNeighbor(neighbor)
     })

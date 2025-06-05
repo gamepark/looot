@@ -1,8 +1,7 @@
-import { Location, MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
+import { getAdjacentHexagons, HexGridSystem, Location, MaterialGame, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
 import { Building } from '../../../material/Building'
 import { PlayerColor } from '../../../PlayerColor'
 import { LandscapeHelper } from '../LandscapeHelper'
-import { getNeighbors } from '../utils'
 
 export class HouseHelper extends MaterialRulesPart {
   landscapeHelper
@@ -16,7 +15,7 @@ export class HouseHelper extends MaterialRulesPart {
   }
 
   checkAndGetHouse(moveLocation: Location): number[] {
-    const neighbors = getNeighbors(moveLocation)
+    const neighbors = getAdjacentHexagons(moveLocation as XYCoordinates, HexGridSystem.EvenQ)
     const houses: number[] = []
     for (const neighbor of neighbors) {
       const neighborType = this.landscapeHelper.getLandscapeCaseType(neighbor.x, neighbor.y)

@@ -1,11 +1,10 @@
-import { getEnumValues, HexGridSystem, Location, MaterialGame, MaterialRulesPart, Polyhex } from '@gamepark/rules-api'
+import { getAdjacentHexagons, getEnumValues, HexGridSystem, Location, MaterialGame, MaterialRulesPart, Polyhex, XYCoordinates } from '@gamepark/rules-api'
 import { getLandscape, Land, LandscapeBoard, TrophyPlace, Water } from '../../material/LandscapeBoard'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { OceanBoard, oceanBoards } from '../../material/OceanBoard'
 import { Resource } from '../../material/Resource'
 import { TrophyBoard, trophyBoards } from '../../material/TrophyBoard'
-import { getNeighbors } from './utils'
 
 export class LandscapeHelper extends MaterialRulesPart {
   landscape: Polyhex<Land | typeof Water | typeof TrophyPlace>
@@ -34,7 +33,7 @@ export class LandscapeHelper extends MaterialRulesPart {
     const places: Location[] = []
 
     drakkars.forEach(({ location }) => {
-      getNeighbors(location).forEach((neighbor) => {
+      getAdjacentHexagons(location as XYCoordinates, HexGridSystem.EvenQ).forEach((neighbor) => {
         if (!places.find((p) => p.x === neighbor.x && p.y === neighbor.y)) {
           places.push({ type: LocationType.Landscape, ...neighbor })
         }
@@ -42,7 +41,7 @@ export class LandscapeHelper extends MaterialRulesPart {
     })
 
     vikings.forEach(({ location }) => {
-      getNeighbors(location).forEach((neighbor) => {
+      getAdjacentHexagons(location as XYCoordinates, HexGridSystem.EvenQ).forEach((neighbor) => {
         if (!places.find((p) => p.x === neighbor.x && p.y === neighbor.y)) {
           places.push({ type: LocationType.Landscape, ...neighbor })
         }
