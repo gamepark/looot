@@ -2,10 +2,10 @@
   "en": {
     "translation": {
       "Name": "Looot",
-      "player.1": "Yellow",
-      "player.2": "Blue",
-      "player.3": "Green",
-      "player.4": "Black",
+      "player.1": "Blue",
+      "player.2": "Red",
+      "player.3": "Grey",
+      "player.4": "Yellow",
       "header.place.viking.you": "Place a Viking or <shield>Use a shield</shield>",
       "header.place.viking.player": "{player} must place a viking",
       "header.place.resource.you": "You must place your resources",
@@ -63,7 +63,7 @@
       "help.ocean": "Sea tile",
       "help.ocean.descr": "The sea tile makes up the main board, it also accommodates the drakkar tiles.",
       "help.trophy.board": "Trophy tile",
-      "help.trophy.board.descr": "The trophy tile makes up the main board and also houses the trophies.",
+      "help.trophy.board.descr": "The trophy tile makes up the main board, it also houses the trophies.",
       "help.resource.tile": "Resource tiles",
       "help.resource.tile.descr.1": "There are 4 different types of resources: wood, <sheep>sheep</sheep>, <gold>gold</gold>, and <axe>axes</axe>.",
       "help.resource.tile.1": "The wood",
@@ -238,10 +238,10 @@
   "fr": {
     "translation": {
       "Name": "Looot",
-      "player.1": "Jaune",
-      "player.2": "Bleu",
-      "player.3": "Vert",
-      "player.4": "Noir",
+      "player.1": "Bleu",
+      "player.2": "Rouge",
+      "player.3": "Gris",
+      "player.4": "Jaune",
       "header.place.viking.you": "Placez un viking ou <shield>Utilisez un bouclier</shield>",
       "header.place.viking.player": "{player} doit placer un viking",
       "header.place.resource.you": "Vous devez placer vos ressources",
