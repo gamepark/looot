@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, Location, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, Location, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getShieldType, Shield } from '../material/Shield'
@@ -40,7 +40,7 @@ export class PlaceVikingRule extends PlayerTurnRule {
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
     if (isMoveItemType(MaterialType.Viking)(move)) {
-      const resource = this.landscapeHelper.getLandscapeCaseType(move.location.x ?? 0, move.location.y ?? 0)
+      const resource = this.landscapeHelper.getLand(move.location as XYCoordinates)
       if (resource) {
         this.memorize<number[]>(MemoryType.ResourcesToGet, (oldValue = []) => [...oldValue, resource])
         if (this.selectedShields?.includes(Shield.DoubleGain)) {

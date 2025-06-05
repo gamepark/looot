@@ -18,7 +18,7 @@ export class HouseHelper extends MaterialRulesPart {
     const neighbors = getAdjacentHexagons(moveLocation as XYCoordinates, HexGridSystem.EvenQ)
     const houses: number[] = []
     for (const neighbor of neighbors) {
-      const neighborType = this.landscapeHelper.getLandscapeCaseType(neighbor.x, neighbor.y)
+      const neighborType = this.landscapeHelper.getLand(neighbor)
       if (neighborType === Building.House) {
         houses.push(...this.landscapeHelper.checkIfTileInCaseAndReturnIndex(neighbor.x, neighbor.y))
       }

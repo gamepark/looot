@@ -1,9 +1,8 @@
-import { getAdjacentHexagons, getEnumValues, HexGridSystem, Location, MaterialGame, MaterialRulesPart, Polyhex, XYCoordinates } from '@gamepark/rules-api'
-import { getLandscape, Land, LandscapeBoard, TrophyPlace, Water } from '../../material/LandscapeBoard'
+import { getAdjacentHexagons, HexGridSystem, Location, MaterialGame, MaterialRulesPart, Polyhex, XYCoordinates } from '@gamepark/rules-api'
+import { getLandscape, isResource, Land, LandscapeBoard, TrophyPlace, Water } from '../../material/LandscapeBoard'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { OceanBoard, oceanBoards } from '../../material/OceanBoard'
-import { Resource } from '../../material/Resource'
 import { TrophyBoard, trophyBoards } from '../../material/TrophyBoard'
 
 export class LandscapeHelper extends MaterialRulesPart {
@@ -51,14 +50,13 @@ export class LandscapeHelper extends MaterialRulesPart {
     return places
       .filter((it) => (it.y ?? 0) >= this.landscape.yMin && (it.y ?? 0) <= this.landscape.yMax)
       .filter((it) => (it.x ?? 0) >= this.landscape.xMin && (it.x ?? 0) <= this.landscape.xMax)
-      .filter((it) => this.isEligiblePlace(it.x ?? 0, it.y ?? 0))
+      .filter((it) => isResource(this.getLand({ x: it.x ?? 0, y: it.y ?? 0 })))
       .filter((it) => (canPlaceOnOccupedPlace ? this.placeIsNotEmpty(it.x ?? 0, it.y ?? 0) : this.placeIsEmpty(it.x ?? 0, it.y ?? 0)))
   }
 
-  getLandscapeCaseType(x: number, y: number): number | undefined {
-    if (x < this.landscape.xMin || x > this.landscape.xMax) return undefined
-    if (y < this.landscape.yMin || y > this.landscape.yMax) return undefined
-    return this.landscape.grid[y + Math.abs(this.landscape.yMin)][x + Math.abs(this.landscape.xMin)]
+  getLand(hex: XYCoordinates): Land | undefined {
+    const land = this.landscape.getValue(hex)
+    return land !== Water && land !== TrophyPlace ? land : undefined
   }
 
   getSpecificCaseTypeLocations(type: number): Location[] {
@@ -81,13 +79,6 @@ export class LandscapeHelper extends MaterialRulesPart {
       .location((loc) => loc.x === x && loc.y === y)
     if (tiles.length === 0) return []
     return tiles.getIndexes()
-  }
-
-  private isEligiblePlace(x: number, y: number): boolean {
-    const caseType = this.getLandscapeCaseType(x, y)
-    if (!caseType) return false
-    const allowedType = getEnumValues(Resource)
-    return allowedType.includes(caseType)
   }
 
   private placeIsEmpty(x: number, y: number): boolean {

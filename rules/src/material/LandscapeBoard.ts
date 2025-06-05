@@ -25,8 +25,8 @@ export type Land = Resource | Building
 export const Water = 10
 export const TrophyPlace = 11
 
-export const isResource = (land: Land): land is Resource => land < Building.House
-export const isBuilding = (land: Land): land is Building => land >= Building.House
+export const isResource = (land?: Land): land is Resource => !!land && land < Building.House
+export const isBuilding = (land?: Land): land is Building => !!land && land >= Building.House
 
 export function getLandscape(board: LandscapeBoard) {
   switch (board) {
