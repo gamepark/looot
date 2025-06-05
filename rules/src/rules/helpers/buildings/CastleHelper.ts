@@ -6,7 +6,7 @@ import { PlayerColor } from '../../../PlayerColor'
 import { MemoryType } from '../../Memory'
 import { LandscapeHelper } from '../LandscapeHelper'
 import { getNeighbors, locationsEquals } from '../utils'
-
+import { CastleVikingGroupHelper } from './CastleVikingGroupHelper'
 export class CastleHelper extends MaterialRulesPart {
   landscapeHelper: LandscapeHelper
   castles: Location[]
@@ -51,8 +51,9 @@ export class CastleHelper extends MaterialRulesPart {
   }
 
   private checkPathAndAddCastle(castle: Location, nbTimeCastleReached: number) {
-    const pathLengthWithoutCastle = this.path.length - 1
-    for (let i = 0; i < Math.floor(pathLengthWithoutCastle / 4) - nbTimeCastleReached; i++) {
+    const pathWithoutCastle = this.path.filter((it) => !locationsEquals(it, castle))
+    const biggerVikingGroup = new CastleVikingGroupHelper(this.game).getBiggerVikingGroup(pathWithoutCastle)
+    for (let i = 0; i < Math.floor(biggerVikingGroup / 4) - nbTimeCastleReached; i++) {
       this.castlesToGet.push(castle)
     }
   }
