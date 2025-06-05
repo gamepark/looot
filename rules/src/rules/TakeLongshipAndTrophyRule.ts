@@ -46,10 +46,7 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
     if (isMoveItemType(MaterialType.Longship)(move) && move.location.type === LocationType.FjordBoardHexSpace) {
       moves.push(...this.fjordBoardHelper.checkLongship())
     }
-    console.log(this.eligiblesTrophies.length === 0)
-    console.log(this.remind(MemoryType.LongshipTaked))
     if ((this.playerTrophy.length > 0 || this.eligiblesTrophies.length === 0) && this.remind(MemoryType.LongshipTaked)) {
-      console.log('coucou')
       moves.push(this.startNext())
     }
     return moves

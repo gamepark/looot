@@ -11,7 +11,7 @@ export class PlaceResourceRule extends PlayerTurnRule {
   onRuleStart(): MaterialMove[] {
     const noMorePlacesOnBoard = this.fjordBoardHelper.getPossiblePlaces().length === 0
     if (noMorePlacesOnBoard) {
-      return[this.startRule(RuleId.TakeLongshipAndTrophy)]
+      return [this.startRule(RuleId.TakeLongshipAndTrophy)]
     }
     return []
   }

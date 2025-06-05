@@ -104,7 +104,9 @@ export class WatchTowerHelper extends MaterialRulesPart {
   }
 
   private towerNotInTowerToGetAndNotStartTower(towerIndex: number, startTowerIndex: number): boolean {
-    const pathAlreadyInTowerToGet = this.towersToGet.find((it) => (it[0] === towerIndex && it[1] === startTowerIndex) || (it[0] === startTowerIndex && it[1] === towerIndex))
+    const pathAlreadyInTowerToGet = this.towersToGet.find(
+      (it) => (it[0] === towerIndex && it[1] === startTowerIndex) || (it[0] === startTowerIndex && it[1] === towerIndex)
+    )
 
     return towerIndex !== -1 && towerIndex !== startTowerIndex && !pathAlreadyInTowerToGet
   }

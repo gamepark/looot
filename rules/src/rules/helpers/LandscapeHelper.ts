@@ -53,7 +53,7 @@ export class LandscapeHelper extends MaterialRulesPart {
       .filter((it) => (it.y ?? 0) >= this.landscape.yMin && (it.y ?? 0) <= this.landscape.yMax)
       .filter((it) => (it.x ?? 0) >= this.landscape.xMin && (it.x ?? 0) <= this.landscape.xMax)
       .filter((it) => this.isEligiblePlace(it.x ?? 0, it.y ?? 0))
-      .filter((it) => canPlaceOnOccupedPlace || this.placeIsEmpty(it.x ?? 0, it.y ?? 0))
+      .filter((it) => this.placeIsEmpty(it.x ?? 0, it.y ?? 0, canPlaceOnOccupedPlace ? 1 : 0))
   }
 
   getLandscapeCaseType(x: number, y: number): number | undefined {
@@ -91,7 +91,7 @@ export class LandscapeHelper extends MaterialRulesPart {
     return allowedType.includes(caseType)
   }
 
-  private placeIsEmpty(x: number, y: number): boolean {
-    return this.material(MaterialType.Viking).location((loc) => loc.type === LocationType.Landscape && loc.x === x && loc.y === y).length === 0
+  private placeIsEmpty(x: number, y: number, nbVikingOnCase: number): boolean {
+    return this.material(MaterialType.Viking).location((loc) => loc.type === LocationType.Landscape && loc.x === x && loc.y === y).length === nbVikingOnCase
   }
 }
