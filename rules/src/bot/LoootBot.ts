@@ -13,7 +13,7 @@ export class LoootBot extends RandomBot<MaterialGame<number, MaterialType, Locat
   override getLegalMoves(game: MaterialGame<number, MaterialType, LocationType>): MaterialMove<number, MaterialType, LocationType>[] {
     const rules = new LoootRules(game)
     const legalMoves = super.getLegalMoves(game)
-    if (rules.game.rule?.id === RuleId.TakeLongship) {
+    if (rules.game.rule?.id === RuleId.TakeLongshipAndTrophy) {
       return legalMoves.filter((it) => isCustomMoveType(CustomMoveType.Pass)(it))
     }
     return legalMoves

@@ -18,8 +18,7 @@ import { MemoryType } from './rules/Memory'
 import { PlaceResourceRule } from './rules/PlaceResourceRule'
 import { PlaceVikingRule } from './rules/PlaceVikingRule'
 import { RuleId } from './rules/RuleId'
-import { TakeLongshipRule } from './rules/TakeLongshipRule'
-import { TakeTrophyRule } from './rules/TakeTrophyRule'
+import { TakeLongshipAndTrophyRule } from './rules/TakeLongshipAndTrophyRule'
 
 /**
  * This class implements the rules of the board game.
@@ -30,8 +29,7 @@ export class LoootRules extends SecretMaterialRules implements TimeLimit<Materia
   rules = {
     [RuleId.PlaceViking]: PlaceVikingRule,
     [RuleId.PlaceResource]: PlaceResourceRule,
-    [RuleId.TakeLongship]: TakeLongshipRule,
-    [RuleId.TakeTrophy]: TakeTrophyRule
+    [RuleId.TakeLongshipAndTrophy]: TakeLongshipAndTrophyRule,
   }
 
   locationsStrategies = {

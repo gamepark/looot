@@ -52,7 +52,7 @@ export class LoootLogs implements LogDescription {
         player: actionPlayer
       }
     }
-    if (ruleId === RuleId.TakeLongship && isMoveItemType(MaterialType.Longship)(move) && this.getMoveLocationType(move) === LocationType.FjordBoardHexSpace) {
+    if (ruleId === RuleId.TakeLongshipAndTrophy && isMoveItemType(MaterialType.Longship)(move) && this.getMoveLocationType(move) === LocationType.FjordBoardHexSpace) {
       if (move.location.rotation) {
         return {
           Component: CompleteLongshipHistory,
@@ -65,7 +65,7 @@ export class LoootLogs implements LogDescription {
         }
       }
     }
-    if (ruleId === RuleId.TakeTrophy && isMoveItemType(MaterialType.ConstructionSiteTile)(move)) {
+    if (ruleId === RuleId.TakeLongshipAndTrophy && isMoveItemType(MaterialType.Trophy)(move)) {
       return {
         Component: TakeTrophyHistory,
         player: actionPlayer

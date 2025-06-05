@@ -11,7 +11,7 @@ export class PlaceResourceRule extends PlayerTurnRule {
   onRuleStart(): MaterialMove[] {
     const noMorePlacesOnBoard = this.fjordBoardHelper.getPossiblePlaces().length === 0
     if (noMorePlacesOnBoard) {
-      return[this.startRule(RuleId.TakeLongship)]
+      return[this.startRule(RuleId.TakeLongshipAndTrophy)]
     }
     return []
   }
@@ -63,7 +63,7 @@ export class PlaceResourceRule extends PlayerTurnRule {
     const noMoreResourcesOrBuildings = this.playerResourceTiles.length === 0 && this.playerBuildingTiles.length === 0
     const noMorePlacesOnBoard = this.fjordBoardHelper.getPossiblePlaces().length === 0
     if (noMoreResourcesOrBuildings || noMorePlacesOnBoard) {
-      moves.push(this.startRule(RuleId.TakeLongship))
+      moves.push(this.startRule(RuleId.TakeLongshipAndTrophy))
     }
     return moves
   }

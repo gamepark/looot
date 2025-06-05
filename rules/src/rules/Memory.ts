@@ -4,5 +4,6 @@ export enum MemoryType {
   PlayerCastlesAlreadyReached,
   PlayerSelectedShield,
   ResourcesToGet,
-  BuildingToGet
+  BuildingToGet,
+  LongshipTaked
 }
