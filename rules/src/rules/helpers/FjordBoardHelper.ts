@@ -1,5 +1,5 @@
 import { getAdjacentHexagons, HexGridSystem, Location, MaterialGame, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
-import { getConstructionSiteNeededTiles } from '../../material/ConstructionSiteTile'
+import { constructionSiteRequirements, ConstructionSite } from '../../material/ConstructionSite'
 import { LocationType } from '../../material/LocationType'
 import { getLongshipNeededTiles } from '../../material/Longship'
 import { MaterialType } from '../../material/MaterialType'
@@ -23,7 +23,7 @@ export class FjordBoardHelper extends MaterialRulesPart {
   }
 
   checkConstructionSite(): MaterialMove[] {
-    return this.checkResources(MaterialType.ConstructionSiteTile, getConstructionSiteNeededTiles)
+    return this.checkResources(MaterialType.ConstructionSiteTile, (site: ConstructionSite) => constructionSiteRequirements[site])
   }
 
   checkLongship(): MaterialMove[] {

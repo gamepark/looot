@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ConstructionSiteTile } from '@gamepark/looot/material/ConstructionSiteTile'
+import { ConstructionSite } from '@gamepark/looot/material/ConstructionSite'
 import { CardDescription } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import Port1 from '../images/chantiers/port1.png'
@@ -37,39 +37,39 @@ export class ConstructionSiteTileDescription extends CardDescription {
 }
 
 const backImages = {
-  [ConstructionSiteTile.Port1]: PortBack,
-  [ConstructionSiteTile.Port2]: PortBack,
-  [ConstructionSiteTile.Port3]: PortBack,
-  [ConstructionSiteTile.Port4]: PortBack,
-  [ConstructionSiteTile.Port5]: PortBack,
-  [ConstructionSiteTile.Altar1]: AltarBack,
-  [ConstructionSiteTile.Altar2]: AltarBack,
-  [ConstructionSiteTile.Altar3]: AltarBack,
-  [ConstructionSiteTile.Altar4]: AltarBack,
-  [ConstructionSiteTile.Altar5]: AltarBack,
-  [ConstructionSiteTile.Palace1]: PalaceBack,
-  [ConstructionSiteTile.Palace2]: PalaceBack,
-  [ConstructionSiteTile.Palace3]: PalaceBack,
-  [ConstructionSiteTile.Palace4]: PalaceBack,
-  [ConstructionSiteTile.Palace5]: PalaceBack
+  [ConstructionSite.Port1]: PortBack,
+  [ConstructionSite.Port2]: PortBack,
+  [ConstructionSite.Port3]: PortBack,
+  [ConstructionSite.Port4]: PortBack,
+  [ConstructionSite.Port5]: PortBack,
+  [ConstructionSite.Altar1]: AltarBack,
+  [ConstructionSite.Altar2]: AltarBack,
+  [ConstructionSite.Altar3]: AltarBack,
+  [ConstructionSite.Altar4]: AltarBack,
+  [ConstructionSite.Altar5]: AltarBack,
+  [ConstructionSite.Palace1]: PalaceBack,
+  [ConstructionSite.Palace2]: PalaceBack,
+  [ConstructionSite.Palace3]: PalaceBack,
+  [ConstructionSite.Palace4]: PalaceBack,
+  [ConstructionSite.Palace5]: PalaceBack
 }
 
 const images = {
-  [ConstructionSiteTile.Port1]: Port1,
-  [ConstructionSiteTile.Port2]: Port2,
-  [ConstructionSiteTile.Port3]: Port3,
-  [ConstructionSiteTile.Port4]: Port4,
-  [ConstructionSiteTile.Port5]: Port5,
-  [ConstructionSiteTile.Altar1]: Altar1,
-  [ConstructionSiteTile.Altar2]: Altar2,
-  [ConstructionSiteTile.Altar3]: Altar3,
-  [ConstructionSiteTile.Altar4]: Altar4,
-  [ConstructionSiteTile.Altar5]: Altar5,
-  [ConstructionSiteTile.Palace1]: Palace1,
-  [ConstructionSiteTile.Palace2]: Palace2,
-  [ConstructionSiteTile.Palace3]: Palace3,
-  [ConstructionSiteTile.Palace4]: Palace4,
-  [ConstructionSiteTile.Palace5]: Palace5
+  [ConstructionSite.Port1]: Port1,
+  [ConstructionSite.Port2]: Port2,
+  [ConstructionSite.Port3]: Port3,
+  [ConstructionSite.Port4]: Port4,
+  [ConstructionSite.Port5]: Port5,
+  [ConstructionSite.Altar1]: Altar1,
+  [ConstructionSite.Altar2]: Altar2,
+  [ConstructionSite.Altar3]: Altar3,
+  [ConstructionSite.Altar4]: Altar4,
+  [ConstructionSite.Altar5]: Altar5,
+  [ConstructionSite.Palace1]: Palace1,
+  [ConstructionSite.Palace2]: Palace2,
+  [ConstructionSite.Palace3]: Palace3,
+  [ConstructionSite.Palace4]: Palace4,
+  [ConstructionSite.Palace5]: Palace5
 }
 
 export const constructionSiteTileDescription = new ConstructionSiteTileDescription()

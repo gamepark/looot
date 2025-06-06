@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ConstructionSiteTile, getConstructionSiteNeededTiles, getConstructionSiteType } from '@gamepark/looot/material/ConstructionSiteTile'
+import { constructionSiteRequirements, ConstructionSite, getConstructionSiteType } from '@gamepark/looot/material/ConstructionSite'
 import { MaterialHelpProps } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
@@ -13,8 +13,8 @@ const components = {
 export const ConstructionSiteTileHelp: FC<MaterialHelpProps> = ({ item }) => {
   const { t } = useTranslation()
 
-  const type = getConstructionSiteType(item.id as ConstructionSiteTile)
-  const resources = getConstructionSiteNeededTiles(item.id as ConstructionSiteTile)
+  const type = getConstructionSiteType(item.id as ConstructionSite)
+  const resources = constructionSiteRequirements[item.id as ConstructionSite]
 
   return (
     <>

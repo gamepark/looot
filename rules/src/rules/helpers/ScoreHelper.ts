@@ -1,6 +1,6 @@
 import { MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
 import { Building } from '../../material/Building'
-import { ConstructionSiteTile, ConstructionSiteTileType, getConstructionSiteType } from '../../material/ConstructionSiteTile'
+import { ConstructionSite, ConstructionSiteTileType, getConstructionSiteType } from '../../material/ConstructionSite'
 import { LocationType } from '../../material/LocationType'
 import { getLongshipType, getLongshipValue, Longship, LongshipType } from '../../material/Longship'
 import { MaterialType } from '../../material/MaterialType'
@@ -132,7 +132,7 @@ export class ScoreHelper extends MaterialRulesPart {
         .location(LocationType.FjordBoardHexSpace)
         .rotation((r) => r === true)
         .player(this.player)
-        .filter((it) => getConstructionSiteType(it.id as ConstructionSiteTile) === type).length === 1
+        .filter((it) => getConstructionSiteType(it.id as ConstructionSite) === type).length === 1
     )
   }
 }
