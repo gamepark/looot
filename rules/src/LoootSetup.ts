@@ -1,5 +1,5 @@
 import { getEnumValues, HexGridSystem, hexRotate, hexTranslate, loopWithFuse, MaterialGameSetup, XYCoordinates } from '@gamepark/rules-api'
-import { sample, shuffle } from 'lodash'
+import { range, sample, shuffle } from 'lodash'
 import { LoootOptions } from './LoootOptions'
 import { LoootRules } from './LoootRules'
 import { Building } from './material/Building'
@@ -38,16 +38,16 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
   }
 
   setupLandscapeBoards() {
-    const boards = shuffle(getEnumValues(LandscapeBoard)).slice(0, this.players.length)
+    const boards = shuffle(range(1, 5)).slice(0, this.players.length)
+    const boardsFace = boards.map((board) => (board * 2 - Math.floor(Math.random() * 2)) as LandscapeBoard)
     const firstBoardLocation = this.getLandscapeBoardLocation({ x: 0, y: 0 }, 0)
-    this.material(MaterialType.LandscapeBoard).createItem({ id: boards.pop(), location: firstBoardLocation })
-    //this.material(MaterialType.LandscapeBoard).createItem({ id: boards.pop(), location: { type: LocationType.Landscape, x: 1, y: -3, rotation: 1 } })
+    this.material(MaterialType.LandscapeBoard).createItem({ id: boardsFace.pop(), location: firstBoardLocation })
     const availableEdges: LandscapeEdge[] = [
       { x: 0, y: 0, direction: 1 },
       { x: 0, y: 0, direction: 3, longSide: true },
       { x: 0, y: 0, direction: 5 }
     ]
-    for (const board of boards) {
+    for (const board of boardsFace) {
       const edge = popRandom(availableEdges)
       const rotation = Math.floor(Math.random() * 3) * 2 + (edge.direction % 2)
       const { x, y } = this.getNewLandscapeBoardCenter(edge, rotation)
