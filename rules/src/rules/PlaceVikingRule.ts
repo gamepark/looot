@@ -7,8 +7,6 @@ import { MemoryType } from './Memory'
 import { RuleId } from './RuleId'
 
 export class PlaceVikingRule extends PlayerTurnRule {
-  landscapeHelper = new LandscapeHelper(this.game)
-
   onRuleStart(): MaterialMove[] {
     if (this.playerVikings.length === 0) {
       return [this.startPlayerTurn(RuleId.PlaceViking, this.nextPlayer)]
@@ -18,7 +16,7 @@ export class PlaceVikingRule extends PlayerTurnRule {
 
   getPlayerMoves(): MaterialMove[] {
     const moves: MaterialMove[] = []
-    this.landscapeHelper.getNewVikingLocations(this.player).forEach((place) => {
+    new LandscapeHelper(this.game).getNewVikingLocations(this.player).forEach((place) => {
       moves.push(this.playerVikings.moveItem({ type: LocationType.Landscape, ...place }))
     })
     moves.push(...this.playerShields.moveItems((item) => ({ ...item.location, rotation: true })))
@@ -38,7 +36,8 @@ export class PlaceVikingRule extends PlayerTurnRule {
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
     if (isMoveItemType(MaterialType.Viking)(move)) {
-      const resource = this.landscapeHelper.getLand(move.location as XYCoordinates)
+      const helper = new LandscapeHelper(this.game)
+      const resource = helper.getLand(move.location as XYCoordinates)
       if (resource) {
         this.memorize<number[]>(MemoryType.ResourcesToGet, (oldValue = []) => [...oldValue, resource])
         if (this.selectedShields?.includes(Shield.DoubleGain)) {
@@ -47,7 +46,7 @@ export class PlaceVikingRule extends PlayerTurnRule {
       }
       this.memorize<number[]>(MemoryType.BuildingToGet, (oldValue = []) => [
         ...oldValue,
-        ...this.landscapeHelper.getBuildingsToTake(this.player, move.location as XYCoordinates)
+        ...helper.getBuildingsToTake(this.player, move.location as XYCoordinates)
       ])
       if (this.selectedShields?.includes(Shield.PlayAgain) && this.playerVikings.length) {
         moves.push(this.startRule(RuleId.PlaceViking))
