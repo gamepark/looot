@@ -4,7 +4,7 @@ import { LoootRules } from '@gamepark/looot/LoootRules'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { shields } from '@gamepark/looot/material/Shield'
 import { PlayMoveButton, useLegalMove, useRules } from '@gamepark/react-game'
-import { isMoveItemType } from '@gamepark/rules-api'
+import { isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import { shieldDescription } from '../material/ShieldDescription'
 
@@ -42,9 +42,9 @@ interface ShieldProps {
   shield: number
 }
 
-const Shield: React.FC<ShieldProps> = ({ id, shield }: ShieldProps) => {
+const Shield = ({ id, shield }: ShieldProps) => {
   const rules = useRules<LoootRules>()!
-  const useShield = useLegalMove(
+  const useShield = useLegalMove<MaterialMove>(
     (move) => isMoveItemType(MaterialType.Shield)(move) && rules.material(MaterialType.Shield).index(move.itemIndex).getItem()?.id === id
   )
   return (

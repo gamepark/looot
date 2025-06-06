@@ -28,7 +28,9 @@ export const ResourceTileHelp: FC<MaterialHelpProps> = ({ item }) => {
         />
       </p>
       <h3>{t(`help.resource.tile.${item.id}`)}</h3>
-      <p><Trans defaults={`help.resource.tile.${item.id}.descr`} components={components} /></p>
+      <p>
+        <Trans defaults={`help.resource.tile.${item.id}.descr`} components={components} />
+      </p>
     </>
   )
 }

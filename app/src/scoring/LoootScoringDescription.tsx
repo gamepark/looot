@@ -85,7 +85,14 @@ export class LoootScoringDescription implements ScoringDescription {
   }
 
   calculScore(nbTile: number, value: number) {
-    return <span><i css={smallText}>{nbTile} x {value} = </i>{nbTile * value}</span>
+    return (
+      <span>
+        <i css={smallText}>
+          {nbTile} x {value} ={' '}
+        </i>
+        {nbTile * value}
+      </span>
+    )
   }
 }
 

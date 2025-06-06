@@ -52,7 +52,11 @@ export class LoootLogs implements LogDescription {
         player: actionPlayer
       }
     }
-    if (ruleId === RuleId.TakeLongshipAndTrophy && isMoveItemType(MaterialType.LongshipTile)(move) && this.getMoveLocationType(move) === LocationType.FjordBoardHexSpace) {
+    if (
+      ruleId === RuleId.TakeLongshipAndTrophy &&
+      isMoveItemType(MaterialType.LongshipTile)(move) &&
+      this.getMoveLocationType(move) === LocationType.FjordBoardHexSpace
+    ) {
       if (move.location.rotation) {
         return {
           Component: CompleteLongshipHistory,

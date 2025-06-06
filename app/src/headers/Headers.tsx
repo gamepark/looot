@@ -8,5 +8,5 @@ import { TakeLongshipAndTrophyHeader } from './TakeLongshipAndTrophyHeader'
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.PlaceViking]: PlaceVikingHeader,
   [RuleId.PlaceResource]: PlaceResourceHeader,
-  [RuleId.TakeLongshipAndTrophy]: TakeLongshipAndTrophyHeader,
+  [RuleId.TakeLongshipAndTrophy]: TakeLongshipAndTrophyHeader
 }
