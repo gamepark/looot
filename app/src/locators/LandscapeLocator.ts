@@ -24,10 +24,11 @@ class LandscapeLocator extends HexagonalGridLocator {
     const isBoard = context.type === MaterialType.LandscapeBoard || context.type === MaterialType.TrophyBoard || context.type === MaterialType.OceanBoard
     const z = isBoard ? 0 : (item.location.z ?? 0)
     if (context.type === MaterialType.Viking) {
+      const vikingCoordinates = vikingsCoordinateFromZ[z]
       return {
-        x: x - 0.3 + z * 0.7,
-        y: y - 0.3 + z * 0.7,
-        z: z
+        x: x + vikingCoordinates.x,
+        y: y + vikingCoordinates.y,
+        z: vikingCoordinates.z
       }
     }
     if (context.type === MaterialType.BuildingTile) {
@@ -83,3 +84,31 @@ class LandscapeHexDropDescription extends DropAreaDescription {
 }
 
 export const landscapeLocator = new LandscapeLocator()
+
+const vikingsCoordinateFromZ = [
+  {
+    x: 0,
+    y: 0,
+    z: 0.5
+  },
+  {
+    x: 0.5,
+    y: 0.5,
+    z: 1
+  },
+  {
+    x: 0.5,
+    y: -0.5,
+    z: 0.1
+  },
+  {
+    x: -0.5,
+    y: -0.5,
+    z: 0.1
+  },
+  {
+    x: -0.5,
+    y: 0.5,
+    z: 1
+  }
+]

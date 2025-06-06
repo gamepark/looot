@@ -76,7 +76,11 @@ export class PlaceVikingRule extends PlayerTurnRule {
       .location(LocationType.FjordBoardHexSpace)
       .player(this.player)
       .rotation(undefined)
-      .filter((it) => getShieldType(it.id as number) !== Shield.PlaceOnOccupiedSpace || this.landscapeHelper.getPossiblePlaces(true).length > 0)
+      .filter((it) => getShieldType(it.id as number) !== Shield.PlaceOnOccupiedSpace || this.vikingsOnLandscape.length > 0)
+  }
+
+  get vikingsOnLandscape() {
+    return this.material(MaterialType.Viking).location(LocationType.Landscape).getItems()
   }
 
   get selectedShields(): Shield[] | undefined {
