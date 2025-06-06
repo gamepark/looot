@@ -77,6 +77,15 @@ export class LandscapeHelper extends MaterialRulesPart {
     return land !== Water && land !== TrophyPlace ? land : undefined
   }
 
+  getBuildingsToTake(player: PlayerColor, location: XYCoordinates) {
+    const vikingsGroups = this.getVikingsGroups(player)
+    return [
+      ...this.getHousesAround(location).getIndexes(),
+      ...this.getWatchtowersToTake(player, vikingsGroups),
+      ...this.getCastlesToTake(player, vikingsGroups)
+    ]
+  }
+
   getHousesAround(hex: XYCoordinates) {
     const around = getAdjacentHexagons(hex, HexGridSystem.EvenQ)
     return this.material(MaterialType.BuildingTile)
@@ -95,9 +104,9 @@ export class LandscapeHelper extends MaterialRulesPart {
     return createAdjacentGroups(grid, { hexGridSystem: hexGridSystem })
   }
 
-  getWatchtowersToTake(player: PlayerColor) {
+  getWatchtowersToTake(player: PlayerColor, vikingsGroups: AdjacentGroup<boolean>[][]) {
     const result: number[] = []
-    const connectedTowerLocations = this.getConnectedWatchtowerLocations(player)
+    const connectedTowerLocations = this.getConnectedWatchtowerLocations(vikingsGroups)
     const watchtowers = this.material(MaterialType.BuildingTile).location(LocationType.Landscape).id(Building.Watchtower)
     for (const index of watchtowers.getIndexes()) {
       const watchtower = watchtowers.getItem(index)
@@ -112,10 +121,9 @@ export class LandscapeHelper extends MaterialRulesPart {
     return result
   }
 
-  getConnectedWatchtowerLocations(player: PlayerColor) {
+  getConnectedWatchtowerLocations(vikingsGroups: AdjacentGroup<boolean>[][]) {
     const connectedTowerLocations: XYCoordinates[] = []
     const { xMin, yMin } = this.landscape
-    const vikingsGroups = this.getVikingsGroups(player)
     const towerLocations = this.getWatchtowersLocations()
     for (const towerLocation of towerLocations) {
       const adjacentGroups: (AdjacentGroup<boolean> & { towers?: XYCoordinates[] })[] = []
@@ -150,10 +158,9 @@ export class LandscapeHelper extends MaterialRulesPart {
     return locations
   }
 
-  getCastlesToTake(player: PlayerColor) {
+  getCastlesToTake(player: PlayerColor, vikingsGroups: AdjacentGroup<boolean>[][]) {
     const result: number[] = []
     const { xMin, yMin } = this.landscape
-    const vikingsGroups = this.getVikingsGroups(player)
     const castles = this.material(MaterialType.BuildingTile).location(LocationType.Landscape).id(Building.Castle)
     for (const index of castles.getIndexes()) {
       const castle = castles.getItem(index)
