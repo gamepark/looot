@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/looot",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "The rules of Looot adapted for Game Park",
   "sideEffects": false,
   "main": "dist/index.js",
