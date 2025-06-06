@@ -42,7 +42,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   getTrophyScore() {
-    return this.material(MaterialType.Trophy)
+    return this.material(MaterialType.TrophyTile)
       .location(LocationType.FjordBoardHexSpace)
       .player(this.player)
       .getItems()

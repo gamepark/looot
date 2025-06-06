@@ -3,7 +3,7 @@ export enum MaterialType {
   OceanBoard,
   TrophyBoard,
   BuildingTile,
-  Trophy,
+  TrophyTile,
   LongshipTile,
   ResourceTile,
   Bag,

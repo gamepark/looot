@@ -12,7 +12,7 @@ export const TakeLongshipAndTrophyHeader = () => {
   const activePlayer = rules.game.rule?.player
   const itsMe = player && activePlayer === player
   const name = usePlayerName(activePlayer)
-  const takeTrophyMove = useLegalMove((move: MaterialMove) => isMoveItemType(MaterialType.Trophy)(move))
+  const takeTrophyMove = useLegalMove((move: MaterialMove) => isMoveItemType(MaterialType.TrophyTile)(move))
   const takeLongshipMove = useLegalMove((move: MaterialMove) => isMoveItemType(MaterialType.LongshipTile)(move))
   const pass = useLegalMove((move: MaterialMove) => isCustomMoveType(CustomMoveType.Pass)(move))
 

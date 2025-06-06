@@ -17,7 +17,7 @@ export class TakeTrophyRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
-    if (isMoveItemType(MaterialType.Trophy)(move)) {
+    if (isMoveItemType(MaterialType.TrophyTile)(move)) {
       moves.push(this.startNext())
     }
     return moves
@@ -37,13 +37,13 @@ export class TakeTrophyRule extends PlayerTurnRule {
 
   get eligiblesTrophies() {
     const nbPlayerAxes = this.material(MaterialType.ResourceTile).location(LocationType.FjordBoardHexSpace).player(this.player).id(Resource.Axe).length
-    return this.material(MaterialType.Trophy)
+    return this.material(MaterialType.TrophyTile)
       .location(LocationType.Landscape)
       .filter((it) => it.id! <= nbPlayerAxes)
   }
 
   get playerTrophy() {
-    return this.material(MaterialType.Trophy).location(LocationType.FjordBoardHexSpace).player(this.player)
+    return this.material(MaterialType.TrophyTile).location(LocationType.FjordBoardHexSpace).player(this.player)
   }
 
   checkIfAllPlayerDoesntHaveVikingToPlace() {

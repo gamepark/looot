@@ -10,11 +10,11 @@ export const TakeTrophyHistory = (props: MoveComponentProps) => {
   const { context, move } = props
   const actionPlayer = context.action.playerId
   const name = usePlayerName(actionPlayer)
-  const trophy = context.game.items[MaterialType.Trophy][move.itemIndex] as MaterialItem
+  const trophy = context.game.items[MaterialType.TrophyTile][move.itemIndex] as MaterialItem
 
   return (
     <Trans defaults="history.take.trophy" values={{ player: name, trophy: trophy.id }}>
-      <PlayMoveButton move={displayMaterialHelp(MaterialType.Trophy, trophy)} transient />
+      <PlayMoveButton move={displayMaterialHelp(MaterialType.TrophyTile, trophy)} transient />
     </Trans>
   )
 }

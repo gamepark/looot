@@ -91,7 +91,7 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
         const trophy = trophies[i]
         const rotated = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
         const { x, y } = hexTranslate(rotated, location, HexGridSystem.EvenQ)
-        this.material(MaterialType.Trophy).createItem({
+        this.material(MaterialType.TrophyTile).createItem({
           id: trophy,
           location: { type: LocationType.Landscape, x, y, rotation: 0 }
         })

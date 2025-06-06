@@ -65,7 +65,7 @@ export class LoootLogs implements LogDescription {
         }
       }
     }
-    if (ruleId === RuleId.TakeLongshipAndTrophy && isMoveItemType(MaterialType.Trophy)(move)) {
+    if (ruleId === RuleId.TakeLongshipAndTrophy && isMoveItemType(MaterialType.TrophyTile)(move)) {
       return {
         Component: TakeTrophyHistory,
         player: actionPlayer

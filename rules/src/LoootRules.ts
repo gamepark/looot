@@ -65,7 +65,7 @@ export class LoootRules extends SecretMaterialRules implements TimeLimit<Materia
 
   getTieBreaker(tieBreaker: number, playerId: PlayerColor): number | undefined {
     if (tieBreaker === 1) {
-      const playerTrophy = this.material(MaterialType.Trophy).location(LocationType.FjordBoardHexSpace).player(playerId).getItem()
+      const playerTrophy = this.material(MaterialType.TrophyTile).location(LocationType.FjordBoardHexSpace).player(playerId).getItem()
       if (!playerTrophy) return 0
       return trophyValue[playerTrophy.id as Trophy]
     }

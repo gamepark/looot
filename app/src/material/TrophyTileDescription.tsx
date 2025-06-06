@@ -14,10 +14,10 @@ import Trophy3 from '../images/trophees/trophee3.png'
 import Trophy4 from '../images/trophees/trophee4.png'
 import Trophy5 from '../images/trophees/trophee5.png'
 import Trophy6 from '../images/trophees/trophee6.png'
-import { TrophyHelp } from './help/TrophyHelp'
+import { TrophyTileHelp } from './help/TrophyTileHelp'
 import { HexagoneDescription } from './HexagoneDescription'
 
-export class TrophyDescription extends HexagoneDescription {
+export class TrophyTileDescription extends HexagoneDescription {
   height = 2.9
   width = 3.2
 
@@ -28,10 +28,10 @@ export class TrophyDescription extends HexagoneDescription {
     return item.location?.type === LocationType.FjordBoardHexSpace
   }
 
-  help = TrophyHelp
+  help = TrophyTileHelp
 
   canShortClick(move: MaterialMove, context: ItemContext): boolean {
-    return isMoveItemType(MaterialType.Trophy)(move) && move.location.type === LocationType.FjordBoardHexSpace && move.itemIndex === context.index
+    return isMoveItemType(MaterialType.TrophyTile)(move) && move.location.type === LocationType.FjordBoardHexSpace && move.itemIndex === context.index
   }
 }
 
@@ -51,4 +51,4 @@ const backImages = {
   [Trophy.Trophy6]: Trophy6
 }
 
-export const trophyDescription = new TrophyDescription()
+export const trophyTileDescription = new TrophyTileDescription()

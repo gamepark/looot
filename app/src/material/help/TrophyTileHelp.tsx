@@ -9,7 +9,7 @@ const components = {
   underline: <u />
 }
 
-export const TrophyHelp: FC<MaterialHelpProps> = ({ item }) => {
+export const TrophyTileHelp: FC<MaterialHelpProps> = ({ item }) => {
   const { t } = useTranslation()
   const nbHaches = item.id
   const value = trophyValue[item.id as Trophy]

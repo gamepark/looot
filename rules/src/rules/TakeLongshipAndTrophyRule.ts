@@ -75,13 +75,13 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
 
   get eligiblesTrophies() {
     const nbPlayerAxes = this.material(MaterialType.ResourceTile).location(LocationType.FjordBoardHexSpace).player(this.player).id(Resource.Axe).length
-    return this.material(MaterialType.Trophy)
+    return this.material(MaterialType.TrophyTile)
       .location(LocationType.Landscape)
       .filter((it) => it.id! <= nbPlayerAxes)
   }
 
   get playerTrophy() {
-    return this.material(MaterialType.Trophy).location(LocationType.FjordBoardHexSpace).player(this.player)
+    return this.material(MaterialType.TrophyTile).location(LocationType.FjordBoardHexSpace).player(this.player)
   }
 
   checkIfAllPlayerDoesntHaveVikingToPlace() {
