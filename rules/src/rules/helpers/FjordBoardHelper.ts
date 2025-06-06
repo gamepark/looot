@@ -42,7 +42,7 @@ export class FjordBoardHelper extends MaterialRulesPart {
         const tilesAround = [...resourcesAround, ...buildingsAround].filter((it) => it !== undefined)
         return checkIfAllNeededTilesIsAround(tilesNeeded, tilesAround)
       })
-      .moveItems((item) => ({ ...item.location, rotation: true }))
+      .rotateItems(true)
   }
 
   private placeIsNotOccuped(location: Location) {
