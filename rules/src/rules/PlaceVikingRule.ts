@@ -2,14 +2,12 @@ import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, XYCoordinates }
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getShieldType, Shield } from '../material/Shield'
-import { BuildingHelper } from './helpers/BuildingHelper'
 import { LandscapeHelper } from './helpers/LandscapeHelper'
 import { MemoryType } from './Memory'
 import { RuleId } from './RuleId'
 
 export class PlaceVikingRule extends PlayerTurnRule {
   landscapeHelper = new LandscapeHelper(this.game)
-  buildingHelper = new BuildingHelper(this.game)
 
   onRuleStart(): MaterialMove[] {
     if (this.playerVikings.length === 0) {
@@ -50,7 +48,7 @@ export class PlaceVikingRule extends PlayerTurnRule {
       this.memorize<number[]>(MemoryType.BuildingToGet, (oldValue = []) => [
         ...oldValue,
         ...this.landscapeHelper.getHousesAround(move.location as XYCoordinates).getIndexes(),
-        ...this.buildingHelper.checkAndGetTower(),
+        ...this.landscapeHelper.getWatchtowersToTake(this.player),
         ...this.landscapeHelper.getCastlesToTake(this.player)
       ])
       if (this.selectedShields?.includes(Shield.PlayAgain) && this.playerVikings.length) {

@@ -159,6 +159,7 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
       this.setupShield(player)
       this.setupConstructionSite(player)
       this.memorize(MemoryType.PlayerCastlesTaken, [], player)
+      this.memorize(MemoryType.PlayerTowersTaken, [], player)
     })
   }
 
