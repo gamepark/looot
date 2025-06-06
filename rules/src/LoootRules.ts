@@ -56,7 +56,7 @@ export class LoootRules extends SecretMaterialRules implements TimeLimit<Materia
   }
 
   giveTime(): number {
-    return 60
+    return 75
   }
 
   getScore(playerId: PlayerColor): number {
