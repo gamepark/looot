@@ -3,18 +3,18 @@ import {
   createAdjacentGroups,
   getAdjacentHexagons,
   HexGridSystem,
-  Location,
   MaterialGame,
   MaterialRulesPart,
   Polyhex,
   XYCoordinates
 } from '@gamepark/rules-api'
-import { sumBy, times } from 'lodash'
+import { sumBy, times, uniqBy } from 'lodash'
 import { Building } from '../../material/Building'
 import { getLandscape, isResource, Land, LandscapeBoard, TrophyPlace, Water } from '../../material/LandscapeBoard'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { OceanBoard, oceanBoards } from '../../material/OceanBoard'
+import { Shield } from '../../material/Shield'
 import { TrophyBoard, trophyBoards } from '../../material/TrophyBoard'
 import { PlayerColor } from '../../PlayerColor'
 import { MemoryType } from '../Memory'
@@ -40,36 +40,41 @@ export class LandscapeHelper extends MaterialRulesPart {
     }
   }
 
-  getPossiblePlaces(canPlaceOnOccupedPlace: boolean): Location[] {
-    const drakkars = this.material(MaterialType.Longship).location(LocationType.Landscape).getItems()
-    const vikings = this.material(MaterialType.Viking).location(LocationType.Landscape).getItems()
-    const places: Location[] = []
-
-    drakkars.forEach(({ location }) => {
-      getAdjacentHexagons(location as XYCoordinates, HexGridSystem.EvenQ).forEach((neighbor) => {
-        if (!places.find((p) => p.x === neighbor.x && p.y === neighbor.y)) {
-          places.push({ type: LocationType.Landscape, ...neighbor })
-        }
-      })
-    })
-
-    vikings.forEach(({ location }) => {
-      getAdjacentHexagons(location as XYCoordinates, HexGridSystem.EvenQ).forEach((neighbor) => {
-        if (!places.find((p) => p.x === neighbor.x && p.y === neighbor.y)) {
-          places.push({ type: LocationType.Landscape, ...neighbor })
-        }
-      })
-    })
-
-    return places
-      .filter((it) => (it.y ?? 0) >= this.landscape.yMin && (it.y ?? 0) <= this.landscape.yMax)
-      .filter((it) => (it.x ?? 0) >= this.landscape.xMin && (it.x ?? 0) <= this.landscape.xMax)
-      .filter((it) => isResource(this.getLand({ x: it.x ?? 0, y: it.y ?? 0 })))
-      .filter((it) => (canPlaceOnOccupedPlace ? this.placeIsNotEmpty(it.x ?? 0, it.y ?? 0) : this.placeIsEmpty(it.x ?? 0, it.y ?? 0)))
+  getNewVikingLocations(player: PlayerColor) {
+    if (this.remind<Shield[] | undefined>(MemoryType.PlayerSelectedShield, player)?.includes(Shield.PlaceOnOccupiedSpace)) {
+      return this.getVikingsLocations()
+    } else {
+      return this.getLocationsToExpand()
+    }
   }
 
-  private placeIsEmpty(x: number, y: number): boolean {
-    return this.material(MaterialType.Viking).location((loc) => loc.type === LocationType.Landscape && loc.x === x && loc.y === y).length === 0
+  getLocationsToExpand() {
+    const locations: XYCoordinates[] = []
+    const { xMin, yMin } = this.landscape
+    const vikings = this.getVikingsLocations()
+    const vikingsGrid = this.landscape.grid.map((line, y) => line.map((_, x) => vikings.some((viking) => viking.x === x + xMin && viking.y === y + yMin)))
+    console.log(vikingsGrid)
+    for (let x = xMin; x <= this.landscape.xMax; x++) {
+      for (let y = yMin; y <= this.landscape.yMax; y++) {
+        if (isResource(this.landscape.grid[y - yMin][x - xMin]) && !vikingsGrid[y - yMin][x - xMin]) {
+          const adjacentHexagons = getAdjacentHexagons({ x, y }, HexGridSystem.EvenQ)
+          if (adjacentHexagons.some((hex) => this.landscape.grid[hex.y - yMin]?.[hex.x - xMin] === Water || vikingsGrid[hex.y - yMin]?.[hex.x - xMin])) {
+            locations.push({ x, y })
+          }
+        }
+      }
+    }
+    return locations
+  }
+
+  getVikingsLocations() {
+    return uniqBy(
+      this.material(MaterialType.Viking)
+        .location(LocationType.Landscape)
+        .getItems()
+        .map((item) => item.location),
+      (location) => `${location.x}_${location.y}`
+    )
   }
 
   getLand(hex: XYCoordinates): Land | undefined {
@@ -175,9 +180,5 @@ export class LandscapeHelper extends MaterialRulesPart {
       }
     }
     return result
-  }
-
-  private placeIsNotEmpty(x: number, y: number): boolean {
-    return this.material(MaterialType.Viking).location((loc) => loc.type === LocationType.Landscape && loc.x === x && loc.y === y).length > 0
   }
 }

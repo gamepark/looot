@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
-import { Shield } from '@gamepark/looot/material/Shield'
 import { LandscapeHelper } from '@gamepark/looot/rules/helpers/LandscapeHelper'
-import { MemoryType } from '@gamepark/looot/rules/Memory'
 import { RuleId } from '@gamepark/looot/rules/RuleId'
 import { DropAreaDescription, HexagonalGridLocator, isItemContext, ItemContext } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
@@ -60,8 +58,7 @@ class LandscapeLocator extends HexagonalGridLocator {
 
   getLocations(context: MaterialContext): Partial<Location>[] {
     if (context.rules.game.rule?.id !== RuleId.PlaceViking || context.rules.getActivePlayer() !== context.player) return []
-    const selectedShields = context.rules.remind(MemoryType.PlayerSelectedShield, context.player) ?? []
-    return new LandscapeHelper(context.rules.game).getPossiblePlaces(selectedShields.includes(Shield.PlaceOnOccupiedSpace))
+    return new LandscapeHelper(context.rules.game).getNewVikingLocations(context.player!)
   }
 }
 
@@ -79,7 +76,7 @@ class LandscapeHexDropDescription extends DropAreaDescription {
   `
 
   canShortClick(move: MaterialMove, location: Location): boolean {
-    return isMoveItemType(MaterialType.Viking)(move) && move.location.type === location.type && move.location.x === location.x && move.location.y === location.y
+    return isMoveItemType(MaterialType.Viking)(move) && move.location.x === location.x && move.location.y === location.y
   }
 }
 
