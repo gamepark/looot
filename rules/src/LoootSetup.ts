@@ -15,6 +15,7 @@ import { Trophy } from './material/Trophy'
 import { TrophyBoard } from './material/TrophyBoard'
 import { PlayerColor } from './PlayerColor'
 import { LandscapeHelper } from './rules/helpers/LandscapeHelper'
+import { MemoryType } from './rules/Memory'
 import { RuleId } from './rules/RuleId'
 
 /**
@@ -157,6 +158,7 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
       this.material(MaterialType.Viking).createItem({ id: player, location: { type: LocationType.PlayerVikingPile, player }, quantity: 13 })
       this.setupShield(player)
       this.setupConstructionSite(player)
+      this.memorize(MemoryType.PlayerCastlesTaken, [], player)
     })
   }
 

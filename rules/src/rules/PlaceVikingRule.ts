@@ -51,7 +51,7 @@ export class PlaceVikingRule extends PlayerTurnRule {
         ...oldValue,
         ...this.landscapeHelper.getHousesAround(move.location as XYCoordinates).getIndexes(),
         ...this.buildingHelper.checkAndGetTower(),
-        ...this.buildingHelper.checkAndGetCastle()
+        ...this.landscapeHelper.getCastlesToTake(this.player)
       ])
       if (this.selectedShields?.includes(Shield.PlayAgain) && this.playerVikings.length) {
         moves.push(this.startRule(RuleId.PlaceViking))

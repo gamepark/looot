@@ -1,7 +1,7 @@
 export enum MemoryType {
   PlayerScore = 1,
   PlayerTowersAlreadyLinked,
-  PlayerCastlesAlreadyReached,
+  PlayerCastlesTaken,
   PlayerSelectedShield,
   ResourcesToGet,
   BuildingToGet,

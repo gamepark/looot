@@ -1,10 +1,21 @@
-import { getAdjacentHexagons, HexGridSystem, Location, MaterialGame, MaterialRulesPart, Polyhex, XYCoordinates } from '@gamepark/rules-api'
+import {
+  createAdjacentGroups,
+  getAdjacentHexagons,
+  HexGridSystem,
+  Location,
+  MaterialGame,
+  MaterialRulesPart,
+  Polyhex,
+  XYCoordinates
+} from '@gamepark/rules-api'
 import { Building } from '../../material/Building'
 import { getLandscape, isResource, Land, LandscapeBoard, TrophyPlace, Water } from '../../material/LandscapeBoard'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { OceanBoard, oceanBoards } from '../../material/OceanBoard'
 import { TrophyBoard, trophyBoards } from '../../material/TrophyBoard'
+import { PlayerColor } from '../../PlayerColor'
+import { MemoryType } from '../Memory'
 
 export class LandscapeHelper extends MaterialRulesPart {
   landscape: Polyhex<Land | typeof Water | typeof TrophyPlace>
@@ -55,6 +66,10 @@ export class LandscapeHelper extends MaterialRulesPart {
       .filter((it) => (canPlaceOnOccupedPlace ? this.placeIsNotEmpty(it.x ?? 0, it.y ?? 0) : this.placeIsEmpty(it.x ?? 0, it.y ?? 0)))
   }
 
+  private placeIsEmpty(x: number, y: number): boolean {
+    return this.material(MaterialType.Viking).location((loc) => loc.type === LocationType.Landscape && loc.x === x && loc.y === y).length === 0
+  }
+
   getLand(hex: XYCoordinates): Land | undefined {
     const land = this.landscape.getValue(hex)
     return land !== Water && land !== TrophyPlace ? land : undefined
@@ -88,8 +103,34 @@ export class LandscapeHelper extends MaterialRulesPart {
       .location((location) => around.some((hex) => location.x === hex.x && location.y === hex.y))
   }
 
-  private placeIsEmpty(x: number, y: number): boolean {
-    return this.material(MaterialType.Viking).location((loc) => loc.type === LocationType.Landscape && loc.x === x && loc.y === y).length === 0
+  getVikingsGroups(player: PlayerColor) {
+    const grid = this.landscape.grid.map((line) => line.map((_) => false))
+    const vikings = this.material(MaterialType.Viking).id(player).location(LocationType.Landscape).getItems()
+    for (const viking of vikings) {
+      grid[viking.location.y! - this.landscape.yMin][viking.location.x! - this.landscape.xMin] = true
+    }
+    const hexGridSystem = this.landscape.xMin % 2 === 0 ? HexGridSystem.EvenQ : HexGridSystem.OddQ
+    return createAdjacentGroups(grid, { hexGridSystem: hexGridSystem })
+  }
+
+  getCastlesToTake(player: PlayerColor) {
+    const result: number[] = []
+    const { xMin, yMin } = this.landscape
+    const adjacentGroups = this.getVikingsGroups(player)
+    const castles = this.material(MaterialType.BuildingTile).location(LocationType.Landscape).id(Building.Castle)
+    for (const index of castles.getIndexes()) {
+      const castle = castles.getItem(index)
+      const adjacentHexagons = getAdjacentHexagons(castle.location as XYCoordinates, HexGridSystem.EvenQ)
+      const biggestAdjacentGroup = Math.max(...adjacentHexagons.map(({ x, y }) => adjacentGroups[y - yMin][x - xMin].values.length))
+      const castlesToGet = Math.floor(biggestAdjacentGroup / 4)
+      const castlesTaken = this.remind<number[]>(MemoryType.PlayerCastlesTaken, player)
+      const countTaken = castlesTaken.filter((i) => i === index).length
+      for (let i = 0; i < Math.min(castle.quantity ?? 1, castlesToGet - countTaken); i++) {
+        result.push(index)
+        castlesTaken.push(index)
+      }
+    }
+    return result
   }
 
   private placeIsNotEmpty(x: number, y: number): boolean {
