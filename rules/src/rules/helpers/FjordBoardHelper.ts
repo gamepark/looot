@@ -1,8 +1,10 @@
 import { getAdjacentHexagons, HexGridSystem, Location, MaterialGame, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
+import { Building } from '../../material/Building'
 import { ConstructionSite, constructionSiteRequirements } from '../../material/ConstructionSite'
 import { LocationType } from '../../material/LocationType'
 import { Longship, longshipRequirements } from '../../material/Longship'
 import { MaterialType } from '../../material/MaterialType'
+import { Resource } from '../../material/Resource'
 
 export class FjordBoardHelper extends MaterialRulesPart {
   constructor(
@@ -19,33 +21,46 @@ export class FjordBoardHelper extends MaterialRulesPart {
         places.push({ type: LocationType.FjordBoardHexSpace, x: i, y: j, player: this.player })
       }
     }
-    return places.filter(isRealCaseInBoard).filter((it) => this.placeIsNotOccuped(it))
+    return places.filter(isRealCaseInBoard).filter((it) => this.placeIsNotOccupied(it))
   }
 
-  completeConstructionSites(): MaterialMove[] {
-    return this.checkResources(MaterialType.ConstructionSiteTile, (site: ConstructionSite) => constructionSiteRequirements[site])
+  completeConstructionSites(location: XYCoordinates): MaterialMove[] {
+    const constructionSiteTiles = this.getTilesAround(MaterialType.ConstructionSiteTile, location).location((location) => !location.rotation)
+    return constructionSiteTiles.filter<ConstructionSite>((item) => this.isConstructionSiteComplete(item.id, item.location as XYCoordinates)).rotateItems(true)
   }
 
-  completeLongships(): MaterialMove[] {
-    return this.checkResources(MaterialType.LongshipTile, (longship: Longship) => longshipRequirements[longship])
+  private isConstructionSiteComplete(constructionSite: ConstructionSite, location: XYCoordinates) {
+    const adjacentElements = [...this.getAdjacentBuildings(location), ...this.getAdjacentResources(location)].map((item) => item.id)
+    return arrayContainsAll(adjacentElements, constructionSiteRequirements[constructionSite])
   }
 
-  private checkResources(tileType: MaterialType, getNeededTiles: (id: number) => number[]): MaterialMove[] {
-    return this.material(tileType)
+  getAdjacentBuildings(location: XYCoordinates) {
+    return this.getTilesAround(MaterialType.BuildingTile, location).getItems<Building>()
+  }
+
+  getAdjacentResources(location: XYCoordinates) {
+    return this.getTilesAround(MaterialType.ResourceTile, location).getItems<Resource>()
+  }
+
+  completeLongships(location: XYCoordinates): MaterialMove[] {
+    const longshipTiles = this.getTilesAround(MaterialType.LongshipTile, location).location((location) => !location.rotation)
+    return longshipTiles.filter<Longship>((item) => this.isLongshipComplete(item.id, item.location as XYCoordinates)).rotateItems(true)
+  }
+
+  isLongshipComplete(longship: Longship, location: XYCoordinates) {
+    const adjacentElements = this.getAdjacentResources(location).map((item) => item.id)
+    return arrayContainsAll(adjacentElements, longshipRequirements[longship])
+  }
+
+  private getTilesAround(type: MaterialType, location: XYCoordinates) {
+    const adjacentHex = getAdjacentHexagons(location, HexGridSystem.EvenQ)
+    return this.material(type)
       .location(LocationType.FjordBoardHexSpace)
-      .location((loc) => !loc.rotation)
       .player(this.player)
-      .filter((it) => {
-        const tilesNeeded = getNeededTiles(it.id as number)
-        const resourcesAround = this.getNeighborsId(it.location, MaterialType.ResourceTile)
-        const buildingsAround = this.getNeighborsId(it.location, MaterialType.BuildingTile)
-        const tilesAround = [...resourcesAround, ...buildingsAround].filter((it) => it !== undefined)
-        return checkIfAllNeededTilesIsAround(tilesNeeded, tilesAround)
-      })
-      .rotateItems(true)
+      .location((location) => adjacentHex.some(({ x, y }) => location.x === x && location.y === y))
   }
 
-  private placeIsNotOccuped(location: Location) {
+  private placeIsNotOccupied(location: Location) {
     return (
       !this.checkIfTileExistInCase(MaterialType.BuildingTile, location) &&
       !this.checkIfTileExistInCase(MaterialType.ResourceTile, location) &&
@@ -61,29 +76,15 @@ export class FjordBoardHelper extends MaterialRulesPart {
         .player(location.player).length > 0
     )
   }
-
-  private getNeighborsId(location: Location, materialType: MaterialType) {
-    return getAdjacentHexagons(location as XYCoordinates, HexGridSystem.EvenQ)
-      .filter((it) => it.x >= 0 && it.x <= 6)
-      .filter((it) => it.y >= 0 && it.y <= 6)
-      .map(
-        (it) =>
-          this.material(materialType)
-            .location(LocationType.FjordBoardHexSpace)
-            .location((loc) => loc.x === it.x && loc.y === it.y)
-            .player(this.player)
-            .getItem()?.id
-      )
-  }
 }
 
-const checkIfAllNeededTilesIsAround = (needed: number[], actuals: number[]) => {
-  for (const n of needed) {
-    const index = actuals.indexOf(n)
+function arrayContainsAll<T>(array: T[], required: T[]) {
+  for (const n of required) {
+    const index = array.indexOf(n)
     if (index === -1) {
       return false
     }
-    actuals.splice(index, 1)
+    array.splice(index, 1)
   }
   return true
 }

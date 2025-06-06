@@ -1,19 +1,18 @@
-import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
+import { Longship } from '../material/Longship'
 import { MaterialType } from '../material/MaterialType'
 import { Resource } from '../material/Resource'
 import { CustomMoveType } from './CustomMove'
+import { FjordBoardHelper } from './helpers/FjordBoardHelper'
 import { MemoryType } from './Memory'
 import { RuleId } from './RuleId'
-import { FjordBoardHelper } from './helpers/FjordBoardHelper'
 
 export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
-  fjordBoardHelper = new FjordBoardHelper(this.game)
-
   getPlayerMoves(): MaterialMove[] {
     const moves: MaterialMove[] = []
     if (!this.remind(MemoryType.LongshipTaked)) {
-      this.fjordBoardHelper.getPossiblePlaces().forEach((place) => {
+      new FjordBoardHelper(this.game).getPossiblePlaces().forEach((place) => {
         moves.push(...this.longships.moveItems(place))
       })
     }
@@ -44,7 +43,10 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
     if (isMoveItemType(MaterialType.LongshipTile)(move) && move.location.type === LocationType.FjordBoardHexSpace) {
-      moves.push(...this.fjordBoardHelper.completeLongships())
+      const longshipTile = this.material(move.itemType).index(move.itemIndex)
+      if (new FjordBoardHelper(this.game).isLongshipComplete(longshipTile.getItem<Longship>()!.id, move.location as XYCoordinates)) {
+        moves.push(longshipTile.rotateItem(true))
+      }
     }
     if ((this.playerTrophy.length > 0 || this.eligiblesTrophies.length === 0) && this.remind(MemoryType.LongshipTaked)) {
       moves.push(this.startNext())

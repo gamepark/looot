@@ -1,4 +1,4 @@
-import { isMoveItem, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
+import { isMoveItem, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext, XYCoordinates } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { MemoryType } from './Memory'
@@ -57,9 +57,9 @@ export class PlaceResourceRule extends PlayerTurnRule {
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
     if (isMoveItem(move) && (move.itemType === MaterialType.ResourceTile || move.itemType === MaterialType.BuildingTile)) {
-      moves.push(...this.fjordBoardHelper.completeConstructionSites())
+      moves.push(...this.fjordBoardHelper.completeConstructionSites(move.location as XYCoordinates))
       if (move.itemType === MaterialType.ResourceTile) {
-        moves.push(...this.fjordBoardHelper.completeLongships())
+        moves.push(...this.fjordBoardHelper.completeLongships(move.location as XYCoordinates))
       }
     }
     const noMoreResourcesOrBuildings = this.playerResourceTiles.length === 0 && this.playerBuildingTiles.length === 0
