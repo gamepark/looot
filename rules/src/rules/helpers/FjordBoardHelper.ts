@@ -22,11 +22,11 @@ export class FjordBoardHelper extends MaterialRulesPart {
     return places.filter(isRealCaseInBoard).filter((it) => this.placeIsNotOccuped(it))
   }
 
-  checkConstructionSite(): MaterialMove[] {
+  completeConstructionSites(): MaterialMove[] {
     return this.checkResources(MaterialType.ConstructionSiteTile, (site: ConstructionSite) => constructionSiteRequirements[site])
   }
 
-  checkLongship(): MaterialMove[] {
+  completeLongships(): MaterialMove[] {
     return this.checkResources(MaterialType.LongshipTile, (longship: Longship) => longshipRequirements[longship])
   }
 

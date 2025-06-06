@@ -1,4 +1,3 @@
-import { Land } from './LandscapeBoard'
 import { Resource } from './Resource'
 
 export enum Longship {
@@ -46,7 +45,7 @@ export enum LongshipType {
 export const getLongshipType = (tile: Longship): LongshipType => Math.floor(tile / 100) as LongshipType
 export const getLongshipValue = (tile: Longship): LongshipType => Math.floor(tile / 10) % 10
 
-export const longshipRequirements: Record<Longship, Land[]> = {
+export const longshipRequirements: Record<Longship, Resource[]> = {
   [Longship.Castle31]: [Resource.Axe, Resource.Axe, Resource.Wood],
   [Longship.Castle32]: [Resource.Wood, Resource.Wood, Resource.Wood],
   [Longship.Castle33]: [Resource.Sheep, Resource.Sheep, Resource.Axe],

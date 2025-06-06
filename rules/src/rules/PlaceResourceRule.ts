@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
+import { isMoveItem, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { MemoryType } from './Memory'
@@ -56,9 +56,11 @@ export class PlaceResourceRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
-    if (isMoveItemType(MaterialType.ResourceTile)(move) || isMoveItemType(MaterialType.BuildingTile)(move)) {
-      moves.push(...this.fjordBoardHelper.checkConstructionSite())
-      moves.push(...this.fjordBoardHelper.checkLongship())
+    if (isMoveItem(move) && (move.itemType === MaterialType.ResourceTile || move.itemType === MaterialType.BuildingTile)) {
+      moves.push(...this.fjordBoardHelper.completeConstructionSites())
+      if (move.itemType === MaterialType.ResourceTile) {
+        moves.push(...this.fjordBoardHelper.completeLongships())
+      }
     }
     const noMoreResourcesOrBuildings = this.playerResourceTiles.length === 0 && this.playerBuildingTiles.length === 0
     const noMorePlacesOnBoard = this.fjordBoardHelper.getPossiblePlaces().length === 0
