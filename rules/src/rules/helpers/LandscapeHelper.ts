@@ -53,7 +53,6 @@ export class LandscapeHelper extends MaterialRulesPart {
     const { xMin, yMin } = this.landscape
     const vikings = this.getVikingsLocations()
     const vikingsGrid = this.landscape.grid.map((line, y) => line.map((_, x) => vikings.some((viking) => viking.x === x + xMin && viking.y === y + yMin)))
-    console.log(vikingsGrid)
     for (let x = xMin; x <= this.landscape.xMax; x++) {
       for (let y = yMin; y <= this.landscape.yMax; y++) {
         if (isResource(this.landscape.grid[y - yMin][x - xMin]) && !vikingsGrid[y - yMin][x - xMin]) {
