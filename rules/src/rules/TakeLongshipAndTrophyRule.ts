@@ -26,12 +26,12 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
 
   beforeItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
-    if (isMoveItemType(MaterialType.Longship)(move)) {
-      const oldLongshipLocation = this.material(MaterialType.Longship).index(move.itemIndex).getItem()?.location
+    if (isMoveItemType(MaterialType.LongshipTile)(move)) {
+      const oldLongshipLocation = this.material(MaterialType.LongshipTile).index(move.itemIndex).getItem()?.location
       if (oldLongshipLocation?.type === LocationType.Landscape) {
         this.memorize(MemoryType.LongshipTaked, true)
         moves.push(
-          this.material(MaterialType.Longship)
+          this.material(MaterialType.LongshipTile)
             .location(LocationType.InsideBag)
             .maxBy((item) => item.location.x!)
             .moveItem(oldLongshipLocation)
@@ -43,7 +43,7 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
-    if (isMoveItemType(MaterialType.Longship)(move) && move.location.type === LocationType.FjordBoardHexSpace) {
+    if (isMoveItemType(MaterialType.LongshipTile)(move) && move.location.type === LocationType.FjordBoardHexSpace) {
       moves.push(...this.fjordBoardHelper.checkLongship())
     }
     if ((this.playerTrophy.length > 0 || this.eligiblesTrophies.length === 0) && this.remind(MemoryType.LongshipTaked)) {
@@ -70,7 +70,7 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
   }
 
   get longships() {
-    return this.material(MaterialType.Longship).location(LocationType.Landscape)
+    return this.material(MaterialType.LongshipTile).location(LocationType.Landscape)
   }
 
   get eligiblesTrophies() {

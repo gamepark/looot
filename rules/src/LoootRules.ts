@@ -37,13 +37,13 @@ export class LoootRules extends SecretMaterialRules implements TimeLimit<Materia
     [MaterialType.Viking]: {
       [LocationType.Landscape]: new StakingStrategy()
     },
-    [MaterialType.Longship]: {
+    [MaterialType.LongshipTile]: {
       [LocationType.InsideBag]: new PositiveSequenceStrategy()
     }
   }
 
   hidingStrategies = {
-    [MaterialType.Longship]: {
+    [MaterialType.LongshipTile]: {
       [LocationType.InsideBag]: hideItemId
     }
   }

@@ -112,12 +112,12 @@ export class LoootSetup extends MaterialGameSetup<PlayerColor, MaterialType, Loc
 
       const longships = shuffle(getEnumValues(Longship))
       const longshipTiles = longships.map((longship) => ({ id: longship, location: { type: LocationType.InsideBag } }))
-      this.material(MaterialType.Longship).createItems(longshipTiles)
+      this.material(MaterialType.LongshipTile).createItems(longshipTiles)
 
       for (let i = 0; i < 5; i++) {
         const rotated = hexRotate({ x: i, y: 0 }, location.rotation, HexGridSystem.EvenQ)
         const { x, y } = hexTranslate(rotated, location, HexGridSystem.EvenQ)
-        this.material(MaterialType.Longship)
+        this.material(MaterialType.LongshipTile)
           .location(LocationType.InsideBag)
           .moveItem(() => ({ type: LocationType.Landscape, x, y, rotation: 0 }))
       }

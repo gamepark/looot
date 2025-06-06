@@ -10,11 +10,11 @@ export const TakeLongshipHistory = (props: MoveComponentProps) => {
   const { context, move } = props
   const actionPlayer = context.action.playerId
   const name = usePlayerName(actionPlayer)
-  const longship = context.game.items[MaterialType.Longship][move.itemIndex] as MaterialItem
+  const longship = context.game.items[MaterialType.LongshipTile][move.itemIndex] as MaterialItem
 
   return (
     <Trans defaults="history.take.longship" values={{ player: name, longship: longship.id }}>
-      <PlayMoveButton move={displayMaterialHelp(MaterialType.Longship, longship)} transient />
+      <PlayMoveButton move={displayMaterialHelp(MaterialType.LongshipTile, longship)} transient />
     </Trans>
   )
 }

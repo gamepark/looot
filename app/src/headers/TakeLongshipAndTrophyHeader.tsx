@@ -13,7 +13,7 @@ export const TakeLongshipAndTrophyHeader = () => {
   const itsMe = player && activePlayer === player
   const name = usePlayerName(activePlayer)
   const takeTrophyMove = useLegalMove((move: MaterialMove) => isMoveItemType(MaterialType.Trophy)(move))
-  const takeLongshipMove = useLegalMove((move: MaterialMove) => isMoveItemType(MaterialType.Longship)(move))
+  const takeLongshipMove = useLegalMove((move: MaterialMove) => isMoveItemType(MaterialType.LongshipTile)(move))
   const pass = useLegalMove((move: MaterialMove) => isCustomMoveType(CustomMoveType.Pass)(move))
 
   if (itsMe) {
