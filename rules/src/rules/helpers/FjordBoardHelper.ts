@@ -78,17 +78,14 @@ export class FjordBoardHelper extends MaterialRulesPart {
 }
 
 const checkIfAllNeededTilesIsAround = (needed: number[], actuals: number[]) => {
-  if (actuals.length < needed.length) return false
-
-  const res = []
-  for (const item of needed) {
-    const index = actuals.findIndex((it) => it === item)
-    if (index !== -1) {
-      res.push(...actuals.splice(index, 1))
+  for (const n of needed) {
+    const index = actuals.indexOf(n)
+    if (index === -1) {
+      return false
     }
+    actuals.splice(index, 1)
   }
-
-  return res.length === needed.length
+  return true
 }
 
 const isRealCaseInBoard = (location: Location) => {
