@@ -1,4 +1,4 @@
-import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, Location, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { Longship } from '../material/Longship'
 import { MaterialType } from '../material/MaterialType'
@@ -28,13 +28,7 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
     if (isMoveItemType(MaterialType.LongshipTile)(move)) {
       const oldLongshipLocation = this.material(MaterialType.LongshipTile).index(move.itemIndex).getItem()?.location
       if (oldLongshipLocation?.type === LocationType.Landscape) {
-        this.memorize(MemoryType.LongshipTaked, true)
-        moves.push(
-          this.material(MaterialType.LongshipTile)
-            .location(LocationType.InsideBag)
-            .maxBy((item) => item.location.x!)
-            .moveItem(oldLongshipLocation)
-        )
+        this.memorize(MemoryType.LongshipTaked, oldLongshipLocation)
       }
     }
     return moves
@@ -42,23 +36,30 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     const moves: MaterialMove[] = []
-    if (isMoveItemType(MaterialType.LongshipTile)(move) && move.location.type === LocationType.FjordBoardHexSpace) {
+    if (isMoveItemType(MaterialType.LongshipTile)(move) && move.location.type === LocationType.FjordBoardHexSpace && !move.location.rotation) {
       const longshipTile = this.material(move.itemType).index(move.itemIndex)
       if (new FjordBoardHelper(this.game).isLongshipComplete(longshipTile.getItem<Longship>()!.id, move.location as XYCoordinates)) {
         moves.push(longshipTile.rotateItem(true))
       }
     }
-    if ((this.playerTrophy.length > 0 || this.eligiblesTrophies.length === 0) && this.remind(MemoryType.LongshipTaked)) {
-      moves.push(this.startNext())
-    }
     return moves
   }
 
   onCustomMove(move: CustomMove): MaterialMove[] {
+    const moves: MaterialMove[] = []
     if (isCustomMoveType(CustomMoveType.Pass)(move)) {
-      return [this.startNext()]
+      const longshipTaked: Location | undefined = this.remind(MemoryType.LongshipTaked)
+      if(longshipTaked) {
+        moves.push(
+          this.material(MaterialType.LongshipTile)
+            .location(LocationType.InsideBag)
+            .maxBy((item) => item.location.x!)
+            .moveItem(longshipTaked)
+        )
+      }
+      moves.push(this.startNext())
     }
-    return []
+    return moves
   }
 
   onRuleEnd(): MaterialMove[] {
