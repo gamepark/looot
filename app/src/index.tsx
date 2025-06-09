@@ -15,6 +15,7 @@ import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import { LoootScoringDescription } from './scoring/LoootScoringDescription'
 import translations from './translations.json'
+import { Tutorial } from './tutorial/Tutorial'
 
 setupTranslation(translations, { debug: false })
 
@@ -31,6 +32,7 @@ ReactDOM.render(
       material={Material}
       locators={Locators}
       animations={gameAnimations}
+      tutorial={new Tutorial()}
       ai={(game: MaterialGame, playerId: number) => Promise.resolve(new LoootBot(playerId).run(game))}
     >
       <App />
