@@ -3,11 +3,12 @@ import { LocationType } from '@gamepark/looot/material/LocationType'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { OceanBoard } from '@gamepark/looot/material/OceanBoard'
 import { TrophyBoard } from '@gamepark/looot/material/TrophyBoard'
+import { PlayerColor } from '@gamepark/looot/PlayerColor'
 import { getEnumValues } from '@gamepark/rules-api'
 import { sample } from 'lodash'
 
-export const me = 1
-export const opponent = 2
+export const me = PlayerColor.Blue
+export const opponent = PlayerColor.Red
 
 export class TutorialSetup extends LoootSetup {
   setupLandscapeBoards() {
