@@ -16,6 +16,7 @@ export class TutorialSetup extends LoootSetup {
     const secondBoardLocation = this.getLandscapeBoardLocation({ x: 0, y: 4 }, 1)
     this.material(MaterialType.LandscapeBoard).createItem({ id: 7, location: secondBoardLocation })
     const trophyBoardLocation = { type: LocationType.Landscape, x: 4, y: 4, rotation: 2 }
+    this.createBuildingTiles()
     this.material(MaterialType.TrophyBoard).createItem({ id: sample(getEnumValues(TrophyBoard)), location: trophyBoardLocation })
     this.createTrophyTiles(trophyBoardLocation)
     const oceanBoardLocation = { type: LocationType.Landscape, x: -4, y: 0, rotation: 5 }
