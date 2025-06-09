@@ -45,6 +45,7 @@ export const GameDisplay = ({ game }: Props) => {
         margin={margin}
         css={process.env.NODE_ENV === 'development' && tableBorder}
         collisionAlgorithm={pointerWithin}
+        verticalCenter
       >
         <GameTableNavigation css={getNavigationCss()} />
       </GameTable>
