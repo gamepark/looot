@@ -22,19 +22,6 @@ export const GameDisplay = ({ game }: Props) => {
   const yMax = Math.max(landscapeSize.height / 2, verticalSpaceForPlayers / 2) + 1
   const yMin = -yMax
 
-  const getNavigationCss = () => {
-    if (players < 4) {
-      return css`
-        left: 1em;
-        top: 8em;
-      `
-    }
-    return css`
-      left: 31em;
-      top: 8em;
-    `
-  }
-
   return (
     <>
       <GameTable
@@ -47,7 +34,7 @@ export const GameDisplay = ({ game }: Props) => {
         collisionAlgorithm={pointerWithin}
         verticalCenter
       >
-        <GameTableNavigation css={getNavigationCss()} />
+        <GameTableNavigation css={navigationCss} />
       </GameTable>
     </>
   )
@@ -55,4 +42,10 @@ export const GameDisplay = ({ game }: Props) => {
 
 const tableBorder = css`
   border: 1px solid white;
+`
+
+const navigationCss = css`
+  left: 1em;
+  top: 9em;
+  flex-direction: column;
 `
