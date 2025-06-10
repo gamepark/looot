@@ -5,7 +5,7 @@ import { ScoreHelper } from '@gamepark/looot/rules/helpers/ScoreHelper'
 import { BoardDescription } from '@gamepark/react-game'
 import { ItemContext } from '@gamepark/react-game/dist/locators/Locator'
 import { Location, MaterialItem } from '@gamepark/rules-api'
-import ScorePad from '../images/scoring/scorepad.png'
+import ScorePad from '../images/scoring/Scorepad.jpg'
 import { ScorePadHelp } from './help/ScorePadHelp'
 
 export class ScorePadDescription extends BoardDescription {
