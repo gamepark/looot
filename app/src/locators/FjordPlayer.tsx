@@ -88,7 +88,6 @@ const timerStyle = css`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 3.6em;
   align-self: center;
   border-radius: 0.5em;
   background-color: rgba(0, 0, 0, 0.9);
