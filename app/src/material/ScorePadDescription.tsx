@@ -9,8 +9,8 @@ import ScorePad from '../images/scoring/Scorepad.jpg'
 import { ScorePadHelp } from './help/ScorePadHelp'
 
 export class ScorePadDescription extends BoardDescription {
-  width = 9
-  height = 9
+  width = 10
+  height = 10
   image = ScorePad
   staticItem = { location: { type: LocationType.ScorePadPlace } }
 
