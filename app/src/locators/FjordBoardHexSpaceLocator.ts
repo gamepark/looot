@@ -35,9 +35,13 @@ class FjordBoardHexSpaceLocator extends HexagonalGridLocator {
 }
 
 class FjordBoardHexDropDescription extends DropAreaDescription {
-  width = 3
+  width = 2.6
   height = 2.6
+  borderRadius = 1.5
   extraCss = css`
+    width: 3em;
+    height: 2.6em;
+    border-radius: 0;
     aspect-ratio: 1 / cos(30deg);
     clip-path: polygon(50% -50%, 100% 50%, 50% 150%, 0 50%);
   `
