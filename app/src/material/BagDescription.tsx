@@ -15,6 +15,8 @@ export class BagDescription extends BoardDescription {
     if (context.rules.players.length === 4) return []
     return [{ location: { type: LocationType.Bag } }]
   }
+
+  displayHelp = () => undefined
 }
 
 export const bagDescription = new BagDescription()
