@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { LocationType } from '@gamepark/looot/material/LocationType'
 import { Resource } from '@gamepark/looot/material/Resource'
 import { LandscapeHelper } from '@gamepark/looot/rules/helpers/LandscapeHelper'
 import { DeckLocator } from '@gamepark/react-game'
@@ -10,46 +11,76 @@ import { landscapeLocator } from './LandscapeLocator'
 class ResourceTilesDeckLocator extends DeckLocator {
   limit = 10
 
-  coordinatesCache?: XYCoordinates
-
   getCoordinates(location: Location, context: MaterialContext) {
-    if (!this.coordinatesCache) {
-      switch (context.rules.players.length) {
-        case 2:
-          this.coordinatesCache = { x: -28, y: -13 }
-          break
-        case 3:
-          this.coordinatesCache = { x: -30, y: -5 }
-          break
-        default: {
-          const landscape = new LandscapeHelper(context.rules.game).landscape
-          const landscapeSize = landscapeLocator.getLandscapeSize(context.rules.game)
-          const yGap = Math.min(2, landscape.grid.length - 11)
-          if (yGap <= 0) {
-            this.coordinatesCache = { x: -landscapeSize.width / 2 + 3, y: 22 }
-            break
-          }
-          const xRange = range(landscape.xMin, landscape.xMin + 3)
-          const bottomLeft = xRange.flatMap((x) => range(landscape.yMax, landscape.yMax - yGap, -1).map((y) => ({ x, y })))
-          const deltaX = landscapeSize.width / 2 - 3
-          const deltaY = Math.max(landscapeSize.height / 2, 25) - 3
-          if (bottomLeft.every((hex) => landscape.getValue(hex) === undefined)) {
-            this.coordinatesCache = { x: -deltaX, y: deltaY }
-            break
-          }
-          const topLeft = xRange.flatMap((x) => range(landscape.yMin, landscape.yMin + yGap).map((y) => ({ x, y })))
-          if (topLeft.every((hex) => landscape.getValue(hex) === undefined)) {
-            this.coordinatesCache = { x: -deltaX, y: -deltaY }
-            break
-          }
-          this.coordinatesCache = { x: -deltaX, y: 0 }
-        }
-      }
+    if (context.rules.players.length === 4) {
+      return this.get4PlayersCoordinates(location, context)
     }
-    const { x, y } = this.coordinatesCache
+    const { x, y } = context.rules.players.length === 2 ? { x: -28, y: -13 } : { x: -30, y: -5 }
     const firstLine = location.id === Resource.Wood || location.id === Resource.Sheep
     const firstColumn = location.id === Resource.Wood || location.id === Resource.Gold
     return { x: x + (firstColumn ? -1.6 : 1.6), y: y + (firstLine ? -1.6 : 1.6) }
+  }
+
+  get4PlayersCoordinates(location: Location, context: MaterialContext) {
+    const coordinates = this.get4PlayersResourceCoordinates(context)
+    return landscapeLocator.getLocationCoordinates({ type: LocationType.Landscape, ...coordinates[location.id as Resource] }, context)
+  }
+
+  coordinatesCache?: Record<Resource, XYCoordinates>
+
+  get4PlayersResourceCoordinates(context: MaterialContext) {
+    if (!this.coordinatesCache) {
+      const landscape = new LandscapeHelper(context.rules.game).landscape
+      while (landscape.grid.length < 13) {
+        landscape.yMin--
+        landscape.grid.unshift([])
+        landscape.grid.push([])
+      }
+      if (range(landscape.yMax - 4, landscape.yMax + 1).every((y) => !landscape.getValue({ x: landscape.xMin, y }))) {
+        this.coordinatesCache = {
+          [Resource.Wood]: { x: landscape.xMin, y: landscape.yMax - 3 },
+          [Resource.Sheep]: { x: landscape.xMin, y: landscape.yMax - 2 },
+          [Resource.Axe]: { x: landscape.xMin, y: landscape.yMax - 1 },
+          [Resource.Gold]: { x: landscape.xMin, y: landscape.yMax }
+        }
+      } else if (range(landscape.xMin, landscape.xMin + 4).every((x) => !landscape.getValue({ x, y: landscape.yMax }))) {
+        this.coordinatesCache = {
+          [Resource.Wood]: { x: landscape.xMin, y: landscape.yMax },
+          [Resource.Sheep]: { x: landscape.xMin + 1, y: landscape.yMax },
+          [Resource.Axe]: { x: landscape.xMin + 2, y: landscape.yMax },
+          [Resource.Gold]: { x: landscape.xMin + 3, y: landscape.yMax }
+        }
+      } else if (range(landscape.yMin, landscape.yMin + 4).every((y) => !landscape.getValue({ x: landscape.xMin, y }))) {
+        this.coordinatesCache = {
+          [Resource.Wood]: { x: landscape.xMin, y: landscape.yMin },
+          [Resource.Sheep]: { x: landscape.xMin, y: landscape.yMin + 1 },
+          [Resource.Axe]: { x: landscape.xMin, y: landscape.yMin + 2 },
+          [Resource.Gold]: { x: landscape.xMin, y: landscape.yMin + 3 }
+        }
+      } else if (range(landscape.xMin, landscape.xMin + 4).every((x) => !landscape.getValue({ x, y: landscape.yMin }))) {
+        this.coordinatesCache = {
+          [Resource.Wood]: { x: landscape.xMin, y: landscape.yMin },
+          [Resource.Sheep]: { x: landscape.xMin + 1, y: landscape.yMin },
+          [Resource.Axe]: { x: landscape.xMin + 2, y: landscape.yMin },
+          [Resource.Gold]: { x: landscape.xMin + 3, y: landscape.yMin }
+        }
+      } else if (range(landscape.yMin, landscape.yMin + 4).every((y) => !landscape.getValue({ x: landscape.xMax, y }))) {
+        this.coordinatesCache = {
+          [Resource.Wood]: { x: landscape.xMax, y: landscape.yMin },
+          [Resource.Sheep]: { x: landscape.xMax, y: landscape.yMin + 1 },
+          [Resource.Axe]: { x: landscape.xMax, y: landscape.yMin + 2 },
+          [Resource.Gold]: { x: landscape.xMax, y: landscape.yMin + 3 }
+        }
+      } else {
+        this.coordinatesCache = {
+          [Resource.Wood]: { x: landscape.xMax - 3, y: landscape.yMin },
+          [Resource.Sheep]: { x: landscape.xMax - 2, y: landscape.yMin },
+          [Resource.Axe]: { x: landscape.xMax - 1, y: landscape.yMin },
+          [Resource.Gold]: { x: landscape.xMax, y: landscape.yMin }
+        }
+      }
+    }
+    return this.coordinatesCache
   }
 }
 

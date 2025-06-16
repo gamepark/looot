@@ -14,7 +14,7 @@ class FjordBoardLocator extends Locator {
     const deltaX = landscapeSize.width / 2 + 17
     switch (context.rules.game.players.length) {
       case 2:
-        return { x: index === 1 ? deltaX : -deltaX, y: 5 }
+        return { x: index === 1 ? deltaX : -deltaX, y: 5.5 }
       case 3:
         return { x: index === 0 ? -deltaX : deltaX, y: index === 1 ? -13 : 13 }
       case 4:
