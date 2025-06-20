@@ -22,7 +22,7 @@ class LandscapeLocator extends HexagonalGridLocator {
     const isBoard = context.type === MaterialType.LandscapeBoard || context.type === MaterialType.TrophyBoard || context.type === MaterialType.OceanBoard
     const z = isBoard ? 0 : (item.location.z ?? 0) + 0.1
     if (context.type === MaterialType.Viking) {
-      const vikingCoordinates = vikingsCoordinateFromZ[item.location.z!]
+      const vikingCoordinates = vikingsCoordinateFromZ[item.location.z ?? 0]
       return {
         x: x + vikingCoordinates.x,
         y: y + vikingCoordinates.y,
