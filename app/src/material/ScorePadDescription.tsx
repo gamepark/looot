@@ -22,18 +22,18 @@ export class ScorePadDescription extends BoardDescription {
     const locations: Location[] = []
     for (let x = 0; x < rules.players.length; x++) {
       const player = rules.players[x]
-      const scoreHelper = new ScoreHelper(rules.game, player)
+      const scoreHelper = new ScoreHelper(rules.game)
       locations.push({ type: LocationType.ScorePadBox, x, y: 0, player })
-      locations.push({ type: LocationType.ScorePadBox, x, y: 1, z: scoreHelper.getCastleValue() * scoreHelper.getNbCastle(), player })
-      locations.push({ type: LocationType.ScorePadBox, x, y: 2, z: scoreHelper.getWatchTowerValue() * scoreHelper.getNbWatchTower(), player })
-      locations.push({ type: LocationType.ScorePadBox, x, y: 3, z: scoreHelper.getHouseValue() * scoreHelper.getNbHouse(), player })
-      locations.push({ type: LocationType.ScorePadBox, x, y: 4, z: scoreHelper.getGoldValue() * scoreHelper.getNbGold(), player })
-      locations.push({ type: LocationType.ScorePadBox, x, y: 5, z: scoreHelper.getSheepValue() * scoreHelper.getNbSheep(), player })
-      locations.push({ type: LocationType.ScorePadBox, x, y: 6, z: scoreHelper.getWoodValue() * scoreHelper.getNbWood(), player })
-      locations.push({ type: LocationType.ScorePadBox, x, y: 7, z: scoreHelper.getConstructionSiteScore(), player })
-      locations.push({ type: LocationType.ScorePadBox, x, y: 8, z: scoreHelper.getTrophyScore(), player })
-      locations.push({ type: LocationType.ScorePadBox, x, y: 9, z: -scoreHelper.getNotReturnedLongshipMalus(), player })
-      locations.push({ type: LocationType.ScorePadBox, x, y: 10, z: scoreHelper.getTotalScore(), player })
+      locations.push({ type: LocationType.ScorePadBox, x, y: 1, z: scoreHelper.getCastleValue(player) * scoreHelper.getNbCastle(player), player })
+      locations.push({ type: LocationType.ScorePadBox, x, y: 2, z: scoreHelper.getWatchTowerValue(player) * scoreHelper.getNbWatchTower(player), player })
+      locations.push({ type: LocationType.ScorePadBox, x, y: 3, z: scoreHelper.getHouseValue(player) * scoreHelper.getNbHouse(player), player })
+      locations.push({ type: LocationType.ScorePadBox, x, y: 4, z: scoreHelper.getGoldValue(player) * scoreHelper.getNbGold(player), player })
+      locations.push({ type: LocationType.ScorePadBox, x, y: 5, z: scoreHelper.getSheepValue(player) * scoreHelper.getNbSheep(player), player })
+      locations.push({ type: LocationType.ScorePadBox, x, y: 6, z: scoreHelper.getWoodValue(player) * scoreHelper.getNbWood(player), player })
+      locations.push({ type: LocationType.ScorePadBox, x, y: 7, z: scoreHelper.getConstructionSiteScore(player), player })
+      locations.push({ type: LocationType.ScorePadBox, x, y: 8, z: scoreHelper.getTrophyScore(player), player })
+      locations.push({ type: LocationType.ScorePadBox, x, y: 9, z: -scoreHelper.getNotReturnedLongshipMalus(player), player })
+      locations.push({ type: LocationType.ScorePadBox, x, y: 10, z: scoreHelper.getTotalScore(player), player })
     }
     return locations
   }

@@ -59,28 +59,28 @@ export class LoootScoringDescription implements ScoringDescription {
   }
 
   getScoringPlayerData(key: ScoringKey, player: PlayerColor, rules: LoootRules) {
-    const scoreHelper = new ScoreHelper(rules.game, player)
+    const scoreHelper = new ScoreHelper(rules.game)
     switch (key) {
       case ScoringKey.Castle:
-        return this.calculScore(scoreHelper.getNbCastle(), scoreHelper.getCastleValue())
+        return this.calculScore(scoreHelper.getNbCastle(player), scoreHelper.getCastleValue(player))
       case ScoringKey.Tower:
-        return this.calculScore(scoreHelper.getNbWatchTower(), scoreHelper.getWatchTowerValue())
+        return this.calculScore(scoreHelper.getNbWatchTower(player), scoreHelper.getWatchTowerValue(player))
       case ScoringKey.House:
-        return this.calculScore(scoreHelper.getNbHouse(), scoreHelper.getHouseValue())
+        return this.calculScore(scoreHelper.getNbHouse(player), scoreHelper.getHouseValue(player))
       case ScoringKey.Gold:
-        return this.calculScore(scoreHelper.getNbGold(), scoreHelper.getGoldValue())
+        return this.calculScore(scoreHelper.getNbGold(player), scoreHelper.getGoldValue(player))
       case ScoringKey.Sheep:
-        return this.calculScore(scoreHelper.getNbSheep(), scoreHelper.getSheepValue())
+        return this.calculScore(scoreHelper.getNbSheep(player), scoreHelper.getSheepValue(player))
       case ScoringKey.Wood:
-        return this.calculScore(scoreHelper.getNbWood(), scoreHelper.getWoodValue())
+        return this.calculScore(scoreHelper.getNbWood(player), scoreHelper.getWoodValue(player))
       case ScoringKey.Constructions:
-        return scoreHelper.getConstructionSiteScore()
+        return scoreHelper.getConstructionSiteScore(player)
       case ScoringKey.Trophy:
-        return scoreHelper.getTrophyScore()
+        return scoreHelper.getTrophyScore(player)
       case ScoringKey.Malus:
-        return <span css={warning}>{this.calculScore(scoreHelper.getNotReturnedLongshipMalus() / 5, -5)}</span>
+        return <span css={warning}>{this.calculScore(scoreHelper.getNotReturnedLongshipMalus(player) / 5, -5)}</span>
       case ScoringKey.Total:
-        return scoreHelper.getTotalScore()
+        return scoreHelper.getTotalScore(player)
     }
   }
 

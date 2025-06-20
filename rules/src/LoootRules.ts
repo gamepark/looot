@@ -1,8 +1,6 @@
 import {
   CompetitiveScore,
   hideItemId,
-  isMoveItem,
-  ItemMove,
   MaterialGame,
   MaterialMove,
   PositiveSequenceStrategy,
@@ -15,7 +13,6 @@ import { MaterialType } from './material/MaterialType'
 import { Trophy, trophyValue } from './material/Trophy'
 import { PlayerColor } from './PlayerColor'
 import { ScoreHelper } from './rules/helpers/ScoreHelper'
-import { MemoryType } from './rules/Memory'
 import { PlaceResourceRule } from './rules/PlaceResourceRule'
 import { PlaceVikingRule } from './rules/PlaceVikingRule'
 import { RuleId } from './rules/RuleId'
@@ -26,7 +23,6 @@ import { TakeLongshipAndTrophyRule } from './rules/TakeLongshipAndTrophyRule'
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
 export class LoootRules extends SecretMaterialRules implements TimeLimit<MaterialGame, MaterialMove, PlayerColor>, CompetitiveScore {
-  scoreHelper = new ScoreHelper(this.game)
   rules = {
     [RuleId.PlaceViking]: PlaceVikingRule,
     [RuleId.PlaceResource]: PlaceResourceRule,
@@ -48,19 +44,12 @@ export class LoootRules extends SecretMaterialRules implements TimeLimit<Materia
     }
   }
 
-  protected afterItemMove(move: ItemMove): MaterialMove[] {
-    if (isMoveItem(move) && move.location.type === LocationType.FjordBoardHexSpace && move.location.player === this.getActivePlayer()) {
-      this.scoreHelper.updateScore()
-    }
-    return []
-  }
-
   giveTime(): number {
     return 75
   }
 
   getScore(playerId: PlayerColor): number {
-    return this.remind(MemoryType.PlayerScore, playerId)
+    return new ScoreHelper(this.game).getTotalScore(playerId)
   }
 
   getTieBreaker(tieBreaker: number, playerId: PlayerColor): number | undefined {

@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { LoootRules } from '@gamepark/looot/LoootRules'
-import { MemoryType } from '@gamepark/looot/rules/Memory'
 import { Avatar, PlayerTimer, usePlayerName, useRules } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { FC } from 'react'
 import Star from '../images/panels/star.png'
+import { ScoreHelper } from '@gamepark/looot/rules/helpers/ScoreHelper'
 
 type FjordPlayerProps = {
   location: Location
@@ -31,7 +31,7 @@ type CounterProps = {
 }
 const Counter: FC<CounterProps> = ({ player }) => {
   const rules = useRules<LoootRules>()!
-  const score = rules.remind(MemoryType.PlayerScore, player) ?? 0
+  const score = new ScoreHelper(rules.game).getTotalScore(player)
   return (
     <span css={[scoreStyle]}>
       <div css={[mainIconBackground(Star)]} />
