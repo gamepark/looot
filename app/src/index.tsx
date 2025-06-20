@@ -11,6 +11,7 @@ import { gameAnimations } from './animations/GameAnimations'
 import App from './App'
 import { RulesHelp } from './dialogs/RulesHelp'
 import { LoootLogs } from './history/LoootLogs'
+import Background from './images/Background.jpg'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import { LoootScoringDescription } from './scoring/LoootScoringDescription'
@@ -34,6 +35,7 @@ ReactDOM.render(
       animations={gameAnimations}
       tutorial={new Tutorial()}
       ai={(game: MaterialGame, playerId: number) => Promise.resolve(new LoootBot(playerId).run(game))}
+      theme={{ root: { background: { image: Background } } }}
     >
       <App />
     </GameProvider>
