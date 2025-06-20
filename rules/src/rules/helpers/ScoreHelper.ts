@@ -17,6 +17,7 @@ export class ScoreHelper extends MaterialRulesPart {
   }
 
   updateScore() {
+    console.log(this.getTotalScore())
     this.memorize(MemoryType.PlayerScore, this.getTotalScore(), this.player)
   }
 

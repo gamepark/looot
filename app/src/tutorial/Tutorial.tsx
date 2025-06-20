@@ -320,6 +320,10 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     {
       popup: {
         text: () => <Trans defaults="tuto.step.23" components={BaseComponents} />,
+        position: {
+          x: 0,
+          y: 10
+        }
       },
       focus: (game) => ({
         materials: [
@@ -380,6 +384,10 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     {
       popup: {
         text: () => <Trans defaults="tuto.step.26" components={BaseComponents} />,
+        position: {
+          x: 0,
+          y: 15
+        }
       },
       move: {
         filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) &&
