@@ -11,7 +11,7 @@ import { RuleId } from './RuleId'
 export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
     const moves: MaterialMove[] = []
-    if (!this.remind(MemoryType.LongshipTaked)) {
+    if (!this.remind(MemoryType.LongshipTaken)) {
       new FjordBoardHelper(this.game).getPossiblePlaces().forEach((place) => {
         moves.push(...this.longships.moveItems(place))
       })
@@ -28,7 +28,7 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
     if (isMoveItemType(MaterialType.LongshipTile)(move)) {
       const oldLongshipLocation = this.material(MaterialType.LongshipTile).index(move.itemIndex).getItem()?.location
       if (oldLongshipLocation?.type === LocationType.Landscape) {
-        this.memorize(MemoryType.LongshipTaked, oldLongshipLocation)
+        this.memorize(MemoryType.LongshipTaken, oldLongshipLocation)
       }
     }
     return moves
@@ -48,13 +48,13 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
   onCustomMove(move: CustomMove): MaterialMove[] {
     const moves: MaterialMove[] = []
     if (isCustomMoveType(CustomMoveType.Pass)(move)) {
-      const longshipTaked: Location | undefined = this.remind(MemoryType.LongshipTaked)
-      if(longshipTaked) {
+      const longshipTaken: Location | undefined = this.remind(MemoryType.LongshipTaken)
+      if (longshipTaken) {
         moves.push(
           this.material(MaterialType.LongshipTile)
             .location(LocationType.InsideBag)
             .maxBy((item) => item.location.x!)
-            .moveItem(longshipTaked)
+            .moveItem(longshipTaken)
         )
       }
       moves.push(this.startNext())
@@ -63,7 +63,7 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
   }
 
   onRuleEnd(): MaterialMove[] {
-    this.forget(MemoryType.LongshipTaked)
+    this.forget(MemoryType.LongshipTaken)
     return []
   }
 

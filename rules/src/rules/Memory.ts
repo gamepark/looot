@@ -1,9 +1,8 @@
 export enum MemoryType {
-  PlayerScore = 1,
-  PlayerTowersTaken,
+  PlayerTowersTaken = 2,
   PlayerCastlesTaken,
   PlayerSelectedShield,
   ResourcesToGet,
   BuildingToGet,
-  LongshipTaked
+  LongshipTaken
 }
