@@ -71,7 +71,7 @@ export class LandscapeHelper extends MaterialRulesPart {
       this.material(MaterialType.Viking)
         .location(LocationType.Landscape)
         .getItems()
-        .map((item) => item.location),
+        .map((item) => ({ x: item.location.x, y: item.location.y })),
       (location) => `${location.x}_${location.y}`
     )
   }
