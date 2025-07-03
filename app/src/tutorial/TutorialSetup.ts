@@ -28,9 +28,9 @@ export class TutorialSetup extends LoootSetup {
   }
 
   createLongshipTiles(oceanBoardLocation: XYCoordinates & { rotation: number }) {
-    const othersLongships = shuffle(getEnumValues(Longship).slice(5))
-    const longships = [Longship.Castle31, Longship.Sheep11, Longship.Watchtower21, Longship.Watchtower12, Longship.Watchtower11, ...othersLongships]
-    const longshipTiles = longships.map((longship) => ({ id: longship, location: { type: LocationType.InsideBag } }))
+    const setupLongships = [Longship.Castle31, Longship.Sheep11, Longship.Watchtower21, Longship.Watchtower12, Longship.Watchtower11]
+    const othersLongships = getEnumValues(Longship).filter((longship) => !setupLongships.includes(longship))
+    const longshipTiles = [...setupLongships, ...shuffle(othersLongships)].map((longship) => ({ id: longship, location: { type: LocationType.InsideBag } }))
     this.material(MaterialType.LongshipTile).createItems(longshipTiles)
 
     for (let i = 0; i < 5; i++) {
