@@ -8,7 +8,7 @@ import {
   Polyhex,
   XYCoordinates
 } from '@gamepark/rules-api'
-import { sumBy, times, uniqBy } from 'lodash'
+import { sum, sumBy, times, uniqBy } from 'lodash'
 import { Building } from '../../material/Building'
 import { getLandscape, isResource, Land, LandscapeBoard, TrophyPlace, Water } from '../../material/LandscapeBoard'
 import { LocationType } from '../../material/LocationType'
@@ -99,16 +99,16 @@ export class LandscapeHelper extends MaterialRulesPart {
   }
 
   getVikingsGroups(player: PlayerColor) {
-    const grid = this.landscape.grid.map((line) => line.map((_) => false))
+    const grid = this.landscape.grid.map((line) => line.map((_) => 0))
     const vikings = this.material(MaterialType.Viking).id(player).location(LocationType.Landscape).getItems()
     for (const viking of vikings) {
-      grid[viking.location.y! - this.landscape.yMin][viking.location.x! - this.landscape.xMin] = true
+      grid[viking.location.y! - this.landscape.yMin][viking.location.x! - this.landscape.xMin]++
     }
     const hexGridSystem = this.landscape.xMin % 2 === 0 ? HexGridSystem.EvenQ : HexGridSystem.OddQ
     return createAdjacentGroups(grid, { hexGridSystem: hexGridSystem })
   }
 
-  getWatchtowersToTake(player: PlayerColor, vikingsGroups: AdjacentGroup<boolean>[][]) {
+  getWatchtowersToTake(player: PlayerColor, vikingsGroups: AdjacentGroup[][]) {
     const result: number[] = []
     const connectedTowerLocations = this.getConnectedWatchtowerLocations(vikingsGroups)
     const watchtowers = this.material(MaterialType.BuildingTile).location(LocationType.Landscape).id(Building.Watchtower)
@@ -125,12 +125,12 @@ export class LandscapeHelper extends MaterialRulesPart {
     return result
   }
 
-  getConnectedWatchtowerLocations(vikingsGroups: AdjacentGroup<boolean>[][]) {
+  getConnectedWatchtowerLocations(vikingsGroups: AdjacentGroup[][]) {
     const connectedTowerLocations: XYCoordinates[] = []
     const { xMin, yMin } = this.landscape
     const towerLocations = this.getWatchtowersLocations()
     for (const towerLocation of towerLocations) {
-      const adjacentGroups: (AdjacentGroup<boolean> & { towers?: XYCoordinates[] })[] = []
+      const adjacentGroups: (AdjacentGroup & { towers?: XYCoordinates[] })[] = []
       for (const { x, y } of getAdjacentHexagons(towerLocation, HexGridSystem.EvenQ)) {
         const adjacentGroup = vikingsGroups.at(y - yMin)?.at(x - xMin)
         if (adjacentGroup?.values.length && !adjacentGroups.includes(adjacentGroup)) {
@@ -162,14 +162,14 @@ export class LandscapeHelper extends MaterialRulesPart {
     return locations
   }
 
-  getCastlesToTake(player: PlayerColor, vikingsGroups: AdjacentGroup<boolean>[][]) {
+  getCastlesToTake(player: PlayerColor, vikingsGroups: AdjacentGroup[][]) {
     const result: number[] = []
     const { xMin, yMin } = this.landscape
     const castles = this.material(MaterialType.BuildingTile).location(LocationType.Landscape).id(Building.Castle)
     for (const index of castles.getIndexes()) {
       const castle = castles.getItem(index)
       const adjacentHexagons = getAdjacentHexagons(castle.location as XYCoordinates, HexGridSystem.EvenQ)
-      const biggestAdjacentGroup = Math.max(...adjacentHexagons.map(({ x, y }) => vikingsGroups[y - yMin]?.[x - xMin]?.values.length ?? 0))
+      const biggestAdjacentGroup = Math.max(...adjacentHexagons.map(({ x, y }) => sum(vikingsGroups[y - yMin]?.[x - xMin]?.values)))
       const tilesToGet = Math.floor(biggestAdjacentGroup / 4)
       const castlesTaken = this.remind<number[]>(MemoryType.PlayerCastlesTaken, player)
       const countTaken = castlesTaken.filter((i) => i === index).length
