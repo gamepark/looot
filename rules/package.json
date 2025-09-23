@@ -2,6 +2,7 @@
   "name": "@gamepark/looot",
   "version": "1.0.2",
   "description": "The rules of Looot adapted for Game Park",
+  "type": "module",
   "sideEffects": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
