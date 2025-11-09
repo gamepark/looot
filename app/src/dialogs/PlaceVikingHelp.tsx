@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { LoootRules } from '@gamepark/looot/LoootRules'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
@@ -22,13 +21,13 @@ export const PlaceVikingHelp = () => {
     <>
       <h2>{t(`help.shield`)}</h2>
       <p>
-        <Trans defaults="help.shield.descr.1" components={components} />
+        <Trans i18nKey="help.shield.descr.1" components={components} />
       </p>
       <p>
-        <Trans defaults="help.shield.descr.2" components={components} />
+        <Trans i18nKey="help.shield.descr.2" components={components} />
       </p>
       <p>
-        <Trans defaults="help.shield.descr.3" components={components} />
+        <Trans i18nKey="help.shield.descr.3" components={components} />
       </p>
       {shields.map((shield, index) => (
         <Shield key={index} id={+`${activePlayer}${shield}`} shield={shield} />
@@ -52,11 +51,11 @@ const Shield = ({ id, shield }: ShieldProps) => {
       <img src={shieldDescription.images[id]} css={shieldImg} />
       <div>
         <p>
-          <Trans defaults={`help.shield.bonus.${shield}`} components={components} />
+          <Trans i18nKey={`help.shield.bonus.${shield}`} components={components} />
         </p>
         {useShield && (
           <Trans
-            defaults={`help.shield.bonus.use`}
+            i18nKey={`help.shield.bonus.use`}
             components={{
               ...components,
               shield: <PlayMoveButton move={useShield} />

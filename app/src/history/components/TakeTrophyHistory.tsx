@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { MoveComponentProps, PlayMoveButton, usePlayerName } from '@gamepark/react-game'
@@ -13,7 +12,7 @@ export const TakeTrophyHistory = (props: MoveComponentProps) => {
   const trophy = context.game.items[MaterialType.TrophyTile][move.itemIndex] as MaterialItem
 
   return (
-    <Trans defaults="history.take.trophy" values={{ player: name, trophy: trophy.id }}>
+    <Trans i18nKey="history.take.trophy" values={{ player: name, trophy: trophy.id }}>
       <PlayMoveButton move={displayMaterialHelp(MaterialType.TrophyTile, trophy)} transient />
     </Trans>
   )

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { TrophyBoard } from '@gamepark/looot/material/TrophyBoard'
 import TrophyBoard1 from '../images/plateaux/trophee1.png'
 import TrophyBoard2 from '../images/plateaux/trophee2.png'

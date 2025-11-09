@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/looot/material/LocationType'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { Trophy } from '@gamepark/looot/material/Trophy'
@@ -15,9 +14,9 @@ import Trophy4 from '../images/trophees/trophee4.png'
 import Trophy5 from '../images/trophees/trophee5.png'
 import Trophy6 from '../images/trophees/trophee6.png'
 import { TrophyTileHelp } from './help/TrophyTileHelp'
-import { HexagoneDescription } from './HexagoneDescription'
+import { HexagonDescription } from './HexagonDescription.tsx'
 
-export class TrophyTileDescription extends HexagoneDescription {
+export class TrophyTileDescription extends HexagonDescription {
   height = 2.9
   width = 3.2
 

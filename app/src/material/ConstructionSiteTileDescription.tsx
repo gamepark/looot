@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { ConstructionSite } from '@gamepark/looot/material/ConstructionSite'
 import { CardDescription } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
@@ -28,6 +27,7 @@ export class ConstructionSiteTileDescription extends CardDescription {
 
   backImages = backImages
   images = images
+  transparency = true
 
   isFlipped(item: Partial<MaterialItem>): boolean {
     return item.location?.rotation as boolean

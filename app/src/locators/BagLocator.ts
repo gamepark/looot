@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Locator } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
 import { Location, XYCoordinates } from '@gamepark/rules-api'

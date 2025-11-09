@@ -1,11 +1,10 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/looot/material/LocationType'
 import { Resource } from '@gamepark/looot/material/Resource'
 import { LandscapeHelper } from '@gamepark/looot/rules/helpers/LandscapeHelper'
 import { DeckLocator } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
 import { Location, XYCoordinates } from '@gamepark/rules-api'
-import { range } from 'lodash'
+import { range } from 'es-toolkit'
 import { landscapeLocator } from './LandscapeLocator'
 
 class ResourceTilesDeckLocator extends DeckLocator {

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Water } from '@gamepark/looot/material/LandscapeBoard'
 import { Resource } from '@gamepark/looot/material/Resource'
 import { LandscapeHelper } from '@gamepark/looot/rules/helpers/LandscapeHelper'

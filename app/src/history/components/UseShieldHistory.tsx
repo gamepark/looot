@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { MoveComponentProps, PlayMoveButton, usePlayerName } from '@gamepark/react-game'
@@ -13,7 +12,7 @@ export const UseShieldHistory = (props: MoveComponentProps) => {
   const shield = context.game.items[MaterialType.Shield][move.itemIndex] as MaterialItem
 
   return (
-    <Trans defaults="history.use.shield" values={{ player: name }}>
+    <Trans i18nKey="history.use.shield" values={{ player: name }}>
       <PlayMoveButton move={displayMaterialHelp(MaterialType.Shield, shield)} transient />
     </Trans>
   )

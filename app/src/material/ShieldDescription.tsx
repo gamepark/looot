@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Shield } from '@gamepark/looot/material/Shield'
 import { PlayerColor } from '@gamepark/looot/PlayerColor'
 import { TokenDescription } from '@gamepark/react-game'
@@ -28,6 +27,7 @@ export class ShieldDescription extends TokenDescription {
 
   images = images
   backImages = backImages
+  transparency = true
 
   protected getBackId(itemId: number) {
     return Math.floor(itemId / 10)

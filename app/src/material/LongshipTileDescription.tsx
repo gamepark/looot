@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Longship } from '@gamepark/looot/material/Longship'
 import { MaterialItem } from '@gamepark/rules-api'
 import Castle1 from '../images/drakkars/chateau1.png'
@@ -44,9 +43,9 @@ import House5 from '../images/drakkars/maison5.png'
 import HouseBack1 from '../images/drakkars/maison_back_1.png'
 import HouseBack2 from '../images/drakkars/maison_back_2.png'
 import { LongshipTileHelp } from './help/LongshipTileHelp'
-import { HexagoneDescription } from './HexagoneDescription'
+import { HexagonDescription } from './HexagonDescription.tsx'
 
-export class LongshipTileDescription extends HexagoneDescription {
+export class LongshipTileDescription extends HexagonDescription {
   height = 2.9
   width = 3.2
 

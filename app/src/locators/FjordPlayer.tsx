@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { LoootRules } from '@gamepark/looot/LoootRules'
 import { Avatar, PlayerTimer, usePlayerName, useRules } from '@gamepark/react-game'

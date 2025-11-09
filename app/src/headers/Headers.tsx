@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/looot/rules/RuleId'
 import { ComponentType } from 'react'
 import { PlaceResourceHeader } from './PlaceResourceHeader'

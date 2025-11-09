@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { MaterialHelpProps } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
@@ -15,7 +14,7 @@ export const TrophyBoardHelp: FC<MaterialHelpProps> = () => {
     <>
       <h2>{t(`help.trophy.board`)}</h2>
       <p>
-        <Trans defaults={`help.trophy.board.descr`} components={components} />
+        <Trans i18nKey={`help.trophy.board.descr`} components={components} />
       </p>
     </>
   )

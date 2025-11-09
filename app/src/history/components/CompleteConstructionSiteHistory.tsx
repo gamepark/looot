@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 
 import { ConstructionSite, getConstructionSiteType } from '@gamepark/looot/material/ConstructionSite'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
@@ -14,7 +13,7 @@ export const CompleteConstructionSiteHistory = (props: MoveComponentProps) => {
   const constructionSite = context.game.items[MaterialType.ConstructionSiteTile][move.itemIndex] as MaterialItem
 
   return (
-    <Trans defaults="history.complete.construction.site" values={{ player: name, site: getConstructionSiteType(constructionSite.id as ConstructionSite) }}>
+    <Trans i18nKey="history.complete.construction.site" values={{ player: name, site: getConstructionSiteType(constructionSite.id as ConstructionSite) }}>
       <PlayMoveButton move={displayMaterialHelp(MaterialType.ConstructionSiteTile, constructionSite)} transient />
     </Trans>
   )

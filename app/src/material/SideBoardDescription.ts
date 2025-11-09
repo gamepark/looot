@@ -5,6 +5,7 @@ import { HexGridSystem, Polyhex } from '@gamepark/rules-api'
 export abstract class SideBoardDescription extends PolyhexDescription {
   height = 6.78
   width = 15.26
+  transparency = true
   coordinatesSystem = HexGridSystem.EvenQ
   polyhex = new Polyhex(oceanBoards[OceanBoard.OceanBoard1], { system: HexGridSystem.EvenQ }) // All side boards have the same shape
 }

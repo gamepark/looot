@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { getLongshipType, getLongshipValue, Longship, longshipRequirements } from '@gamepark/looot/material/Longship'
 import { MaterialHelpProps } from '@gamepark/react-game'
@@ -22,31 +21,31 @@ export const LongshipTileHelp: FC<MaterialHelpProps> = ({ item }) => {
     <>
       <h2>{t(`help.longship.tile`)}</h2>
       <p>
-        <Trans defaults={`help.longship.tile.descr.1`} components={components} />
+        <Trans i18nKey={`help.longship.tile.descr.1`} components={components} />
       </p>
       <p>
-        <Trans defaults={`help.longship.tile.descr.2`} components={components} />
+        <Trans i18nKey={`help.longship.tile.descr.2`} components={components} />
       </p>
       <p>
-        <Trans defaults={`help.longship.tile.descr.3`} components={components} />
+        <Trans i18nKey={`help.longship.tile.descr.3`} components={components} />
       </p>
       <p>
-        <Trans defaults={`help.longship.tile.descr.4`} components={components} />
+        <Trans i18nKey={`help.longship.tile.descr.4`} components={components} />
       </p>
       <p css={note}>
-        <Trans defaults={`help.longship.tile.note`} components={components} />
+        <Trans i18nKey={`help.longship.tile.note`} components={components} />
       </p>
       <p>
-        <Trans defaults={`help.longship.tile.explain`} components={components} values={{ type, value }} />
+        <Trans i18nKey={`help.longship.tile.explain`} components={components} values={{ type, value }} />
       </p>
       <p>
-        <Trans defaults={`help.longship.tile.resources`} components={components} values={{ type }} />
+        <Trans i18nKey={`help.longship.tile.resources`} components={components} values={{ type }} />
       </p>
       <ul>
         {getGroupedResources(resources).map(({ total, id }, index) => (
           <li key={index} css={list}>
             <Trans
-              defaults={`help.resources.${id}`}
+              i18nKey={`help.resources.${id}`}
               values={{ total }}
               components={{
                 ...components,
@@ -63,7 +62,7 @@ export const LongshipTileHelp: FC<MaterialHelpProps> = ({ item }) => {
         ))}
       </ul>
       <p css={warning}>
-        <Trans defaults={`help.longship.tile.warning`} components={components} values={{ type, value }} />
+        <Trans i18nKey={`help.longship.tile.warning`} components={components} values={{ type, value }} />
       </p>
     </>
   )

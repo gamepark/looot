@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { PlayerColor } from '@gamepark/looot/PlayerColor'
 import { BoardDescription } from '@gamepark/react-game'
 import BlueFjord from '../images/plateaux/fjord_bleu.jpg'
@@ -18,6 +17,7 @@ export class FjordBoardDescription extends BoardDescription {
     [PlayerColor.Grey]: GreyFjord,
     [PlayerColor.Yellow]: YellowFjord
   }
+  transparency = true
 
   help = FjordBoardHelp
 }

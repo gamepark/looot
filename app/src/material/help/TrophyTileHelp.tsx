@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Trophy, trophyValue } from '@gamepark/looot/material/Trophy'
 import { MaterialHelpProps } from '@gamepark/react-game'
 import { FC } from 'react'
@@ -17,15 +16,15 @@ export const TrophyTileHelp: FC<MaterialHelpProps> = ({ item }) => {
     <>
       <h2>{t(`help.trophy`)}</h2>
       <p>
-        <Trans defaults="help.trophy.descr.1" components={components} />
+        <Trans i18nKey="help.trophy.descr.1" components={components} />
       </p>
       <p>
-        <Trans defaults="help.trophy.descr.2" components={components} />
+        <Trans i18nKey="help.trophy.descr.2" components={components} />
       </p>
       <p>
-        <Trans defaults="help.trophy.descr.3" components={components} />
+        <Trans i18nKey="help.trophy.descr.3" components={components} />
       </p>
-      <Trans defaults={`help.trophy.explain`} components={components} values={{ nbHaches, value }} />
+      <Trans i18nKey={`help.trophy.explain`} components={components} values={{ nbHaches, value }} />
     </>
   )
 }

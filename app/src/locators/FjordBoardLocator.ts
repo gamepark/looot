@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/looot/material/LocationType'
 import { getRelativePlayerIndex, LocationDescription, Locator } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'

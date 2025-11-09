@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Building } from '@gamepark/looot/material/Building'
 import { LocationType } from '@gamepark/looot/material/LocationType'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
@@ -48,12 +47,12 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
   steps: TutorialStep[] = [
     {
       popup: {
-        text: () => <Trans defaults="tuto.welcome" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.welcome" components={BaseComponents} />,
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.1" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.1" components={BaseComponents} />,
         position: {
           x: 20,
           y: 0
@@ -70,7 +69,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.2" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.2" components={BaseComponents} />,
         position: {
           x: 35,
           y: 0
@@ -83,7 +82,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.3" components={BaseComponents} />
+        text: () => <Trans i18nKey="tuto.step.3" components={BaseComponents} />
       },
       focus: (game) => ({
         materials: [
@@ -99,7 +98,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.4" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.4" components={BaseComponents} />,
         position: {
           x: 40,
           y: 10
@@ -114,7 +113,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.5" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.5" components={BaseComponents} />,
       },
       move: {
         filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) &&
@@ -123,7 +122,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.6" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.6" components={BaseComponents} />,
       },
       focus: (game) => ({
         materials: [
@@ -134,7 +133,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.7" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.7" components={BaseComponents} />,
       },
       focus: () => ({
         locations: [
@@ -154,7 +153,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.8" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.8" components={BaseComponents} />,
         position: {
           x: 10,
           y: 10
@@ -169,17 +168,17 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.9" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.9" components={BaseComponents} />,
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.10" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.10" components={BaseComponents} />,
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.11" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.11" components={BaseComponents} />,
         position: {
           x: 0,
           y: 10

@@ -1,13 +1,12 @@
-/** @jsxImportSource @emotion/react */
 import { Resource } from '@gamepark/looot/material/Resource'
 import Wood from '../images/ressources/bois.png'
 import Axe from '../images/ressources/haches.png'
 import Sheep from '../images/ressources/mouton.png'
 import Gold from '../images/ressources/or.png'
 import { ResourceTileHelp } from './help/ResourceTileHelp'
-import { HexagoneDescription } from './HexagoneDescription'
+import { HexagonDescription } from './HexagonDescription.tsx'
 
-export class ResourceTileDescription extends HexagoneDescription {
+export class ResourceTileDescription extends HexagonDescription {
   height = 2.5
   width = 2.7
 

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LoootRules } from '@gamepark/looot/LoootRules'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { getShieldType } from '@gamepark/looot/material/Shield'
@@ -23,23 +22,23 @@ export const ShieldHelp: FC<MaterialHelpProps> = ({ item, closeDialog }) => {
     <>
       <h2>{t(`help.shield`)}</h2>
       <p>
-        <Trans defaults="help.shield.descr.1" components={components} />
+        <Trans i18nKey="help.shield.descr.1" components={components} />
       </p>
       <p>
-        <Trans defaults="help.shield.descr.2" components={components} />
+        <Trans i18nKey="help.shield.descr.2" components={components} />
       </p>
       <p>
-        <Trans defaults="help.shield.descr.3" components={components} />
+        <Trans i18nKey="help.shield.descr.3" components={components} />
       </p>
       {item.id && (
         <>
           <h3>{t(`help.shield.bonus`)}</h3>
           <p>
-            <Trans defaults={`help.shield.bonus.${type}`} components={components} />
+            <Trans i18nKey={`help.shield.bonus.${type}`} components={components} />
           </p>
           {useShield && (
             <Trans
-              defaults={`help.shield.bonus.use`}
+              i18nKey={`help.shield.bonus.use`}
               components={{
                 ...components,
                 shield: <PlayMoveButton move={useShield} onPlay={closeDialog} />

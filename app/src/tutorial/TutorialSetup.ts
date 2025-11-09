@@ -7,7 +7,7 @@ import { OceanBoard } from '@gamepark/looot/material/OceanBoard'
 import { TrophyBoard } from '@gamepark/looot/material/TrophyBoard'
 import { PlayerColor } from '@gamepark/looot/PlayerColor'
 import { getEnumValues, HexGridSystem, hexRotate, hexTranslate, XYCoordinates } from '@gamepark/rules-api'
-import { sample, shuffle } from 'lodash'
+import { sample, shuffle } from 'es-toolkit'
 
 export const me = PlayerColor.Blue
 export const opponent = PlayerColor.Red

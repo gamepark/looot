@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LoootRules } from '@gamepark/looot/LoootRules'
 import { LocationType } from '@gamepark/looot/material/LocationType'
 import { ScoreHelper } from '@gamepark/looot/rules/helpers/ScoreHelper'

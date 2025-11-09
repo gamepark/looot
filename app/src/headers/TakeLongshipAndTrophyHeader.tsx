@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LoootRules } from '@gamepark/looot/LoootRules'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { CustomMoveType } from '@gamepark/looot/rules/CustomMove'
@@ -20,7 +19,7 @@ export const TakeLongshipAndTrophyHeader = () => {
     if (takeLongshipMove && takeTrophyMove) {
       return (
         <Trans
-          defaults="header.take.longship.and.trophy.you"
+          i18nKey="header.take.longship.and.trophy.you"
           components={{
             pass: <PlayMoveButton move={pass} />
           }}
@@ -30,7 +29,7 @@ export const TakeLongshipAndTrophyHeader = () => {
     if (takeLongshipMove && !takeTrophyMove) {
       return (
         <Trans
-          defaults="header.take.longship.you"
+          i18nKey="header.take.longship.you"
           components={{
             pass: <PlayMoveButton move={pass} />
           }}
@@ -40,7 +39,7 @@ export const TakeLongshipAndTrophyHeader = () => {
     if (!takeLongshipMove && takeTrophyMove) {
       return (
         <Trans
-          defaults="header.take.trophy.you"
+          i18nKey="header.take.trophy.you"
           components={{
             pass: <PlayMoveButton move={pass} />
           }}
@@ -49,7 +48,7 @@ export const TakeLongshipAndTrophyHeader = () => {
     }
     return (
       <Trans
-        defaults="header.take.longship.and.trophy.pass"
+        i18nKey="header.take.longship.and.trophy.pass"
         components={{
           pass: <PlayMoveButton move={pass} auto={10} />
         }}
@@ -57,5 +56,5 @@ export const TakeLongshipAndTrophyHeader = () => {
     )
   }
 
-  return <Trans defaults="header.take.longship.and.trophy.player" values={{ player: name }} />
+  return <Trans i18nKey="header.take.longship.and.trophy.player" values={{ player: name }} />
 }

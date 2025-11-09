@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { MoveComponentProps, PlayMoveButton, usePlayerName } from '@gamepark/react-game'
@@ -13,7 +12,7 @@ export const CompleteLongshipHistory = (props: MoveComponentProps) => {
   const longship = context.game.items[MaterialType.LongshipTile][move.itemIndex] as MaterialItem
 
   return (
-    <Trans defaults="history.complete.longship" values={{ player: name, longship: longship.id }}>
+    <Trans i18nKey="history.complete.longship" values={{ player: name, longship: longship.id }}>
       <PlayMoveButton move={displayMaterialHelp(MaterialType.LongshipTile, longship)} transient />
     </Trans>
   )

@@ -8,7 +8,8 @@ import {
   Polyhex,
   XYCoordinates
 } from '@gamepark/rules-api'
-import { sum, sumBy, times, uniqBy } from 'lodash'
+import { sum, sumBy, uniqBy } from 'es-toolkit'
+import { times } from 'es-toolkit/compat'
 import { Building } from '../../material/Building'
 import { getLandscape, isResource, Land, LandscapeBoard, TrophyPlace, Water } from '../../material/LandscapeBoard'
 import { LocationType } from '../../material/LocationType'
@@ -28,15 +29,15 @@ export class LandscapeHelper extends MaterialRulesPart {
     this.landscape = new Polyhex([], { system: HexGridSystem.EvenQ })
     const landscapeBoardItems = this.material(MaterialType.LandscapeBoard).getItems<LandscapeBoard>()
     for (const item of landscapeBoardItems) {
-      this.landscape.merge(getLandscape(item.id), item.location, () => (this.overlap = true))
+      this.landscape.merge(new Polyhex(getLandscape(item.id), { system: HexGridSystem.EvenQ }), item.location, () => (this.overlap = true))
     }
     const oceanBoardItem = this.material(MaterialType.OceanBoard).getItem<OceanBoard>()
     if (oceanBoardItem) {
-      this.landscape.merge(oceanBoards[oceanBoardItem.id], oceanBoardItem.location, () => (this.overlap = true))
+      this.landscape.merge(new Polyhex(oceanBoards[oceanBoardItem.id], { system: HexGridSystem.EvenQ }), oceanBoardItem.location, () => (this.overlap = true))
     }
     const trophyBoardItem = this.material(MaterialType.TrophyBoard).getItem<TrophyBoard>()
     if (trophyBoardItem) {
-      this.landscape.merge(trophyBoards[trophyBoardItem.id], trophyBoardItem.location, () => (this.overlap = true))
+      this.landscape.merge(new Polyhex(trophyBoards[trophyBoardItem.id], { system: HexGridSystem.EvenQ }), trophyBoardItem.location, () => (this.overlap = true))
     }
   }
 
@@ -55,7 +56,7 @@ export class LandscapeHelper extends MaterialRulesPart {
     const vikingsGrid = this.landscape.grid.map((line, y) => line.map((_, x) => vikings.some((viking) => viking.x === x + xMin && viking.y === y + yMin)))
     for (let x = xMin; x <= this.landscape.xMax; x++) {
       for (let y = yMin; y <= this.landscape.yMax; y++) {
-        if (isResource(this.landscape.grid[y - yMin][x - xMin]) && !vikingsGrid[y - yMin][x - xMin]) {
+        if (isResource(this.landscape.getValue({ x, y })) && !vikingsGrid[y - yMin][x - xMin]) {
           const adjacentHexagons = getAdjacentHexagons({ x, y }, HexGridSystem.EvenQ)
           if (adjacentHexagons.some((hex) => this.landscape.grid[hex.y - yMin]?.[hex.x - xMin] === Water || vikingsGrid[hex.y - yMin]?.[hex.x - xMin])) {
             locations.push({ x, y })

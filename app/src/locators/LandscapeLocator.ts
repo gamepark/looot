@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { LandscapeHelper } from '@gamepark/looot/rules/helpers/LandscapeHelper'

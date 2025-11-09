@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 
 import { MaterialType } from '@gamepark/looot/material/MaterialType'
 import { MoveComponentProps, PlayMoveButton, usePlayerName } from '@gamepark/react-game'
@@ -13,7 +12,7 @@ export const PlaceResourceHistory = (props: MoveComponentProps) => {
   const resource = context.game.items[MaterialType.ResourceTile][move.itemIndex] as MaterialItem
 
   return (
-    <Trans defaults="history.place.resource" values={{ player: name, resource: resource.id }}>
+    <Trans i18nKey="history.place.resource" values={{ player: name, resource: resource.id }}>
       <PlayMoveButton move={displayMaterialHelp(MaterialType.ResourceTile, resource)} transient />
     </Trans>
   )

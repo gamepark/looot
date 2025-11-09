@@ -1,5 +1,5 @@
 import { getEnumValues } from '@gamepark/rules-api'
-import { shuffle } from 'lodash'
+import { shuffle } from 'es-toolkit'
 import { Building } from './Building'
 import { Land } from './LandscapeBoard'
 import { Resource } from './Resource'
@@ -50,7 +50,6 @@ export const constructionSiteRequirements: Record<ConstructionSite, Land[]> = {
   [ConstructionSite.Altar2]: [Building.House, Building.House, Building.Watchtower, Resource.Wood],
   [ConstructionSite.Altar3]: [Building.House, Building.House, Building.Watchtower, Resource.Sheep],
   [ConstructionSite.Altar4]: [Building.House, Building.Watchtower, Resource.Wood, Resource.Gold],
-  [ConstructionSite.Altar5]: [Building.Watchtower, Building.Watchtower, Resource.Axe, Resource.Sheep],
   [ConstructionSite.Altar5]: [Building.Watchtower, Building.Watchtower, Resource.Axe, Resource.Sheep],
   [ConstructionSite.Palace1]: [Building.Watchtower, Building.House, Building.House, Building.Castle, Resource.Gold],
   [ConstructionSite.Palace2]: [Building.Watchtower, Building.Watchtower, Building.House, Building.House, Building.Castle],

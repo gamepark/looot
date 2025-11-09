@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { MaterialHelpProps } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
@@ -17,7 +16,7 @@ export const BuildingTileHelp: FC<MaterialHelpProps> = ({ item }) => {
       <h2>{t(`help.building.tile`)}</h2>
       <p>
         <Trans
-          defaults={`help.building.tile.descr.${item.id}`}
+          i18nKey={`help.building.tile.descr.${item.id}`}
           components={{
             ...components,
             house: houseBtn,
@@ -28,10 +27,10 @@ export const BuildingTileHelp: FC<MaterialHelpProps> = ({ item }) => {
       </p>
       <h3>{t(`help.building.tile.${item.id}`)}</h3>
       <p>
-        <Trans defaults={`help.building.tile.${item.id}.descr`} components={components} />
+        <Trans i18nKey={`help.building.tile.${item.id}.descr`} components={components} />
       </p>
       <p>
-        <Trans defaults={`help.building.tile.${item.id}.capture`} components={components} />
+        <Trans i18nKey={`help.building.tile.${item.id}.capture`} components={components} />
       </p>
     </>
   )

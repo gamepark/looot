@@ -1,5 +1,5 @@
 import { getEnumValues, HexGridSystem, hexRotate, hexTranslate, loopWithFuse, MaterialGameSetup, XYCoordinates } from '@gamepark/rules-api'
-import { range, sample, shuffle } from 'lodash'
+import { range, sample, shuffle } from 'es-toolkit'
 import { LoootOptions } from './LoootOptions'
 import { LoootRules } from './LoootRules'
 import { Building } from './material/Building'

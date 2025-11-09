@@ -1,26 +1,25 @@
-/** @jsxImportSource @emotion/react */
-import { LoootBot } from '@gamepark/looot/bot/LoootBot'
-import { LoootOptionsSpec } from '@gamepark/looot/LoootOptions'
-import { LoootRules } from '@gamepark/looot/LoootRules'
-import { LoootSetup } from '@gamepark/looot/LoootSetup'
+import { LoootBot } from '@gamepark/looot/bot/LoootBot.ts'
+import { LoootOptionsSpec } from '@gamepark/looot/LoootOptions.ts'
+import { LoootRules } from '@gamepark/looot/LoootRules.ts'
+import { LoootSetup } from '@gamepark/looot/LoootSetup.ts'
 import { GameProvider, setupTranslation } from '@gamepark/react-game'
 import { MaterialGame } from '@gamepark/rules-api'
 import { StrictMode } from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { gameAnimations } from './animations/GameAnimations'
-import App from './App'
-import { RulesHelp } from './dialogs/RulesHelp'
-import { LoootLogs } from './history/LoootLogs'
+import { App } from './App'
+import { RulesHelp } from './dialogs/RulesHelp.ts'
+import { LoootLogs } from './history/LoootLogs.ts'
 import Background from './images/Background.jpg'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
-import { LoootScoringDescription } from './scoring/LoootScoringDescription'
+import { LoootScoringDescription } from './scoring/LoootScoringDescription.tsx'
 import translations from './translations.json'
-import { Tutorial } from './tutorial/Tutorial'
+import { Tutorial } from './tutorial/Tutorial.tsx'
 
 setupTranslation(translations, { debug: false })
 
-ReactDOM.render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GameProvider
       game="looot"
@@ -39,6 +38,5 @@ ReactDOM.render(
     >
       <App />
     </GameProvider>
-  </StrictMode>,
-  document.getElementById('root')
+  </StrictMode>
 )

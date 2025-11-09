@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css, Interpolation, Theme } from '@emotion/react'
 import { PlayerColor } from '@gamepark/looot/PlayerColor'
 import { TokenDescription } from '@gamepark/react-game'
@@ -18,6 +17,7 @@ export class VikingDescription extends TokenDescription {
     [PlayerColor.Grey]: GreyViking,
     [PlayerColor.Yellow]: YellowViking
   }
+  transparency = true
 
   help = VikingHelp
 
