@@ -80,7 +80,7 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
     const nbPlayerAxes = this.material(MaterialType.ResourceTile).location(LocationType.FjordBoardHexSpace).player(this.player).id(Resource.Axe).length
     return this.material(MaterialType.TrophyTile)
       .location(LocationType.Landscape)
-      .filter((it) => it.id! <= nbPlayerAxes)
+      .filter<number>((it) => it.id! <= nbPlayerAxes)
   }
 
   get playerTrophy() {
