@@ -3,7 +3,7 @@ import { Resource } from '@gamepark/looot/material/Resource'
 import { LandscapeHelper } from '@gamepark/looot/rules/helpers/LandscapeHelper'
 import { Locator } from '@gamepark/react-game'
 import { MaterialContext } from '@gamepark/react-game/dist/locators/Locator'
-import { Location, XYCoordinates } from '@gamepark/rules-api'
+import { HexGridSystem, Location, Polyhex, XYCoordinates } from '@gamepark/rules-api'
 import { landscapeLocator } from './LandscapeLocator'
 import { resourceTilesDeckLocator } from './ResourceTilesDeckLocator'
 
@@ -50,10 +50,11 @@ class ScorePadPlaceLocator extends Locator {
       landscape.grid.push([])
     }
     const resourcesCoordinates = resourceTilesDeckLocator.get4PlayersResourceCoordinates(context)
-    landscape.merge([[Water]], resourcesCoordinates[Resource.Wood])
-    landscape.merge([[Water]], resourcesCoordinates[Resource.Sheep])
-    landscape.merge([[Water]], resourcesCoordinates[Resource.Axe])
-    landscape.merge([[Water]], resourcesCoordinates[Resource.Gold])
+    const waterPolyhex = new Polyhex([[Water]], { system: HexGridSystem.EvenQ })
+    landscape.merge(waterPolyhex, resourcesCoordinates[Resource.Wood])
+    landscape.merge(waterPolyhex, resourcesCoordinates[Resource.Sheep])
+    landscape.merge(waterPolyhex, resourcesCoordinates[Resource.Axe])
+    landscape.merge(waterPolyhex, resourcesCoordinates[Resource.Gold])
     return landscape
   }
 }

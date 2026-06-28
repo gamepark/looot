@@ -47,7 +47,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
   steps: TutorialStep[] = [
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.welcome" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.welcome" components={BaseComponents} />
       }
     },
     {
@@ -62,7 +62,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
         materials: [
           this.material(game, MaterialType.FjordBoard).location(LocationType.FjordBoard).player(me),
           this.material(game, MaterialType.Shield).location(LocationType.FjordBoardHexSpace).player(me),
-          this.material(game, MaterialType.ConstructionSiteTile).location(LocationType.FjordBoardHexSpace).player(me),
+          this.material(game, MaterialType.ConstructionSiteTile).location(LocationType.FjordBoardHexSpace).player(me)
         ],
         scale: 0.7
       })
@@ -91,8 +91,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
           this.material(game, MaterialType.TrophyBoard).location(LocationType.Landscape),
           this.material(game, MaterialType.BuildingTile).location(LocationType.Landscape),
           this.material(game, MaterialType.LongshipTile).location(LocationType.Landscape),
-          this.material(game, MaterialType.TrophyTile).location(LocationType.Landscape),
-
+          this.material(game, MaterialType.TrophyTile).location(LocationType.Landscape)
         ]
       })
     },
@@ -105,35 +104,36 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
         }
       },
       focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.LongshipTile).location(LocationType.Landscape)
-        ],
+        materials: [this.material(game, MaterialType.LongshipTile).location(LocationType.Landscape)],
         scale: 0.7
       })
     },
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.step.5" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.5" components={BaseComponents} />
       },
+      focus: (game) => ({
+        materials: [this.material(game, MaterialType.Viking).location(LocationType.PlayerVikingPile).player(me)],
+        locations: [{ type: LocationType.Landscape, x: -3, y: 0 }],
+        scale: 0.7,
+        margin: { top: 2 }
+      }),
       move: {
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) &&
-          move.location.x === -3 && move.location.y === 0
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) && move.location.x === -3 && move.location.y === 0
       }
     },
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.step.6" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.6" components={BaseComponents} />
       },
       focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.ResourceTile).location(LocationType.ResourceTilesDeck).id(Resource.Axe)
-        ],
+        materials: [this.material(game, MaterialType.ResourceTile).location(LocationType.ResourceTilesDeck).id(Resource.Axe)],
         scale: 0.7
       })
     },
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.step.7" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.7" components={BaseComponents} />
       },
       focus: () => ({
         locations: [
@@ -147,8 +147,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
         scale: 0.1
       }),
       move: {
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.ResourceTile)(move) &&
-          move.location.x === 2 && move.location.y === 2
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.ResourceTile)(move) && move.location.x === 2 && move.location.y === 2
       }
     },
     {
@@ -160,20 +159,18 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
         }
       },
       focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.ConstructionSiteTile).location(LocationType.FjordBoardHexSpace).player(me)
-        ],
+        materials: [this.material(game, MaterialType.ConstructionSiteTile).location(LocationType.FjordBoardHexSpace).player(me)],
         scale: 0.7
       })
     },
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.step.9" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.9" components={BaseComponents} />
       }
     },
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.step.10" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.10" components={BaseComponents} />
       }
     },
     {
@@ -186,7 +183,9 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.BuildingTile).id(Building.House).location((l) => l.type === LocationType.Landscape && l.x === -2 && l.y === 0)
+          this.material(game, MaterialType.BuildingTile)
+            .id(Building.House)
+            .location((l) => l.type === LocationType.Landscape && l.x === -2 && l.y === 0)
         ],
         locations: [
           {
@@ -199,28 +198,25 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
         scale: 0.7
       }),
       move: {
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.BuildingTile)(move) &&
-          move.location.x === 5 && move.location.y === 5
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.BuildingTile)(move) && move.location.x === 5 && move.location.y === 5
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.12" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.12" components={BaseComponents} />
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.13" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.13" components={BaseComponents} />
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.14" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.14" components={BaseComponents} />
       },
       focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.LongshipTile).location((l) => l.type === LocationType.Landscape && l.x === -3 && l.y === -2)
-        ],
+        materials: [this.material(game, MaterialType.LongshipTile).location((l) => l.type === LocationType.Landscape && l.x === -3 && l.y === -2)],
         locations: [
           {
             type: LocationType.FjordBoardHexSpace,
@@ -232,24 +228,28 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
         scale: 0.7
       }),
       move: {
-        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.LongshipTile)(move) &&
-          this.material(game, MaterialType.LongshipTile).location((l) => l.type === LocationType.Landscape && l.x === -3 && l.y === -2).getIndex() === move.itemIndex &&
-          move.location.x === 3 && move.location.y === 3
+        filter: (move: MaterialMove, game: MaterialGame) =>
+          isMoveItemType(MaterialType.LongshipTile)(move) &&
+          this.material(game, MaterialType.LongshipTile)
+            .location((l) => l.type === LocationType.Landscape && l.x === -3 && l.y === -2)
+            .getIndex() === move.itemIndex &&
+          move.location.x === 3 &&
+          move.location.y === 3
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.15" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.15" components={BaseComponents} />
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.16" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.16" components={BaseComponents} />
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.17" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.17" components={BaseComponents} />
       },
       move: {
         auto: true,
@@ -259,13 +259,12 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     {
       move: {
         player: opponent,
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) &&
-          move.location.x === -2 && move.location.y === -1
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) && move.location.x === -2 && move.location.y === -1
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.18" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.18" components={BaseComponents} />
       }
     },
     {
@@ -279,16 +278,15 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.19" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.19" components={BaseComponents} />
       },
       move: {
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) &&
-          move.location.x === -1 && move.location.y === 0
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) && move.location.x === -1 && move.location.y === 0
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.20" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.20" components={BaseComponents} />
       },
       focus: () => ({
         locations: [
@@ -302,43 +300,38 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
         scale: 0.1
       }),
       move: {
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.ResourceTile)(move) &&
-          move.location.x === 4 && move.location.y === 3
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.ResourceTile)(move) && move.location.x === 4 && move.location.y === 3
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.21" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.21" components={BaseComponents} />
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.22" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.22" components={BaseComponents} />
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.23" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.23" components={BaseComponents} />,
         position: {
           x: 0,
           y: 10
         }
       },
       focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.LongshipTile).location((l) => l.type === LocationType.Landscape && l.x === -3 && l.y === -1)
-        ],
+        materials: [this.material(game, MaterialType.LongshipTile).location((l) => l.type === LocationType.Landscape && l.x === -3 && l.y === -1)],
         scale: 0.7
       })
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.24" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.24" components={BaseComponents} />
       },
       focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.LongshipTile).location((l) => l.type === LocationType.Landscape && l.x === -3 && l.y === -1)
-        ],
+        materials: [this.material(game, MaterialType.LongshipTile).location((l) => l.type === LocationType.Landscape && l.x === -3 && l.y === -1)],
         locations: [
           {
             type: LocationType.FjordBoardHexSpace,
@@ -350,14 +343,18 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
         scale: 0.7
       }),
       move: {
-        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.LongshipTile)(move) &&
-          this.material(game, MaterialType.LongshipTile).location((l) => l.type === LocationType.Landscape && l.x === -3 && l.y === -1).getIndex() === move.itemIndex &&
-          move.location.x === 4 && move.location.y === 2
+        filter: (move: MaterialMove, game: MaterialGame) =>
+          isMoveItemType(MaterialType.LongshipTile)(move) &&
+          this.material(game, MaterialType.LongshipTile)
+            .location((l) => l.type === LocationType.Landscape && l.x === -3 && l.y === -1)
+            .getIndex() === move.itemIndex &&
+          move.location.x === 4 &&
+          move.location.y === 2
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.25" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.25" components={BaseComponents} />
       },
       move: {
         auto: true,
@@ -367,8 +364,7 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     {
       move: {
         player: opponent,
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) &&
-          move.location.x === 0 && move.location.y === 0
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) && move.location.x === 0 && move.location.y === 0
       }
     },
     {
@@ -382,20 +378,19 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.26" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.26" components={BaseComponents} />,
         position: {
           x: 0,
           y: 15
         }
       },
       move: {
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) &&
-          move.location.x === -1 && move.location.y === -1
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Viking)(move) && move.location.x === -1 && move.location.y === -1
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.27" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.27" components={BaseComponents} />,
         position: {
           x: 0,
           y: 10
@@ -408,13 +403,12 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
             x: 0,
             y: 1,
             player: me
-          },
+          }
         ],
         scale: 0.1
       }),
       move: {
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.BuildingTile)(move) &&
-          move.location.x === 0 && move.location.y === 1
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.BuildingTile)(move) && move.location.x === 0 && move.location.y === 1
       }
     },
     {
@@ -425,18 +419,17 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
             x: 0,
             y: 2,
             player: me
-          },
+          }
         ],
         scale: 0.1
       }),
       move: {
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.BuildingTile)(move) &&
-          move.location.x === 0 && move.location.y === 2
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.BuildingTile)(move) && move.location.x === 0 && move.location.y === 2
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.28" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.28" components={BaseComponents} />
       },
       focus: () => ({
         locations: [
@@ -445,55 +438,52 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
             x: 2,
             y: 3,
             player: me
-          },
+          }
         ],
         scale: 0.1
       }),
       move: {
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.ResourceTile)(move) &&
-          move.location.x === 2 && move.location.y === 3
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.ResourceTile)(move) && move.location.x === 2 && move.location.y === 3
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.29" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.29" components={BaseComponents} />
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.LongshipTile).location((l) => l.type === LocationType.FjordBoardHexSpace && l.x === 3 && l.y === 3).player(me)
+          this.material(game, MaterialType.LongshipTile)
+            .location((l) => l.type === LocationType.FjordBoardHexSpace && l.x === 3 && l.y === 3)
+            .player(me)
         ],
         scale: 0.1
       })
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.30" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.30" components={BaseComponents} />
       },
       focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.TrophyTile).location(LocationType.Landscape)
-        ],
+        materials: [this.material(game, MaterialType.TrophyTile).location(LocationType.Landscape)],
         scale: 0.1
       })
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.31" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.31" components={BaseComponents} />,
         position: {
           x: 0,
           y: -5
         }
       },
       focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.TrophyTile).location(LocationType.Landscape).id(Trophy.Trophy2)
-        ],
+        materials: [this.material(game, MaterialType.TrophyTile).location(LocationType.Landscape).id(Trophy.Trophy2)],
         scale: 0.1
       })
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.32" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.32" components={BaseComponents} />
       },
       focus: () => ({
         locations: [
@@ -514,26 +504,24 @@ export class Tutorial extends MaterialTutorial<number, MaterialType, LocationTyp
             x: 6,
             y: 5,
             player: me
-          },
+          }
         ],
         scale: 0.7
       })
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.33" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.33" components={BaseComponents} />
       },
       focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.Shield).location(LocationType.FjordBoardHexSpace).player(me)
-        ],
+        materials: [this.material(game, MaterialType.Shield).location(LocationType.FjordBoardHexSpace).player(me)],
         scale: 0.7
       })
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.step.34" components={BaseComponents} />,
+        text: () => <Trans i18nKey="tuto.step.34" components={BaseComponents} />
       }
-    },
+    }
   ]
 }

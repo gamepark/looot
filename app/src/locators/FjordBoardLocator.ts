@@ -22,6 +22,10 @@ class FjordBoardLocator extends Locator {
     }
   }
 
+  getPositionDependencies(location: Location, context: MaterialContext) {
+    return [super.getPositionDependencies(location, context), context.rules.players.length]
+  }
+
   getLocations(context: MaterialContext) {
     return context.rules.players.map((player) => ({ type: LocationType.FjordBoard, player }))
   }

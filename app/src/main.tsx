@@ -2,7 +2,7 @@ import { LoootBot } from '@gamepark/looot/bot/LoootBot.ts'
 import { LoootOptionsSpec } from '@gamepark/looot/LoootOptions.ts'
 import { LoootRules } from '@gamepark/looot/LoootRules.ts'
 import { LoootSetup } from '@gamepark/looot/LoootSetup.ts'
-import { GameProvider, setupTranslation } from '@gamepark/react-game'
+import { GameProvider } from '@gamepark/react-game'
 import { MaterialGame } from '@gamepark/rules-api'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -14,10 +14,7 @@ import Background from './images/Background.jpg'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import { LoootScoringDescription } from './scoring/LoootScoringDescription.tsx'
-import translations from './translations.json'
 import { Tutorial } from './tutorial/Tutorial.tsx'
-
-setupTranslation(translations, { debug: false })
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -1,6 +1,6 @@
 import { pointerWithin } from '@dnd-kit/core'
 import { css } from '@emotion/react'
-import { GameTable, GameTableNavigation } from '@gamepark/react-game'
+import { DevToolsHub, GameTable, GameTableNavigation } from '@gamepark/react-game'
 import { MaterialGame } from '@gamepark/rules-api'
 import { landscapeLocator } from './locators/LandscapeLocator'
 import { fjordBoardDescription } from './material/FjordBoardDescription'
@@ -34,6 +34,7 @@ export const GameDisplay = ({ game }: Props) => {
         verticalCenter
       >
         <GameTableNavigation css={navigationCss} />
+        {process.env.NODE_ENV === 'development' && <DevToolsHub fabBottom="calc(5em)" />}
       </GameTable>
     </>
   )
