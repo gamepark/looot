@@ -23,7 +23,7 @@ export class PlaceResourceRule extends PlayerTurnRule {
         moves.push(this.material(MaterialType.ResourceTile).id(tile).moveItem(place, 1))
       })
       this.playerBuildingTiles.forEach((tile) => {
-        moves.push(this.material(MaterialType.BuildingTile).location(LocationType.Landscape).index(tile).moveItem(place))
+        moves.push(this.material(MaterialType.BuildingTile).location(LocationType.Landscape).index(tile).moveItem(place, 1))
       })
       //moves.push(...this.playerBuildingTiles.moveItems(place))
     })
