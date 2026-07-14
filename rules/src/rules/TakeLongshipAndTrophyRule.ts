@@ -50,12 +50,10 @@ export class TakeLongshipAndTrophyRule extends PlayerTurnRule {
     if (isCustomMoveType(CustomMoveType.Pass)(move)) {
       const longshipTaken: Location | undefined = this.remind(MemoryType.LongshipTaken)
       if (longshipTaken) {
-        moves.push(
-          this.material(MaterialType.LongshipTile)
-            .location(LocationType.InsideBag)
-            .maxBy((item) => item.location.x!)
-            .moveItem(longshipTaken)
-        )
+        const longshipInBag = this.material(MaterialType.LongshipTile).location(LocationType.InsideBag).maxBy((item) => item.location.x!)
+        if (longshipInBag.length) {
+          moves.push(longshipInBag.moveItem(longshipTaken))
+        }
       }
       moves.push(this.startNext())
     }
