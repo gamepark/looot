@@ -1,3 +1,3 @@
 export { LoootRules } from './LoootRules'
-export { LoootOptionsSpec } from './LoootOptions'
+export { LoootOptionsSpecV2 } from './LoootOptions'
 export { LoootSetup } from './LoootSetup'

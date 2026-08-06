@@ -1,5 +1,5 @@
 import { LoootBot } from '@gamepark/looot/bot/LoootBot.ts'
-import { LoootOptionsSpec } from '@gamepark/looot/LoootOptions.ts'
+import { LoootOptionsSpecV2 } from '@gamepark/looot/LoootOptions.ts'
 import { LoootRules } from '@gamepark/looot/LoootRules.ts'
 import { LoootSetup } from '@gamepark/looot/LoootSetup.ts'
 import { GameProvider } from '@gamepark/react-game'
@@ -24,7 +24,7 @@ createRoot(document.getElementById('root')!).render(
       rulesHelp={RulesHelp}
       logs={new LoootLogs()}
       scoring={new LoootScoringDescription()}
-      optionsSpec={LoootOptionsSpec}
+      optionsSpec={LoootOptionsSpecV2}
       GameSetup={LoootSetup}
       material={Material}
       locators={Locators}
