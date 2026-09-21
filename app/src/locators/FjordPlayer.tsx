@@ -17,7 +17,7 @@ export const FjordPlayer: FC<FjordPlayerProps> = (props) => {
 
   return (
     <div css={reminderStyle}>
-      <Avatar css={avatarStyle} playerId={player} />
+      <Avatar css={avatarStyle} playerId={player} speechBubble />
       <span css={playerNameStyle}>{playerName}</span>
       <PlayerTimer playerId={player} css={[timerStyle]} />
       <Counter player={player!} />
